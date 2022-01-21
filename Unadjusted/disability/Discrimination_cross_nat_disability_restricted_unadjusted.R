@@ -13,8 +13,7 @@ library(epitools) # for OR and CI
 
 Disability_unadjusted_restricted = function(data_HRS, data_ELSA){
   
-  print("Disability_unadjusted_restricted")
-  
+
   ELSAdiscrimination_data_wave5 = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$w5limill == 1)
   HRS2010_discrimination_dataset = subset(HRS2010_discrimination_dataset_before_subsetting, HRS2010_discrimination_dataset_before_subsetting$limiting_condition_bin == 1)
   
@@ -106,11 +105,6 @@ Disability_unadjusted_restricted = function(data_HRS, data_ELSA){
   # print(disability_marital_status_plot)
   ############# plot employment category and discrimination disability 
   #### ADDD! 
-  unique(HRS2010_discrimination_dataset$HRS2010_reason_discrim1_reason_disability)
-  typeof(HRS2010_discrimination_dataset$HRS2010_reason_discrim1_reason_disability)
-  unique(HRS2010_discrimination_dataset$employment_allCategories)
-  unique(HRS2010_discrimination_dataset$education_levels)
-  unique(HRS2010_discrimination_dataset$marital_status)
   
   ##################################### #### for each country separately, 
   ##################################### #### with perceived age discrimination  as  the  dependent  variable,  
@@ -139,8 +133,7 @@ Disability_unadjusted_restricted = function(data_HRS, data_ELSA){
   
   
   
-  unique(ELSAdiscrimination_data_wave5$w5disabilitydiscrimination2) 
-  
+
   
   
   ELSAdiscrimination_data_wave5$discrim_disability_bothCountries = ELSAdiscrimination_data_wave5$w5disabilitydiscrimination2
@@ -221,7 +214,7 @@ Disability_unadjusted_restricted = function(data_HRS, data_ELSA){
                                              N_HRS_subset, 
                                              disability_chi_value_cross_national,
                                              disability_pvalue_cross_national,
-                                             cross_national_values,
+                                             OR_disability_cross_national_values,
                                              OR_ELSA,
                                              Lower_95_CI_OR_ELSA,
                                              Upper_95_CI_OR_ELSA,

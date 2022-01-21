@@ -53,8 +53,9 @@ model_adjusted = c('adjusted')
 model_unadjusted = c('unadjusted')
 
 
-Unadjusted_results = data.frame()
-Adjusted_results = data.frame()
+
+
+
 
 
 source(paste(SOURCE_ROOT, "Unadjusted/disability/Discrimination_cross_nat_disability_restricted_unadjusted.R", sep=""))
@@ -66,6 +67,20 @@ Disability_unadjusted_restricted_results = data.frame(discrimination_type, model
 
 
 Unadjusted_results = rbind(Unadjusted_results, Disability_unadjusted_restricted_results)
+unadjusted_colnames = c("N_ELSA_subset", 
+                        "N_HRS_subset", 
+                        "chi_value_cross_national",
+                        "pvalue_cross_national",
+                        
+                        "cross_national_values",
+                        
+                        "ELSA_OR_value", 
+                        "ELSA_CI1", 
+                        "ELSA_CI2", 
+                        "HRS_OR_value", 
+                        "HRS_CI1", 
+                        "HRS_CI2")
+colnames(Unadjusted_results) =  unadjusted_colnames 
 
 source(paste(SOURCE_ROOT, "Adjusted_sig_cov/disability/Discrimination_cross_nat_disability_restricted.R", sep=""))
 Disability_adjusted_restricted_results = Disability_adjusted_restricted(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting,
@@ -76,7 +91,33 @@ Disability_adjusted_restricted_results  = data.frame(discrimination_type2,
                                                      model2,  
                                                      Disability_adjusted_restricted_results)  
 
+
+
+
 Adjusted_results = rbind(Adjusted_results, Disability_adjusted_restricted_results)
+
+adjusted_colnames = c("N_ELSA_subset",
+                      "N_HRS_subset", 
+                      "chi_value_cross_national",
+                      "pvalue_cross_national",
+                      
+                      "cross_country_OR_UK", 
+                      "HRS_CI1_UK", 
+                      "HRS_CI2_UK", 
+                      
+                      "cross_country_OR_USA", 
+                      "HRS_CI1_USA", 
+                      "HRS_CI2_USA", 
+                      
+                      
+                      "ELSA_OR_value", 
+                      "ELSA_CI1", 
+                      "ELSA_CI2", 
+                      "HRS_OR_value", 
+                      "HRS_CI1", 
+                      "HRS_CI2")
+
+colnames(Adjusted_results) = adjusted_colnames
 
 
 ##########################
@@ -85,13 +126,17 @@ source(paste(SOURCE_ROOT, "Unadjusted/financial/less_than_median_wealth/financia
 Financial_unadjusted_lowWealth_ALL_results = Financial_unadjusted_lowWealth_ALL(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting,
                                                                                 data_HRS = HRS2010_discrimination_dataset_before_subsetting)
 
+print("Financial_unadjusted_lowWealth_ALL DONE")
+
 model3 = model_unadjusted
 discrimination_type3 =c('Financial LOW SES, F & M')
 Financial_unadjusted_lowWealth_ALL_results = data.frame(discrimination_type3,
                                                         model3,
                                                         Financial_unadjusted_lowWealth_ALL_results)
 
+
 Unadjusted_results = rbind(Unadjusted_results, Financial_unadjusted_lowWealth_ALL_results)
+ncol(Financial_unadjusted_lowWealth_ALL_results)
 
 
 source(paste(SOURCE_ROOT, "Adjusted_sig_cov/financial/less_than_median_wealth/financial_discriination_median_split_lessthna_median_sigCov_excluding_wealth.R", sep=""))
@@ -102,6 +147,9 @@ discrimination_type3_adjusted =c('Financial LOW SES, F & M')
 Financial_adjusted_lowWealth_ALL_results = data.frame(discrimination_type3_adjusted,
                                                       model3_adjusted,
                                                       Financial_adjusted_lowWealth_ALL_results)
+
+ncol(Financial_adjusted_lowWealth_ALL_results)
+
 
 Adjusted_results = rbind(Adjusted_results, Financial_adjusted_lowWealth_ALL_results)
 

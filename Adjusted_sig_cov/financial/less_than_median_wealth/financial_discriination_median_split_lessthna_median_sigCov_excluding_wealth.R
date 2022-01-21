@@ -30,7 +30,6 @@ HRS2010_discrimination_dataset_before_subsetting$medianWealth_HRS = median(HRS20
 #creating a new binary variable: 
 HRS2010_discrimination_dataset_before_subsetting$meadian_wealth_bin_HRS = case_when(HRS2010_discrimination_dataset_before_subsetting$wealth_noIRA_HRS2010 >=787500 ~ '2', 
                                                                                     HRS2010_discrimination_dataset_before_subsetting$wealth_noIRA_HRS2010 < 787500 ~ '1')
-print(HRS2010_discrimination_dataset_before_subsetting$meadian_wealth_bin_HRS)
 
 
 

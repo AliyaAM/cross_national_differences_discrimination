@@ -234,7 +234,9 @@ Disability_adjusted_restricted = function(data_HRS, data_ELSA){
     
     disability_pvalue_cross_national = disability_cross_national_diff$stats[3]
     
-    cross_national_disability_findings = cbind(disability_chi_value_cross_national,
+    cross_national_disability_findings = cbind(N_ELSA_subset, 
+                                               N_HRS_subset, 
+                                               disability_chi_value_cross_national,
                                                disability_pvalue_cross_national,
                                                
                                                cross_country_OR_UK, 

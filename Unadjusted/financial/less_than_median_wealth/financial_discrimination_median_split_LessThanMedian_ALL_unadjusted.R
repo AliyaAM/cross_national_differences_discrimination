@@ -32,8 +32,7 @@ Financial_unadjusted_lowWealth_ALL = function(data_HRS, data_ELSA){
     #creating a new binary variable: 
     HRS2010_discrimination_dataset_before_subsetting$meadian_wealth_bin_HRS = case_when(HRS2010_discrimination_dataset_before_subsetting$wealth_noIRA_HRS2010 >=787500 ~ '2', 
                                                                                         HRS2010_discrimination_dataset_before_subsetting$wealth_noIRA_HRS2010 < 787500 ~ '1')
-    print(HRS2010_discrimination_dataset_before_subsetting$meadian_wealth_bin_HRS)
-    
+
     
     #subsetting by median wealth (less than median/more than wealth distribution's median):
     ELSAdiscrimination_data_wave5 = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$median_wealth_bin_ELSA == 1) 
@@ -45,7 +44,6 @@ Financial_unadjusted_lowWealth_ALL = function(data_HRS, data_ELSA){
     #####***********•••••••••••••• FINANCIAL ######***********••••••••••••••
     discrim_financial_HRS = HRS2010_discrimination_dataset$HRS2010_reason_discrim1_reason_financial  
     
-    ELSAdiscrimination_data_wave5$w5discrim_financial2
     ######## ••• Firstly,  we  used  CHI-SQUARE TEST  ••••••
     ##################################### to assess the bivariate relationships between:
     ##################################### ####   1. perceived FINANCIAL discrimination
@@ -152,7 +150,6 @@ Financial_unadjusted_lowWealth_ALL = function(data_HRS, data_ELSA){
     test_contengency_table_financial_ANDmarital_status_ELSA= chisq.test(contengency_table_financial_ANDmarital_status_ELSA)
     test_contengency_table_financial_ANDmarital_status_ELSA #sig for "less than median wealth" set
     #wealth 
-    ELSAdiscrimination_data_wave5$w5wealthq
     contengency_table_financial_AND_wealthq_ELSA = table(ELSAdiscrimination_data_wave5$w5discrim_financial2,
                                                          ELSAdiscrimination_data_wave5$w5wealthq)
     test_contengency_table_financial_ANDwealthq_ELSA = chisq.test(contengency_table_financial_AND_wealthq_ELSA)
@@ -197,10 +194,8 @@ Financial_unadjusted_lowWealth_ALL = function(data_HRS, data_ELSA){
     
     ######## ••• Next,  the data from the HRS and ELSA samples were then pooled,  ••••••
     #check number of rows: 
-    nrow(ELSAdiscrimination_data_wave5)
-    nrow(HRS2010_discrimination_dataset)
+
     
-    nrow(HRS2010_discrimination_dataset_before_subsetting)
     #dummy variable: 
     
   
@@ -292,7 +287,11 @@ Financial_unadjusted_lowWealth_ALL = function(data_HRS, data_ELSA){
     
     financial_pvalue_cross_national = test_contengency_table_financial_AND_country$p.value
     
-    cross_financial_findings = cbind(financial_chi_value_cross_national,
+
+    
+    cross_financial_findings = cbind(N_ELSA_subset, 
+                                     N_HRS_subset, 
+                                     financial_chi_value_cross_national,
                                      financial_pvalue_cross_national,
                                      
                                      OR_financial_cross_national_values,
@@ -305,6 +304,5 @@ Financial_unadjusted_lowWealth_ALL = function(data_HRS, data_ELSA){
                                      HRS_CI2)
     
     
-    financial_results = rbind(cross_financial_findings)
-return(financial_results)
+return(cross_financial_findings)
 }
