@@ -108,8 +108,9 @@ summary(test_discrimination_AND_country)
 
 OR_discrimination_cross_national = oddsratio.wald(contengency_table_discrimination_AND_country)
 
-OR_discrimination_cross_national_values = OR_discrimination_cross_national$measure
-
+OR_discrimination_cross_national_value = OR_discrimination_cross_national$measure[2, 1]
+OR_discrimination_cross_national_values_CI_lower = OR_discrimination_cross_national$measure[2, 2]
+OR_discrimination_cross_national_values_CI_upper = OR_discrimination_cross_national$measure[2, 3]
 
 discrimination_chi_value_cross_national = test_discrimination_AND_country$statistic
 discrimination_pvalue_cross_national = test_discrimination_AND_country$p.value
@@ -131,7 +132,9 @@ cross_national_discrimination_findings = cbind(analysis_variable_name,
                                                Odds_ratio_HRS_CI_upper, 
                                                
                                     
-                                               OR_discrimination_cross_national_values, 
+                                               OR_discrimination_cross_national_value, 
+                                               OR_discrimination_cross_national_values_CI_lower, 
+                                               OR_discrimination_cross_national_values_CI_upper, 
                                                
                                               
                                                discrimination_chi_value_cross_national,
