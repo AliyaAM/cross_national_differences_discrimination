@@ -29,44 +29,6 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   N_ELSA_subset = nrow(data_ELSA_subset)
   N_HRS_subset = nrow(data_HRS_subset)
   
-  
-  #rename the covariates
-  data_ELSA_subset$age = data_ELSA_subset$w5age
-  data_HRS_subset$age  = data_HRS_subset$continious_age
-  
-  
-  data_ELSA_subset$sex = data_ELSA_subset$w5sex_1_0
-  data_HRS_subset$sex = data_HRS_subset$sex_1_0
-  
-  data_ELSA_subset$education = data_ELSA_subset$ELSA_Education
-  data_HRS_subset$education = data_HRS_subset$education_levels
-  
-  
-  data_ELSA_subset$employment = data_ELSA_subset$employment
-  data_HRS_subset$employment =  data_HRS_subset$employment_allCategories
-  
-  
-  data_ELSA_subset$wealth = data_ELSA_subset$w5wealth
-  data_HRS_subset$wealth = data_HRS_subset$wealth_noIRA_HRS2010
-  
-  
-  data_ELSA_subset$wealth_quantiles = data_ELSA_subset$w5wealthq
-  data_HRS_subset$wealth_quantiles =  data_HRS_subset$Percentile_wealth_noIRA_HRS2010
-  
-  data_ELSA_subset$married = data_ELSA_subset$w5married
-  data_HRS_subset$married =  data_HRS_subset$married_bin
-  
-  #covariates pooled from ELSA and HRS  (make sure the order as above)
-  #Done in gender merging file check that they are coded correctly: 0 -retired, 1 - Employed in ELSA..etc, match to HRS
-  data_ELSA_subset$marital_status = data_ELSA_subset$w5married4
-  data_HRS_subset$marital_status = data_HRS_subset$marital_status
-  
-  
-  
-  # dummy code the countries 
-  data_ELSA_subset$country = rep(1, times = N_ELSA_subset)
-  data_HRS_subset$country = rep(0, times = N_HRS_subset)
-  
 
   #predictor dummy varibale: country (UK vs USA)
   country_cat = c(data_ELSA_subset$country, 
