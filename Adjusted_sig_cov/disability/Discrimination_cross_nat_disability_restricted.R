@@ -6,7 +6,7 @@ library(gridExtra)
 library(sjPlot)
 library(knitr)
 
-Disability_adjusted_restricted = function(data_HRS, data_ELSA){
+
   
   print("Disability_adjusted_restricted")
     ELSAdiscrimination_data_wave5 = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$w5limill == 1)
@@ -208,6 +208,9 @@ Disability_adjusted_restricted = function(data_HRS, data_ELSA){
                #+employment, 
                data = data_both_countries)
     
+    cross_country_OR
+    cross_country_OR[2,3]
+  
     
     cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
     cross_country_OR_UK = cross_country_OR[2]
@@ -252,5 +255,3 @@ Disability_adjusted_restricted = function(data_HRS, data_ELSA){
                                                HRS_OR_value,
                                                HRS_CI1,
                                                HRS_CI2)
-    return(cross_national_disability_findings)
-}

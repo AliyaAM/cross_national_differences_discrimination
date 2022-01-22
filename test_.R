@@ -17,7 +17,7 @@ source("/Users/aliya/my_docs/proj/cross_national_differences_discrimination/adju
 #Done in gender merging file check that they are coded correctly: 0 -retired, 1 - Employed in ELSA..etc, match to HRS
 
 
-unadjusted_cross_nat_comparison_results = adjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_age50, 
+adjusted_cross_nat_comparison_results = adjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_age50, 
                                                                            data_HRS = HRS2010_discrimination_dataset_age50, 
                                                                            
                                                                            analysis_variable_name = "disability",
@@ -37,9 +37,3 @@ unadjusted_cross_nat_comparison_results = adjusted_cross_nat_comparison (data_EL
                                                                            discrimination_VAR_elsa = "w5disabilitydiscrimination2",
                                                                            discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_disability")
 
-
-
-HRS2010_discrimination_dataset_age50$limiting_condition_bin
-
-
-HRS2010_discrimination_dataset_age50$limiting_condition_bin

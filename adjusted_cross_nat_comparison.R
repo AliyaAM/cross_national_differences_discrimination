@@ -79,116 +79,128 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                                          data_HRS_subset[ , discrimination_VAR_hrs] )
   
   
-  data_both_countries$age = c(data_ELSA_subset$age,
-                              data_HRS_subset$age)
-  
-  
-  data_both_countries$sex = c(data_ELSA_subset$sex,
-                              data_HRS_subset$sex)
-  
-  data_both_countries$education = c(data_ELSA_subset$education, 
-                                    data_HRS_subset$education)
-  
-  
-  data_both_countries$employment = c(data_ELSA_subset$employment,
-                                     data_HRS_subset$employment)
-  
-  
-  data_both_countries$wealth = c(data_ELSA_subset$wealth,
-                                 data_HRS_subset$wealth)
-  
-  
-  data_both_countries$wealth_quantiles = c(data_ELSA_subset$wealth_quantiles,
-                                           data_HRS_subset$wealth_quantiles) 
-  
-  data_both_countries$married = c(data_ELSA_subset$married,
-                                  data_HRS_subset$married)
-  
-  #covariates pooled from ELSA and HRS  (make sure the order as above)
-  #Done in gender merging file check that they are coded correctly: 0 -retired, 1 - Employed in ELSA..etc, match to HRS
-  data_ELSA_subset$marital_status = data_ELSA_subset$marital_status
-
-  data_both_countries$marital_status = c(data_ELSA_subset$marital_status, 
-                                         data_HRS_subset$marital_status)
   
   
   # if then rule for a number of covariates, if the covariates are NA then a different glm model is passed 
 
-  if(data_both_countries[ ,   covariate1] != "NA" & data_both_countries[ ,   covariate2] != "NA" &    + data_both_countries[ ,   covariate3] != "NA" & + data_both_countries[ ,   covariate4]!= "NA" ){
+  # when only covariate 1 is included (i.e, not NA, !=NA)  and the rest are NA then take the glm in the if statement below 
+  if(covariate2 == "NA" &  covariate3 == "NA" &  covariate4 == "NA" ){
+    
+    
+    data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
+                                              data_HRS_subset[ ,   covariate1])
+    
   
-  
-  fm1 <- glm(discrimination ~  data_both_countries[ ,   covariate1]
-             + data_both_countries[ ,   covariate2] 
-             + data_both_countries[ ,   covariate3] 
-             + data_both_countries[ ,   covariate4] , 
+  fm1 <- glm(discrimination ~  data_both_countries[ ,   covariate1], 
              
              data = data_both_countries)
   
   fm2 <- glm(discrimination ~ country_cat 
-             + data_both_countries[ ,   covariate1]
-             + data_both_countries[ ,   covariate2] 
-             + data_both_countries[ ,   covariate3] 
-             + data_both_countries[ ,   covariate4] , 
+             + data_both_countries[ ,   covariate1] , 
 
              data = data_both_countries)
   }
   
+  # when  covariate 1 and covariate 2  (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
   
-  if(data_both_countries[ ,   covariate1] != "NA" & data_both_countries[ ,   covariate2] != "NA" &    + data_both_countries[ ,   covariate3] != "NA" ){
+  if(covariate2 != "NA" & covariate3 == "NA" &  covariate4 == "NA"){
+    
+    
+    data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
+                                              data_HRS_subset[ ,   covariate1])
+    
+    
+    data_both_countries[ ,   covariate2] = c(data_ELSA_subset[ ,   covariate2],
+                                              data_HRS_subset[ ,   covariate2])
+  
     
     
     fm1 <- glm(discrimination ~  data_both_countries[ ,   covariate1]
-               + data_both_countries[ ,   covariate2] 
-               + data_both_countries[ ,   covariate3], 
+               + data_both_countries[ ,   covariate2], 
                
                data = data_both_countries)
     
     fm2 <- glm(discrimination ~ country_cat 
                + data_both_countries[ ,   covariate1]
-               + data_both_countries[ ,   covariate2] 
-               + data_both_countries[ ,   covariate3], 
+               + data_both_countries[ ,   covariate2] , 
                
                data = data_both_countries)
   }
   
-  if(data_both_countries[ ,   covariate1] != "NA" & data_both_countries[ ,   covariate2] != "NA"){
+  # when  covariate 1 and covariate 2 and covariate 3 (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
+  
+  if(covariate2 != "NA" & covariate3 != "NA" & covariate4 == "NA"){
+    
+    data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
+                                              data_HRS_subset[ ,   covariate1])
+    
+    
+    data_both_countries[ ,   covariate2] = c(data_ELSA_subset[ ,   covariate2],
+                                              data_HRS_subset[ ,   covariate2])
+    
+    data_both_countries[ ,   covariate3]= c(data_ELSA_subset[ ,   covariate3], 
+                                             data_HRS_subset[ ,   covariate3])
     
     
     fm1 <- glm(discrimination ~  data_both_countries[ ,   covariate1]
-               + data_both_countries[ ,   covariate2], 
+               + data_both_countries[ ,   covariate2]
+               + data_both_countries[ ,   covariate3], 
                
                data = data_both_countries)
     
     fm2 <- glm(discrimination ~ country_cat 
                + data_both_countries[ ,   covariate1]
-               + data_both_countries[ ,   covariate2], 
+               + data_both_countries[ ,   covariate2]
+               + data_both_countries[ ,   covariate3], 
                
                data = data_both_countries)
-  }else{
+    
+  } 
   
+  # when  covariate 1 and covariate 2 and covariate 3 and covariate 4 (i.e, not NA, !=NA)  are included and the rest are NA then take the glm in the if statement below 
+  
+  if(covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
+    data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
+                                             data_HRS_subset[ ,   covariate1])
     
     
-    fm1 <- glm(discrimination ~  data_both_countries[ ,   covariate1], 
+    data_both_countries[ ,   covariate2] = c(data_ELSA_subset[ ,   covariate2],
+                                             data_HRS_subset[ ,   covariate2])
+    
+    data_both_countries[ ,   covariate3]= c(data_ELSA_subset[ ,   covariate3], 
+                                            data_HRS_subset[ ,   covariate3])
+    
+    data_both_countries[ ,   covariate4]= c(data_ELSA_subset[ ,   covariate4], 
+                                            data_HRS_subset[ ,   covariate4])
+    
+    
+    fm1 <- glm(discrimination ~  data_both_countries[ ,   covariate1]
+               + data_both_countries[ ,   covariate2]
+               + data_both_countries[ ,   covariate3]
+               + data_both_countries[ ,   covariate4], 
                
                data = data_both_countries)
     
     fm2 <- glm(discrimination ~ country_cat 
-               + data_both_countries[ ,   covariate1], 
+               + data_both_countries[ ,   covariate1]
+               + data_both_countries[ ,   covariate2]
+               + data_both_countries[ ,   covariate3]
+               + data_both_countries[ ,   covariate4], 
                
                data = data_both_countries)
-  } 
+  }
   
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
-  cross_country_OR_UK = cross_country_OR[2]
-  CI1_UK = cross_country_OR[6]
-  CI2_UK = cross_country_OR[10]
+  cross_country_OR_UK = cross_country_OR[2, 1]
+  CI1_UK = cross_country_OR[2, 2]
+  CI2_UK = cross_country_OR[2, 3]
   
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
-  cross_country_OR_USA = cross_country_OR[1]
-  CI1_USA = cross_country_OR[5]
-  CI2_USA = cross_country_OR[9]
+  cross_country_OR_USA = cross_country_OR[1, 1]
+  CI1_USA = cross_country_OR[1, 2]
+  CI2_USA = cross_country_OR[1, 3]
   
   ## various equivalent specifications of the LR test
   cross_national_diff = lrtest(fm1, fm2)
