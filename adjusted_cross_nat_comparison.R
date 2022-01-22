@@ -1,14 +1,25 @@
 adjusted_cross_nat_comparison = function (data_ELSA, 
                                           data_HRS,
+                                          
                                           analysis_variable_name, 
-                                          subsetting_VAR_ELSA, 
-                                          subsetting_VAR_HRS,
-                                          ELSA_var_value,
-                                          HRS_var_value,
+                                          
+                                          subsetting_VAR1_ELSA, 
+                                          subsetting_VAR1_HRS,
+                                          
+                                          subsetting_VAR2_ELSA, 
+                                          subsetting_VAR2_HRS,
+
+                                          ELSA_var1_value,
+                                          HRS_var1_value,
+                                          
+                                          ELSA_var2_value,
+                                          HRS_var2_value,
+                                          
                                           covariate1, 
                                           covariate2,
                                           covariate3, 
                                           covariate4, 
+                                          
                                           discrimination_VAR_elsa,
                                           discrimination_VAR_hrs){
   
@@ -22,8 +33,24 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   
   # subsetting data to the right variable for the analysis (eg, sex, physical lim.)
-  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR_ELSA] == ELSA_var_value)
-  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR_HRS] == HRS_var_value)
+  # if there is only one subsetting var: subsetting_VAR1_ELSA and subsetting_VAR1_HRS
+  if (subsetting_VAR1_ELSA == "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS == "NA" & subsetting_VAR2_HRS == "NA"){
+    
+    data_ELSA_subset = data_ELSA 
+    data_HRS_subset = data_HRS
+  } 
+  
+  if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS == "NA"){
+    
+  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value)
+  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value)
+  } 
+  
+  if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA !="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS != "NA"){
+    
+    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] == ELSA_var2_value)
+    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] == HRS_var2_value)
+  }
 
   # calculate the number of cases for this subset 
   N_ELSA_subset = nrow(data_ELSA_subset)
@@ -46,7 +73,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   # if then rule for a number of covariates, if the covariates are NA then a different glm model is passed 
 
   # when only covariate 1 is included (i.e, not NA, !=NA)  and the rest are NA then take the glm in the if statement below 
-  if(covariate2 == "NA" &  covariate3 == "NA" &  covariate4 == "NA" ){
+  
+  if(covariate1 != "NA" & covariate2 == "NA" &  covariate3 == "NA" &  covariate4 == "NA" ){
     
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
@@ -65,7 +93,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   # when  covariate 1 and covariate 2  (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
   
-  if(covariate2 != "NA" & covariate3 == "NA" &  covariate4 == "NA"){
+  if(covariate1 != "NA" & covariate2 != "NA" & covariate3 == "NA" &  covariate4 == "NA"){
     
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
@@ -91,7 +119,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   # when  covariate 1 and covariate 2 and covariate 3 (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
   
-  if(covariate2 != "NA" & covariate3 != "NA" & covariate4 == "NA"){
+  if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 == "NA"){
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                               data_HRS_subset[ ,   covariate1])
@@ -121,7 +149,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   # when  covariate 1 and covariate 2 and covariate 3 and covariate 4 (i.e, not NA, !=NA)  are included and the rest are NA then take the glm in the if statement below 
   
-  if(covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
+  if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
     
@@ -150,8 +178,9 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate4], 
                
                data = data_both_countries)
+    
+    
   }
-  
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
   cross_country_OR_UK = cross_country_OR[2, 1]
@@ -169,6 +198,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   chi_value_cross_national = cross_national_diff$stats[1]
   pvalue_cross_national = cross_national_diff$stats[3]
+  
+  
   
   cross_national_findings = cbind(analysis_variable_name, 
                                   N_ELSA_subset, 
@@ -190,6 +221,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                                   #HRS_OR_value,
                                   #HRS_CI1,
                                   #HRS_CI2)
+  
   
   return(cross_national_findings)
 }

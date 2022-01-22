@@ -1,7 +1,24 @@
 
+#set the source and output so you can read the files from any computer
+library(dplyr)
+## Set the root directory to look for source code.
+SOURCE_data_ROOT = "/Users/aliya/my_docs/KCL_postDoc/"
+## Set the root location on the user's local machine to save output files.
+OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/Cross_national_diffs_results/"
+## Set the source location on the user's local machine  for sourcing functions 
+SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/"
 
 
-source("/Users/aliya/my_docs/proj/cross_national_differences_discrimination/adjusted_cross_nat_comparison.R")
+#sourcing the analysis for adjusted models 
+source(paste(SOURCE_ROOT, "adjusted_cross_nat_comparison.R", sep=""))
+
+#read data files for ELSA and HRS
+ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
+HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))
+
+#subset HRS and ELSA dataset to those who are 50 years old and older
+ELSAdiscrimination_data_wave5_age50 = subset(ELSAdiscrimination_data_wave5_ALL, w5age >= 50) 
+HRS2010_discrimination_dataset_age50 = subset(HRS2010_discrimination_dataset_ALL, HRS2010_discrimination_dataset_ALL$continious_age >=50)
 
 
 
