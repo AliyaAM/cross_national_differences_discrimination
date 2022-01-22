@@ -57,6 +57,14 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   N_HRS_subset = nrow(data_HRS_subset)
   
 
+  #calculate the number of people who perceived this type of discrimination 
+  
+  ELSA_discrimYES_subset = subset(data_ELSA_subset, data_ELSA_subset[ , discrimination_VAR_elsa] == 1) 
+  HRS_discrimYES_subset = subset(data_HRS_subset,  data_HRS_subset[ , discrimination_VAR_hrs] == 1)
+  
+  N_ELSA_discrimYES = nrow(ELSA_discrimYES_subset)
+  N_HRS_discrimYES = nrow(HRS_discrimYES_subset)
+
   #predictor dummy varibale: country (UK vs USA)
   country_cat = c(data_ELSA_subset$country, 
                   data_HRS_subset$country)
@@ -204,8 +212,10 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   cross_national_findings = cbind(analysis_variable_name, 
                                   N_ELSA_subset, 
                                   N_HRS_subset, 
-                                  chi_value_cross_national,
-                                  pvalue_cross_national,
+                                  
+                                  N_ELSA_discrimYES, 
+                                  N_HRS_discrimYES, 
+                                
                                              
                                   cross_country_OR_UK, 
                                   CI1_UK, 
@@ -213,7 +223,10 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                                              
                                   cross_country_OR_USA, 
                                   CI1_USA, 
-                                  CI2_USA)
+                                  CI2_USA,
+                                  
+                                  chi_value_cross_national,
+                                  pvalue_cross_national)
                                              
                                   #ELSA_OR_value,
                                   #ELSA_CI1,

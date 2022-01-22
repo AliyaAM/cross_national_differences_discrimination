@@ -1,16 +1,24 @@
-adjusted_cross_nat_comparison = function (data_ELSA, 
-                                            data_HRS,
-                                            
-                                            analysis_variable_name, 
-                                            
-                                            subsetting_VAR_ELSA, 
-                                            subsetting_VAR_HRS,
-                                            
-                                            ELSA_var_value,
-                                            HRS_var_value,
-                                            
-                                            discrimination_VAR_elsa,
-                                            discrimination_VAR_hrs){
+
+Unadjusted_cross_nat_comparison = function (data_ELSA, 
+                                          data_HRS,
+                                          
+                                          analysis_variable_name, 
+                                          
+                                          subsetting_VAR1_ELSA, 
+                                          subsetting_VAR1_HRS,
+                                          
+                                          subsetting_VAR2_ELSA, 
+                                          subsetting_VAR2_HRS,
+                                          
+                                          ELSA_var1_value,
+                                          HRS_var1_value,
+                                          
+                                          ELSA_var2_value,
+                                          HRS_var2_value,
+                                          
+                                          
+                                          discrimination_VAR_elsa,
+                                          discrimination_VAR_hrs){
   
   #list the subsetting var name inside the function 
   
@@ -22,24 +30,63 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   
   # subsetting data to the right variable for the analysis (eg, sex, physical lim.)
-  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR_ELSA] == ELSA_var_value)
-  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR_HRS] == HRS_var_value)
-
+  # if there is only one subsetting var: subsetting_VAR1_ELSA and subsetting_VAR1_HRS
+  if (subsetting_VAR1_ELSA == "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS == "NA" & subsetting_VAR2_HRS == "NA"){
+    
+    data_ELSA_subset = data_ELSA 
+    data_HRS_subset = data_HRS
+  } 
+  
+  if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS == "NA"){
+    
+    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value)
+    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value)
+  } 
+  
+  if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA !="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS != "NA"){
+    
+    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] == ELSA_var2_value)
+    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] == HRS_var2_value)
+  }
+  
   # calculate the number of cases for this subset 
   N_ELSA_subset = nrow(data_ELSA_subset)
   N_HRS_subset = nrow(data_HRS_subset)
   
   
-  # assign the discrimination type of interest to the dataset 
-  #data_ELSA_subset <- data_ELSA_subset[ , discrimination_VAR_elsa]
-  #data_HRS_subset <- data_HRS_subset[ , discrimination_VAR_hrs] 
+  #calculate the number of people who perceived this type of discrimination 
+  
+  ELSA_discrimYES_subset = subset(data_ELSA_subset, data_ELSA_subset[ , discrimination_VAR_elsa] == 1) 
+  HRS_discrimYES_subset = subset(data_HRS_subset,  data_HRS_subset[ , discrimination_VAR_hrs] == 1)
+  
+  N_ELSA_discrimYES = nrow(ELSA_discrimYES_subset)
+  N_HRS_discrimYES = nrow(HRS_discrimYES_subset)
+  
+  N_ELSA_discrim_NO = N_ELSA_subset - N_ELSA_discrimYES
+  N_HRS_discrim_NO = N_HRS_subset - N_HRS_discrimYES
+  
+  ###################
+  probability_disc_ELSA = N_ELSA_discrimYES/N_ELSA_subset 
+  probability_no_disc_ELSA = 1 - (probability_disc_ELSA) 
+  Odds_yes_ELSA = probability_disc_ELSA/(1-probability_disc_ELSA)
+  Odds_no_ELSA = probability_no_disc_ELSA/(1-probability_no_disc_ELSA)
+  
+  Odds_ratio_ELSA = Odds_yes_ELSA/Odds_no_ELSA
+  Odds_ratio_ELSA_CI_lower = exp(log(Odds_ratio_ELSA) - 1.96 * sqrt(1/N_ELSA_discrimYES + 1/N_ELSA_discrim_NO))
+  Odds_ratio_ELSA_CI_upper = exp(log(Odds_ratio_ELSA) + 1.96 * sqrt(1/N_ELSA_discrimYES + 1/N_ELSA_discrim_NO))
+  
+  ###################
+  probability_disc_HRS = N_HRS_discrimYES/N_HRS_subset 
+  probability_no_disc_HRS = 1 - (probability_disc_HRS) 
+  Odds_yes_HRS = probability_disc_HRS/(1-probability_disc_HRS)
+  Odds_no_HRS = probability_no_disc_HRS/(1-probability_no_disc_HRS)
+  
+  Odds_ratio_HRS = Odds_yes_HRS/Odds_no_HRS
+  Odds_ratio_HRS_CI_lower = exp(log(Odds_ratio_HRS) - 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
+  Odds_ratio_HRS_CI_upper = exp(log(Odds_ratio_HRS) + 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
   
   
-  # dummy code the countries 
-  data_ELSA_subset$country = rep(1, times = N_ELSA_subset)
-  data_HRS_subset$country = rep(0, times = N_HRS_subset)
   
-
   #predictor dummy varibale: country (UK vs USA)
   country_cat = c(data_ELSA_subset$country, 
                   data_HRS_subset$country)
@@ -49,75 +96,46 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   data_both_countries$discrimination = c(data_ELSA_subset[ , discrimination_VAR_elsa],
                                          data_HRS_subset[ , discrimination_VAR_hrs] )
-  
-  #covariates pooled from ELSA and HRS  (make sure the order as above)
-  #Done in gender merging file check that they are coded correctly: 0 -retired, 1 - Employed in ELSA..etc, match to HRS
-  unique(data_ELSA_subset$w5married)
-  data_ELSA_subset$marital_status = data_ELSA_subset$w5married4
-  data_HRS_subset$marital_status
-  
-  data_both_countries$marital_status = c(data_ELSA_subset$marital_status, 
-                                         data_HRS_subset$marital_status)
-  
-  
-  #data_HRS_subset$employment_allCategories
-  #data_ELSA_subset$employment
-  
-  data_both_countries$employment = c(data_ELSA_subset$employment,
-                 data_HRS_subset$employment_allCategories)
-  
-  data_both_countries$sex = c(data_ELSA_subset$w5sex_1_0,
-          data_HRS_subset$sex_1_0)
-  
-  #education_levels
 
-  
-  fm1 <- glm(discrimination ~  employment + sex, 
-             #+ employment, 
-             data = data_both_countries)
-  fm2 <- glm(discrimination ~ country_cat + employment + sex, 
-             #+employment, 
-             data = data_both_countries)
-  
-  
-  
-  cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
-  cross_country_OR_UK = cross_country_OR[2]
-  CI1_UK = cross_country_OR[6]
-  CI2_UK = cross_country_OR[10]
-  
-  
-  cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
-  cross_country_OR_USA = cross_country_OR[1]
-  CI1_USA = cross_country_OR[5]
-  CI2_USA = cross_country_OR[9]
-  
-  ## various equivalent specifications of the LR test
-  cross_national_diff = lrtest(fm1, fm2)
-  
-  chi_value_cross_national = cross_national_diff$stats[1]
-  pvalue_cross_national = cross_national_diff$stats[3]
-  
-  cross_national_findings = cbind(analysis_variable_name, 
-                                  N_ELSA_subset, 
-                                  N_HRS_subset, 
-                                  chi_value_cross_national,
-                                  pvalue_cross_national,
-                                             
-                                  cross_country_OR_UK, 
-                                  CI1_UK, 
-                                  CI2_UK, 
-                                             
-                                  cross_country_OR_USA, 
-                                  CI1_USA, 
-                                  CI2_USA)
-                                             
-                                  #ELSA_OR_value,
-                                  #ELSA_CI1,
-                                  #ELSA_CI2,
-                                  #HRS_OR_value,
-                                  #HRS_CI1,
-                                  #HRS_CI2)
-  
-  return(cross_national_findings)
-}
+
+###############
+
+
+contengency_table_discrimination_AND_country  = table(data_both_countries$discrimination, data_both_countries$country_cat)
+print(contengency_table_discrimination_AND_country)
+test_discrimination_AND_country = chisq.test(contengency_table_discrimination_AND_country)
+summary(test_discrimination_AND_country)
+
+OR_discrimination_cross_national = oddsratio.wald(contengency_table_discrimination_AND_country)
+
+OR_discrimination_cross_national_values = OR_discrimination_cross_national$measure
+
+
+discrimination_chi_value_cross_national = test_discrimination_AND_country$statistic
+discrimination_pvalue_cross_national = test_discrimination_AND_country$p.value
+
+
+cross_national_discrimination_findings = cbind(analysis_variable_name,
+                                               N_ELSA_subset, 
+                                               N_HRS_subset, 
+                                               
+                                               N_ELSA_discrimYES, 
+                                               N_HRS_discrimYES, 
+                                               
+                                               Odds_ratio_ELSA,
+                                               Odds_ratio_ELSA_CI_lower,
+                                               Odds_ratio_ELSA_CI_upper,
+                                               
+                                               Odds_ratio_HRS, 
+                                               Odds_ratio_HRS_CI_lower, 
+                                               Odds_ratio_HRS_CI_upper, 
+                                               
+                                    
+                                               OR_discrimination_cross_national_values, 
+                                               
+                                              
+                                               discrimination_chi_value_cross_national,
+                                               discrimination_pvalue_cross_national)
+
+return(cross_national_discrimination_findings)
+} 
