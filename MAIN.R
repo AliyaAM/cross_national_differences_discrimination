@@ -8,6 +8,7 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 
 SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/"
 
+
 #read old files, call them something else 
 ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
 HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))

@@ -223,7 +223,6 @@ Disability_adjusted_restricted = function(data_HRS, data_ELSA){
     
     ## various equivalent specifications of the LR test
     disability_cross_national_diff = lrtest(fm1, fm2)
-    disability_cross_national_diff$stats[3]
     
     
     
