@@ -860,7 +860,7 @@ write.csv(adjusted_results, file = paste(OUTPUT_ROOT, "Cross_nat_diff_adjusted_r
 Results_cross_nat = cbind(Unadjusted_results, adjusted_results)
 
 
-write.csv(Results_cross_nat, file = paste(OUTPUT_ROOT, "Results_cross_nat", sep=""))
+write.csv(Results_cross_nat, file = paste(OUTPUT_ROOT, "Results_cross_nat.csv", sep=""))
 
 ###################
 ##################
@@ -2320,7 +2320,7 @@ Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountr
 Wcountry_unadjusted_SES_financial_female_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                                             analysis_variable_name = "financial discrimination, female",
                                                                                                             country = "England", 
-                                                                            subsetting_VAR1 = "sex_1_0",
+                                                                            subsetting_VAR1 = "w5sex_1_0",
                                                                             var1_value = 0, 
                                                                             subsetting_VAR2 =   "NA", 
                                                                             var2_value =  "NA", 
@@ -2333,7 +2333,7 @@ Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountr
 Wcountry_unadjusted_SES_financial_male_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                        analysis_variable_name = "financial discrimination, male",
                                                                                        country = "England", 
-                                                                          subsetting_VAR1 = "sex_1_0",
+                                                                          subsetting_VAR1 = "w5sex_1_0",
                                                                           var1_value = 1, 
                                                                           subsetting_VAR2 =   "NA", 
                                                                           var2_value =  "NA", 
@@ -2511,15 +2511,13 @@ Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountr
 
 
 Wcountry_unadjusted_SES_financial_male_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
-                        analysis_variable_name = " financial discrimination, male ",
-                        
-                               country = "USA", 
-                               subsetting_VAR1 = "NA",
-                        subsetting_VAR1 = "sex_1_0",
-                        var1_value = 1, 
-                        subsetting_VAR2 =   "NA", 
-                        var2_value =  "NA", 
-                               discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
+                                                                              analysis_variable_name = " financial discrimination, male ",
+                                                                              country = "USA",
+                                                                              subsetting_VAR1 = "sex_1_0",
+                                                                              var1_value = 1, 
+                                                                              subsetting_VAR2 =   "NA", 
+                                                                              var2_value =  "NA",
+                                                                              discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
 
 Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_male_HRS_results) 
 
