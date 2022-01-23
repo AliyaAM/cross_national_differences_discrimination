@@ -39,6 +39,17 @@ source(paste(SOURCE_ROOT, "SES_adjusted_cros_nat_comparison.R", sep=""))
 source(paste(SOURCE_ROOT, "SES_adjusted_cros_nat_comparison_weight.R", sep=""))
 
 
+
+#within country comparison of low SES to high SES 
+
+source(paste(SOURCE_ROOT, "Wcountry_unadjusted_SES.R", sep=""))
+
+source(paste(SOURCE_ROOT, "Wcountry_unadjusted_SES_weight.R", sep=""))
+
+
+
+
+
 #read data files for ELSA and HRS
 ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
 HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))
@@ -2156,7 +2167,7 @@ SEShigh_adjusted_cross_nat_weight_25_results = SES_adjusted_cros_nat_comparison_
                                                                                      analysis_variable_name = "weight discrimination,  BMI>25.0, <=29.9 ",
                                                                                      
                                                                                      
-                                                                                     SES_level = 2, 
+                                                                                     SES_level = 1, 
                                                                                      
                                                                                      
                                                                                      subsetting_VAR1_ELSA =  "w4bmi_clean",  
@@ -2266,4 +2277,339 @@ SES_stratified_results = cbind(SES_unadjusted_results, SES_adjusted_results)
 
 write.csv(SES_stratified_results, file = paste(OUTPUT_ROOT, "SES_stratified_results.csv", sep=""))
 
+###################### Wcountry_unadjusted_SES.R ############################
+
+
+
+
+Wcountry_unadjusted_SES_results = data.frame()
+
+Wcountry_unadjusted_SES_disability_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                                      analysis_variable_name = "disability",
+                                                                                                       country = "England", 
+                                                                                                       subsetting_VAR1 = "w5limill", 
+                                                                                                       #has physical limitation
+                                                                                                       var1_value = 1,
+                                                                                                       
+                                                                                                       subsetting_VAR2 =  "NA",
+                                                                                                       
+                                                                                                      var2_value = "NA",
+                                                                                                       
+                                                                                                       discrimination_VAR = "w5disabilitydiscrimination2") 
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_disability_results)
+
+
+
+#financial discriminaiton both sexes
+Wcountry_unadjusted_SES_financial_bothSexes_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                                               analysis_variable_name = "financial discrimination",
+                                                                                                               country = "England", 
+                                                                                                               subsetting_VAR1 = "NA", 
+                                                                                                               var1_value = "NA",
+                                                                                                               subsetting_VAR2 =  "NA",  
+                                                                                                               var2_value = "NA", 
+                                                                                                               discrimination_VAR = "w5discrim_financial2")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_bothSexes_results) 
+
+
+#####
+
+
+Wcountry_unadjusted_SES_financial_female_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                                            analysis_variable_name = "financial discrimination, female",
+                                                                                                            country = "England", 
+                                                                            subsetting_VAR1 = "sex_1_0",
+                                                                            var1_value = 0, 
+                                                                            subsetting_VAR2 =   "NA", 
+                                                                            var2_value =  "NA", 
+                                                                                                            discrimination_VAR = "w5discrim_financial2")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_female_results) 
+
+
+#####
+Wcountry_unadjusted_SES_financial_male_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                       analysis_variable_name = "financial discrimination, male",
+                                                                                       country = "England", 
+                                                                          subsetting_VAR1 = "sex_1_0",
+                                                                          var1_value = 1, 
+                                                                          subsetting_VAR2 =   "NA", 
+                                                                          var2_value =  "NA", 
+                                                                                       discrimination_VAR = "w5discrim_financial2")
+
+
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_male_results) 
+
+
+
+#####
+Wcountry_unadjusted_SES_sex_female_results = Wcountry_unadjusted_SES (data= ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                                      analysis_variable_name = "sex discrimination, female",
+                                                                                                      country = "England", 
+                                                                                                      subsetting_VAR1 =  "w5sex_1_0",  
+                                                                                                      var1_value = 0, 
+                                                                                                      subsetting_VAR2 = "NA", 
+                                                                                                      var2_value = "NA", 
+                                                                                                      discrimination_VAR = "w5sexdiscrimination2")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_sex_female_results) 
+
+
+
+#####
+Wcountry_unadjusted_SES_sex_male_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+
+                                                                         analysis_variable_name = "sex discrimination, male",
+                                                                         country = "England", 
+
+                                                                         subsetting_VAR1 =  "w5sex_1_0",  
+                                                                        var1_value = 1, 
+                                                                         
+                                                                         subsetting_VAR2 = "NA", 
+                                                                        
+                                                                        var2_value = "NA", 
+                                                                         discrimination_VAR = "w5sexdiscrimination2")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_sex_male_results) 
+
+
+
+
+#####
+Wcountry_unadjusted_SES_race_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                
+                                                                     analysis_variable_name = "race discrimination",
+                                                                     
+                                                                     country = "England", 
+                                                                     
+                                                                     subsetting_VAR1 =  "w5ethnicity",  
+                                                                    
+                                                                     
+                                                                     
+                                                                     var1_value = 2, 
+                                                                     
+                                                                     subsetting_VAR2= "NA", 
+                                                                     
+                                                                    var2_value = "NA", 
+                                                                     
+                                                                     discrimination_VAR = "w5racediscrimination2")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_race_results) 
+
+
+
+##### there are no significnat covariates for sexual discrimination orientation 
+Wcountry_unadjusted_SES_sexuality_results = Wcountry_unadjusted_SES (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+
+                                                                          analysis_variable_name = "sexual orientation discrimination",
+                                                                        
+                                                                          country = "England", 
+                                                                    
+                                                                          subsetting_VAR1 =  "NA",  
+                                                                        
+                                                                          var1_value = "NA",   
+                                                                          
+                                                                          subsetting_VAR2= "NA", 
+                                                                         
+                                                                          var2_value = "NA", 
+                                                                          
+                                                                         discrimination_VAR = "w5discrim_sexuality2") 
+                                                                          
+                                                                          
+                                                                        
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_sexuality_results) 
+
+
+#################### withing country weight: change below to be withinCOuntry_comparison of SES for weight 
+####################
+Wcountry_unadjusted_SES_weight_29_9_results = Wcountry_unadjusted_SES_weight (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                   analysis_variable_name = "weight discrimination,  BMI>29.9",
+                                                                                   country = "England", 
+                                                                                   subsetting_VAR1 =  "w4bmi_clean",  
+                                                                                   var1_value = 29.9, 
+                                                                                   subsetting_VAR2 = "NA", 
+                                                                                   var2_value = "NA",
+                                                                                   discrimination_VAR = "w5weightdiscrimination2")
+
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_weight_29_9_results) 
+
+
+Wcountry_unadjusted_SES_weight_25_results = Wcountry_unadjusted_SES_weight (data = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                            analysis_variable_name = "weight discrimination,  BMI>25.0, <=29.9 ",
+                                                                            country = "England", 
+                                                                            subsetting_VAR1 =  "w4bmi_clean",
+                                                                            var1_value = 25.0, 
+                                                                            subsetting_VAR2 = "w4bmi_clean", 
+                                                                            var2_value = 29.9, 
+                                                                            discrimination_VAR = "w5weightdiscrimination2" )
+
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_weight_25_results) 
+
+
+
+Wcountry_unadjusted_SES_weight_both_results = Wcountry_unadjusted_SES_weight(data = ELSAdiscrimination_data_wave5_before_subsetting, 
+
+                                                                                  analysis_variable_name = "weight discrimination,  BMI>25.0 ",
+                                                                                  
+                                                                                  country = "England", 
+                                                                                  
+                                                                          
+                                                                                  
+                                                                                  subsetting_VAR1 = "w4bmi_clean", 
+                                                                                  subsetting_VAR2  = "NA", 
+                                                                                  var1_value = 25.0,
+                                                                                  var2_value = "NA",
+                                                                                  
+                                                                                  discrimination_VAR = "w5weightdiscrimination2")
+
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_weight_both_results) 
+###################
+
+Wcountry_unadjusted_SES_disability_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                        analysis_variable_name = "disability ",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 = "limiting_condition_bin",
+                               var1_value = 1,
+                               subsetting_VAR2 =   "NA", 
+                               var2_value = "NA", 
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_disability")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_disability_HRS_results) 
+
+
+Wcountry_unadjusted_SES_financial_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                        analysis_variable_name = " financial discrimination ",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 = "NA",
+                               var1_value = "NA", 
+                               subsetting_VAR2 =   "NA", 
+                               var2_value = "NA", 
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_HRS_results) 
+
+Wcountry_unadjusted_SES_financial_female_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting,  
+                        analysis_variable_name = " financial discrimination, female",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 = "sex_1_0",
+                               var1_value = 0, 
+                               subsetting_VAR2 =   "NA", 
+                               var2_value =  "NA", 
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_female_HRS_results) 
+
+
+Wcountry_unadjusted_SES_financial_male_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                        analysis_variable_name = " financial discrimination, male ",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 = "NA",
+                        subsetting_VAR1 = "sex_1_0",
+                        var1_value = 1, 
+                        subsetting_VAR2 =   "NA", 
+                        var2_value =  "NA", 
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_financial_male_HRS_results) 
+
+
+Wcountry_unadjusted_SES_sex_female_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                        analysis_variable_name = "sex discrimination, female  ",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 =   "sex_1_0", 
+                               var1_value = 0, 
+                               subsetting_VAR2 = "NA",
+                               var2_value = "NA", 
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_gender")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_sex_female_HRS_results) 
+
+
+
+Wcountry_unadjusted_SES_sex_male_HRS_results = Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                       analysis_variable_name = "sex discrimination, male ",
+                                                                       country = "USA", 
+                                                                       subsetting_VAR1 =   "sex_1_0", 
+                                                                       var1_value = 1, 
+                                                                       subsetting_VAR2 = "NA",
+                                                                       var2_value = "NA", 
+                                                                       discrimination_VAR = "HRS2010_reason_discrim1_reason_gender")
+
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_sex_male_HRS_results) 
+
+
+
+Wcountry_unadjusted_SES_race_HRS_results =  Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                        analysis_variable_name = "race discrimination",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 =   "HRS2010_race_nonwhite", 
+                               var1_value = 1, 
+                               subsetting_VAR2 = "NA",
+                               var2_value = "NA", 
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_race")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_race_HRS_results) 
+
+
+Wcountry_unadjusted_SES_sexuality_HRS_results =  Wcountry_unadjusted_SES(data = HRS2010_discrimination_dataset_before_subsetting, 
+                        analysis_variable_name = "sexual orientation discrimination",
+                        
+                               country = "USA", 
+                               subsetting_VAR1 =   "NA",  
+                               var1_value = "NA",   
+                               subsetting_VAR2 = "NA",
+                              var2_value = "NA", 
+
+                               discrimination_VAR = "HRS2010_reason_discrim1_reason_sexuality")
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_sexuality_HRS_results) 
+
+
+Wcountry_unadjusted_SES_weight_obese_HRS_results = Wcountry_unadjusted_SES_weight(data = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                 analysis_variable_name = "weight discrimination,  BMI> 29.9 ",
+                                                                                 country = "USA", 
+                                                                                 subsetting_VAR1 =   "HRS2010_BMI", 
+                                                                                 var1_value = 29.9,
+                                                                                 subsetting_VAR2 = "NA",
+                                                                                 var2_value  = "NA",
+                                                                                 discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_weight_obese_HRS_results) 
+
+Wcountry_unadjusted_SES_weight_overweight_HRS_results = Wcountry_unadjusted_SES_weight(data = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  analysis_variable_name = "weight discrimination,  BMI>25.0, <=29.9 ",
+                                                                                  country = "USA", 
+                                                                                  subsetting_VAR1 =   "HRS2010_BMI", 
+                                                                                  var1_value = 25.0,
+                                                                                  subsetting_VAR2 =  "HRS2010_BMI",
+                                                                                  var2_value  = 29.9,
+                                                                                  discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_weight_overweight_HRS_results) 
+
+
+Wcountry_unadjusted_SES_weight_both_HRS_results = Wcountry_unadjusted_SES_weight(data = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                       analysis_variable_name = "weight discrimination,  BMI>25.0,",
+                                                                                       country = "USA", 
+                                                                                       subsetting_VAR1 =   "HRS2010_BMI", 
+                                                                                       var1_value = 25.0,
+                                                                                       subsetting_VAR2 =  "NA",
+                                                                                       var2_value  = "NA",
+                                                                                       discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 
+
+Wcountry_unadjusted_SES_results = rbind(Wcountry_unadjusted_SES_results, Wcountry_unadjusted_SES_weight_both_HRS_results) 
+
+write.csv(Wcountry_unadjusted_SES_results, file = paste(OUTPUT_ROOT, "Wcountry_unadjusted_SES_results.csv", sep=""))
 
