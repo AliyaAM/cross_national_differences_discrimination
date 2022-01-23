@@ -14,11 +14,7 @@ Unadjusted_cross_nat_comparison_weight = function (data_ELSA,
                                                  
                                                  ELSA_var2_value,
                                                  HRS_var2_value,
-                                                 
-                                                 covariate1, 
-                                                 covariate2,
-                                                 covariate3, 
-                                                 covariate4, 
+                                    
                                                  
                                                  discrimination_VAR_elsa,
                                                  discrimination_VAR_hrs){
