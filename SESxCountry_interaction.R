@@ -43,14 +43,14 @@ SESxCountry_interaction = function(data_ELSA,
 
 if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS == "NA"){
   
-  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value)
-  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value)
+  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value)
+  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value)
 } 
 
 if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA !="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS != "NA"){
   
-  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] <= ELSA_var2_value)
-  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] <= HRS_var2_value)
+  data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] == ELSA_var2_value)
+  data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] == HRS_var2_value)
 }
 
 
@@ -63,6 +63,7 @@ N_HRS_subset = nrow(data_HRS_subset)
 #dummy variable: 
 
 
+
 #predictor dummy varibale: country (UK vs USA)
 country_cat = c(data_ELSA_subset$country, 
                 data_HRS_subset$country)
@@ -71,11 +72,12 @@ data_both_countries = data.frame(country_cat)
 #outcome concatinated into a new dataframe pooling ELSA and HRS (make sure the order as above)
 
 data_both_countries$discrimination = c(data_ELSA_subset[ , discrimination_VAR_elsa],
-                                       data_HRS_subset[ , discrimination_VAR_hrs] )
+                                      data_HRS_subset[ , discrimination_VAR_hrs] )
 
 
 data_both_countries$SES_both =  c(data_ELSA_subset$SES, 
-              data_HRS_subset$SES)
+                                  data_HRS_subset$SES)
+
 
 
 
@@ -85,10 +87,10 @@ data_both_countries$SES_both =  c(data_ELSA_subset$SES,
 
 
 fm1 <- glm(discrimination ~  country_cat + SES_both, 
-                    data = data_both_countries)
+                             data = data_both_countries)
 
 fm2<- glm(discrimination ~ country_cat + SES_both + country_cat*SES_both, 
-                    data = data_both_countries)
+                           data = data_both_countries)
 
 
 
@@ -104,7 +106,11 @@ results_interaction_model = summary(fm2)
 results_interaction_model_coeffcients = results_interaction_model$coefficients
 SESxCountry = cbind(results_interaction_model_coeffcients, cross_national_diff)
 
-SES_country_interaction = cbind(OR_fm2, results_interaction_model_coeffcients, cross_national_diff)
+SES_country_interaction = cbind(OR_fm2, results_interaction_model_coeffcients)
 
-return(SES_country_interaction)
+var_name = rbind(analysis_variable_name, analysis_variable_name, analysis_variable_name, analysis_variable_name)
+
+results = cbind(SES_country_interaction, var_name)
+
+return(results)
 }
