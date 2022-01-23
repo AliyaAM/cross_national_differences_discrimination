@@ -1484,3 +1484,11 @@ SEShigh_unadjusted_cross_nat_weight_both_results = SES_unadjusted_cros_nat_compa
 
 
 SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_weight_both_results) 
+
+
+write.csv(SES_unadjusted_results, file = paste(OUTPUT_ROOT, "SES_unadjusted_results.csv", sep=""))
+
+############################
+
+
+
