@@ -16,6 +16,7 @@ SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 #sourcing code for the unadjusted analysis 
 source(paste(SOURCE_ROOT, "Unadjusted_cross_nat_comparison.R", sep=""))
 
+#sourcing separately code for weight, becuase weight has a threshold such as > and <=
 source(paste(SOURCE_ROOT, "Unadjusted_cross_nat_comparison_weight.R", sep=""))
 
 
@@ -25,6 +26,11 @@ source(paste(SOURCE_ROOT, "adjusted_cross_nat_comparison.R", sep=""))
 source(paste(SOURCE_ROOT, "adjusted_cross_nat_comparison_weight.R", sep=""))
 
 
+#### sourcing the analysis for cross-national comparison stratified by SES
+source(paste(SOURCE_ROOT, "SES_unadjusted_cros_nat_comparison.R", sep=""))
+
+#sourcing separately the SES-stratified comparison code for weight, becuase weight has a threshold such as > and <=
+source(paste(SOURCE_ROOT, "SES_unadjusted_cros_nat_comparison_weight.R", sep=""))
 
 #read data files for ELSA and HRS
 ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
@@ -527,7 +533,7 @@ adjusted_cross_nat_financial_bothSexes_results = adjusted_cross_nat_comparison (
                                                                                 
                                                                                 covariate1 = "age",
                                                                                 covariate2 = "sex",
-                                                                                covariate3 = "married",
+                                                                                covariate3 = "wealth",
                                                                                 covariate4 = "employment", 
                                                                                 
                                                                                 
@@ -561,8 +567,8 @@ adjusted_cross_nat_financial_female_results = adjusted_cross_nat_comparison (dat
                                                                              
                                                                              
                                                                              covariate1 = "age",
-                                                                             covariate2 = "sex",
-                                                                             covariate3 = "married",
+                                                                             covariate2 = "married",
+                                                                             covariate3 = "wealth",
                                                                              covariate4 = "employment", 
                                                                              
                                                                              
@@ -594,8 +600,8 @@ adjusted_cross_nat_financial_male_results = adjusted_cross_nat_comparison (data_
                                                                            
                                                                            
                                                                            covariate1 = "age",
-                                                                           covariate2 = "sex",
-                                                                           covariate3 = "married",
+                                                                           covariate2 = "married",
+                                                                           covariate3 = "wealth",
                                                                            covariate4 = "employment", 
                                                                            
                                                                            
@@ -634,6 +640,8 @@ adjusted_cross_nat_sex_female_results = adjusted_cross_nat_comparison (data_ELSA
                                                                        
                                                                        discrimination_VAR_elsa = "w5sexdiscrimination2",
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
+
+
 
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sex_female_results) 
 
@@ -705,6 +713,7 @@ adjusted_cross_nat_race_results = adjusted_cross_nat_comparison (data_ELSA = ELS
                                                                  discrimination_VAR_elsa = "w5racediscrimination2",
                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_race")
 
+
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_race_results) 
 
 
@@ -754,6 +763,7 @@ adjusted_cross_nat_weight_29_9_results = adjusted_cross_nat_comparison_weight (d
                                                                                
                                                                                discrimination_VAR_elsa = "w5weightdiscrimination2",
                                                                                discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
 
 
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_29_9_results) 
@@ -830,3 +840,647 @@ write.csv(adjusted_results, file = paste(OUTPUT_ROOT, "Cross_nat_diff_adjusted_r
 
 
 Results_cross_nat = cbind(Unadjusted_results, adjusted_results)
+
+
+write.csv(Results_cross_nat, file = paste(OUTPUT_ROOT, "Results_cross_nat", sep=""))
+
+###################
+##################
+##################
+
+
+
+ELSAdiscrimination_data_wave5_before_subsetting$SES = case_when(ELSAdiscrimination_data_wave5_before_subsetting$median_wealth_bin_ELSA == '2' ~ '2',
+                                                                ELSAdiscrimination_data_wave5_before_subsetting$median_wealth_bin_ELSA == '1' ~ '1')
+
+HRS2010_discrimination_dataset_before_subsetting$SES = case_when(HRS2010_discrimination_dataset_before_subsetting$median_wealth_bin_HRS == '2' ~ '2', 
+                                                                 HRS2010_discrimination_dataset_before_subsetting$median_wealth_bin_HRS == '1' ~ '1')
+
+
+SES_unadjusted_results = data.frame()
+
+#adjusted model for disability, subsettign further to those who have a physical lim. 
+SES_unadjusted_cross_nat_disability_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                       data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                       
+
+                                                                       analysis_variable_name = "disability",
+                                                                       
+                                                                       subsetting_VAR1_ELSA = "w5limill", 
+                                                                       
+                                                                       subsetting_VAR1_HRS = "limiting_condition_bin",
+                                                                       
+                                                                      
+                                                                       SES_level = 1, 
+                                                                       
+                                                                       #has physical limitation 
+                                                                       ELSA_var1_value = 1, 
+                                                                       HRS_var1_value = 1, 
+                                                                       
+                                                                       
+                                                                       subsetting_VAR2_ELSA =  "NA",  
+                                                                       subsetting_VAR2_HRS =   "NA", 
+                                                                       
+                                                                       
+                                                                       ELSA_var2_value = "NA", 
+                                                                       HRS_var2_value = "NA", 
+                                                                       
+                                                                       discrimination_VAR_elsa = "w5disabilitydiscrimination2",
+                                                                       discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_disability")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_disability_results) 
+
+SEShigh_unadjusted_cross_nat_disability_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  
+                                                                                  analysis_variable_name = "disability",
+                                                                                  
+                                                                                  subsetting_VAR1_ELSA = "w5limill", 
+                                                                                  subsetting_VAR1_HRS = "limiting_condition_bin",
+                                                                                  
+                                                                            
+                                                                                  
+                                                                                  SES_level = 2, 
+                                                                                  
+                                                                                  #has physical limitation 
+                                                                                  ELSA_var1_value = 1, 
+                                                                                  HRS_var1_value = 1, 
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA =  "NA",  
+                                                                                  subsetting_VAR2_HRS =   "NA", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA", 
+                                                                                  
+                                                                                  discrimination_VAR_elsa = "w5disabilitydiscrimination2",
+                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_disability")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_disability_results) 
+
+
+SES_unadjusted_cross_nat_financial_all_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  
+                                                                                  analysis_variable_name = "financial, all",
+                                                                                  
+                                                                                  subsetting_VAR1_ELSA = "NA",
+                                                                                  subsetting_VAR1_HRS = "NA",
+                                                                         
+                                                                                  
+                                                                                  SES_level = 1, 
+                                                                                  
+                                                                          
+                                                                                  ELSA_var1_value = "NA",
+                                                                                  HRS_var1_value = "NA",
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA =  "NA",  
+                                                                                  subsetting_VAR2_HRS =   "NA", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA", 
+                                                                                  
+                                                                                  discrimination_VAR_elsa = "w5discrim_financial2",
+                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_financial_all_results) 
+
+
+
+SEShigh_unadjusted_cross_nat_financial_all_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                     data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                     
+                                                                                     
+                                                                                     analysis_variable_name = "financial, all",
+                                                                                     
+                                                                                     subsetting_VAR1_ELSA = "NA",
+                                                                                     subsetting_VAR1_HRS = "NA",
+                                                                                     
+                                                                                
+                                                                                     
+                                                                                     SES_level = 2, 
+                                                                                     
+                                                                                     
+                                                                                     ELSA_var1_value = "NA", 
+                                                                                     HRS_var1_value = "NA",
+                                                                                     
+                                                                                     
+                                                                                     subsetting_VAR2_ELSA =  "NA",  
+                                                                                     subsetting_VAR2_HRS =   "NA", 
+                                                                                     
+                                                                                     
+                                                                                     ELSA_var2_value = "NA", 
+                                                                                     HRS_var2_value = "NA", 
+                                                                                     
+                                                                                     discrimination_VAR_elsa = "w5discrim_financial2",
+                                                                                     discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_financial_all_results) 
+
+
+SES_unadjusted_cross_nat_financial_male_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                     data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                     
+                                                                                     
+                                                                                     analysis_variable_name = "financial, male",
+                                                                                     
+                                                                                     subsetting_VAR1_ELSA = "sex",
+                                                                                     subsetting_VAR1_HRS = "sex",
+                                                                                     
+                                                                                   
+                                                                                     
+                                                                                     SES_level = 1, 
+                                                                                     
+                                                                                     
+                                                                                     ELSA_var1_value = 1, 
+                                                                                     HRS_var1_value = 1,
+                                                                                     
+                                                                                     
+                                                                                     subsetting_VAR2_ELSA =  "NA",  
+                                                                                     subsetting_VAR2_HRS =   "NA", 
+                                                                                     
+                                                                                     
+                                                                                     ELSA_var2_value = "NA", 
+                                                                                     HRS_var2_value = "NA", 
+                                                                                     
+                                                                                     discrimination_VAR_elsa = "w5discrim_financial2",
+                                                                                     discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_financial_male_results) 
+
+
+
+SEShigh_unadjusted_cross_nat_financial_male_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                      data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                      
+                                                                                      
+                                                                                      analysis_variable_name = "financial, male",
+                                                                                      
+                                                                                      subsetting_VAR1_ELSA =  "sex", 
+                                                                                      subsetting_VAR1_HRS =  "sex",
+                                                                                      
+                                                                                      
+                                                                               
+                                                                                      
+                                                                                      SES_level = 2, 
+                                                                                      
+                                                                                      
+                                                                                      ELSA_var1_value = 1, 
+                                                                                      HRS_var1_value = 1, 
+                                                                                      
+                                                                                      
+                                                                                      subsetting_VAR2_ELSA =  "NA",  
+                                                                                      subsetting_VAR2_HRS =   "NA", 
+                                                                                      
+                                                                                      
+                                                                                      ELSA_var2_value =  "NA", 
+                                                                                      HRS_var2_value =  "NA", 
+                                                                                      
+                                                                                      discrimination_VAR_elsa = "w5discrim_financial2",
+                                                                                      discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_financial_male_results) 
+
+
+
+
+SES_unadjusted_cross_nat_financial_female_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                      data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                      
+                                                                                      
+                                                                                      analysis_variable_name = "financial, female",
+                                                                                      
+                                                                                      subsetting_VAR1_ELSA = "sex",
+                                                                                      subsetting_VAR1_HRS = "sex",
+                                                                                 
+                                                                                      SES_level = 1, 
+                                                                                      
+                                                                                      
+                                                                                      ELSA_var1_value = 0, 
+                                                                                      HRS_var1_value = 0, 
+                                                                                      
+                                                                                      
+                                                                                      subsetting_VAR2_ELSA =  "NA",  
+                                                                                      subsetting_VAR2_HRS =   "NA", 
+                                                                                      
+                                                                                      
+                                                                                      ELSA_var2_value = "NA", 
+                                                                                      HRS_var2_value = "NA",  
+                                                                                      
+                                                                                      discrimination_VAR_elsa = "w5discrim_financial2",
+                                                                                      discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_financial_female_results) 
+
+
+
+
+SEShigh_unadjusted_cross_nat_financial_female_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                        
+                                                                                        
+                                                                                        analysis_variable_name = "financial, female",
+                                                                                        
+                                                                                        subsetting_VAR1_ELSA = "sex", 
+                                                                                        subsetting_VAR1_HRS = "sex",
+                                                                                  
+                                                                                        SES_level = 2, 
+                                                                                        
+                                                                                        
+                                                                                        ELSA_var1_value = 0, 
+                                                                                        HRS_var1_value = 0, 
+                                                                                        
+                                                                                        
+                                                                                        subsetting_VAR2_ELSA =  "NA",  
+                                                                                        subsetting_VAR2_HRS =   "NA", 
+                                                                                        
+                                                                                        
+                                                                                        ELSA_var2_value = "NA", 
+                                                                                        HRS_var2_value = "NA", 
+                                                                                        
+                                                                                        discrimination_VAR_elsa = "w5discrim_financial2",
+                                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_financial_female_results) 
+
+
+SES_unadjusted_cross_nat_sex_male_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  
+                                                                                  analysis_variable_name = "sex discrimination, male",
+                                                                                  
+                                                                                  subsetting_VAR1_ELSA = "sex", 
+                                                                                  subsetting_VAR1_HRS = "sex",
+                                                                                
+                                                                             
+                                                                                
+                                                                                
+                                                                                  SES_level = 1, 
+                                                                                  
+                                                                                
+                                                                                  ELSA_var1_value = 1, 
+                                                                                  HRS_var1_value = 1, 
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA =  "NA",  
+                                                                                  subsetting_VAR2_HRS =   "NA", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA", 
+                                                                                  
+                                                                                  discrimination_VAR_elsa = "w5sexdiscrimination2",
+                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_sex_male_results) 
+
+
+SEShigh_unadjusted_cross_nat_sex_male_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                
+                                                                                
+                                                                                analysis_variable_name = "sex discrimination, male",
+                                                                                
+                                                                                subsetting_VAR1_ELSA = "sex", 
+                                                                                subsetting_VAR1_HRS = "sex",
+                                                                                
+                                                                      
+                                                                                
+                                                                                SES_level = 2, 
+                                                                                
+                                                                                
+                                                                                ELSA_var1_value = 1, 
+                                                                                HRS_var1_value = 1, 
+                                                                                
+                                                                                
+                                                                                subsetting_VAR2_ELSA =  "NA",  
+                                                                                subsetting_VAR2_HRS =   "NA", 
+                                                                                
+                                                                                
+                                                                                ELSA_var2_value = "NA", 
+                                                                                HRS_var2_value = "NA", 
+                                                                                
+                                                                                discrimination_VAR_elsa = "w5sexdiscrimination2",
+                                                                                discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_sex_male_results) 
+
+
+
+SES_unadjusted_cross_nat_sex_female_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                
+                                                                                
+                                                                                analysis_variable_name = "sex discrimination, female",
+                                                                                
+                                                                                subsetting_VAR1_ELSA = "sex", 
+                                                                                subsetting_VAR1_HRS = "sex",
+                                                                                
+                                                                                
+                                                                      
+                                                                                
+                                                                                SES_level = 1, 
+                                                                                
+                                                                                
+                                                                                ELSA_var1_value = 0, 
+                                                                                HRS_var1_value = 0, 
+                                                                                
+                                                                                
+                                                                                subsetting_VAR2_ELSA =  "NA",  
+                                                                                subsetting_VAR2_HRS =   "NA", 
+                                                                                
+                                                                                
+                                                                                ELSA_var2_value = "NA", 
+                                                                                HRS_var2_value = "NA", 
+                                                                                
+                                                                                discrimination_VAR_elsa = "w5sexdiscrimination2",
+                                                                                discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_sex_female_results) 
+
+
+SEShigh_unadjusted_cross_nat_sex_female_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  
+                                                                                  analysis_variable_name = "sex discrimination, female",
+                                                                                  
+                                                                                  subsetting_VAR1_ELSA = "sex", 
+                                                                                  subsetting_VAR1_HRS = "sex",
+                                                                      
+                                                                                  SES_level = 2, 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var1_value = 0, 
+                                                                                  HRS_var1_value = 0, 
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA =  "NA",  
+                                                                                  subsetting_VAR2_HRS =   "NA", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA", 
+                                                                                  
+                                                                                  discrimination_VAR_elsa = "w5sexdiscrimination2",
+                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_sex_female_results) 
+
+
+
+SES_unadjusted_cross_nat_race_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  
+                                                                                  analysis_variable_name = "race",
+                                                                                  
+                                                                            subsetting_VAR1_ELSA =  "w5ethnicity",  
+                                                                            subsetting_VAR1_HRS =   "HRS2010_race_nonwhite",  
+                                                                            
+                                                                         
+                                                                                  
+                                                                                  SES_level = 1, 
+                                                                                  
+                                                                        
+                                                                                  ELSA_var1_value = 1, 
+                                                                                  HRS_var1_value = 1, 
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA =  "NA",  
+                                                                                  subsetting_VAR2_HRS =   "NA", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA", 
+                                                                                  
+                                                                                  discrimination_VAR_elsa = "w5racediscrimination2",
+                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_race")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_race_results) 
+
+
+SEShigh_unadjusted_cross_nat_race_results = SES_unadjusted_cros_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                            data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                            
+                                                                            
+                                                                            analysis_variable_name = "race",
+                                                                            
+                                                                            subsetting_VAR1_ELSA =  "w5ethnicity",  
+                                                                            subsetting_VAR1_HRS =   "HRS2010_race_nonwhite", 
+                                                                            
+                                                                        
+                                                                            
+                                                                            SES_level = 2, 
+                                                                            
+                                                                            
+                                                                            ELSA_var1_value = 1, 
+                                                                            HRS_var1_value = 1, 
+                                                                            
+                                                                            
+                                                                            subsetting_VAR2_ELSA =  "NA",  
+                                                                            subsetting_VAR2_HRS =   "NA", 
+                                                                            
+                                                                            
+                                                                            ELSA_var2_value = "NA", 
+                                                                            HRS_var2_value = "NA", 
+                                                                            
+                                                                            discrimination_VAR_elsa = "w5racediscrimination2",
+                                                                            discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_race")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_race_results) 
+
+
+SES_unadjusted_cross_nat_weight_29_9_results = SES_unadjusted_cros_nat_comparison_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                               data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                               
+                                                                               analysis_variable_name = "weight discrimination,  BMI>29.9",
+                                                                               
+                                                                               SES_level = 1, 
+                                                                               
+                                                                               
+                                                                               subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                               subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                               
+                                                                               
+                                                                               ELSA_var1_value = 29.9, 
+                                                                               HRS_var1_value  = 29.9,  
+                                                                               
+                                                                               subsetting_VAR2_ELSA = "NA", 
+                                                                               subsetting_VAR2_HRS = "NA",
+                                                                               
+                                                                               #low SES
+                                                                               ELSA_var2_value = "NA", 
+                                                                               HRS_var2_value = "NA", 
+                                                                               
+                                                                               
+                                                                               discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                               discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_weight_29_9_results) 
+
+SEShigh_unadjusted_cross_nat_weight_29_9_results = SES_unadjusted_cros_nat_comparison_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                           data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                           
+                                                                                           analysis_variable_name = "weight discrimination,  BMI>29.9",
+                                                                                           
+                                                                                           SES_level = 2, 
+                                                                                           
+                                                                                           
+                                                                                           subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                           subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                           
+                                                                                           
+                                                                                           ELSA_var1_value = 29.9, 
+                                                                                           HRS_var1_value  = 29.9,  
+                                                                                           
+                                                                                           subsetting_VAR2_ELSA = "NA", 
+                                                                                           subsetting_VAR2_HRS = "NA",
+                                                                                           
+                                                                                           #low SES
+                                                                                           ELSA_var2_value = "NA", 
+                                                                                           HRS_var2_value = "NA", 
+                                                                                           
+                                                                                           
+                                                                                           discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                                           discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_weight_29_9_results) 
+
+
+
+SES_unadjusted_cross_nat_weight_25_results = SES_unadjusted_cros_nat_comparison_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                             data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                             
+                                                                             analysis_variable_name = "weight discrimination,  BMI>25.0, <=29.9 ",
+                                                                             
+                                                                             SES_level = 1, 
+                                                                             
+                                                                             subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                             subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                             
+                                                                             ELSA_var1_value = 25.0, 
+                                                                             HRS_var1_value  = 25.0, 
+                                                                             
+                                                                             
+                                                                             
+                                                                             subsetting_VAR2_ELSA = "w4bmi_clean", 
+                                                                             subsetting_VAR2_HRS = "HRS2010_BMI",
+                                                                             
+                                                                             ELSA_var2_value = 29.9, 
+                                                                             HRS_var2_value = 29.9,  
+                                                                             
+                                                                      
+                                                                             
+                                                                             discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                             discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_weight_25_results) 
+
+
+
+SEShigh_unadjusted_cross_nat_weight_25_results = SES_unadjusted_cros_nat_comparison_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                         data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                         
+                                                                                         analysis_variable_name = "weight discrimination,  BMI>25.0, <=29.9 ",
+                                                                                         
+                                                                                         SES_level = 2, 
+                                                                                         
+                                                                                         subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                         subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                         
+                                                                                         ELSA_var1_value = 25.0, 
+                                                                                         HRS_var1_value  = 25.0, 
+                                                                                         
+                                                                                         
+                                                                                         
+                                                                                         subsetting_VAR2_ELSA = "w4bmi_clean", 
+                                                                                         subsetting_VAR2_HRS = "HRS2010_BMI",
+                                                                                         
+                                                                                         ELSA_var2_value = 29.9, 
+                                                                                         HRS_var2_value = 29.9,  
+                                                                                         
+                                                                                         
+                                                                                         
+                                                                                         discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                                         discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_weight_25_results) 
+
+
+
+SES_unadjusted_cross_nat_weight_both_results = SES_unadjusted_cros_nat_comparison_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                              data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                              
+                                                                              analysis_variable_name = "weight discrimination,  BMI>25.0 ",
+                                                                              
+                                                                              SES_level = 1, 
+                                                                              
+                                                                              subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                              subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                              
+                                                                              
+                                                                              ELSA_var1_value = 25.0, 
+                                                                              HRS_var1_value = 25.0,  
+                                                                              
+                                                                              subsetting_VAR2_ELSA = "NA",
+                                                                              subsetting_VAR2_HRS = "NA",
+                                                                              
+                                                                              #low SES
+                                                                              ELSA_var2_value = "NA",
+                                                                              HRS_var2_value  = "NA",
+                                                                              
+                                                                  
+                                                                              
+                                                                              discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SES_unadjusted_cross_nat_weight_both_results) 
+
+
+
+
+SEShigh_unadjusted_cross_nat_weight_both_results = SES_unadjusted_cros_nat_comparison_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                          data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                          
+                                                                                          analysis_variable_name = "weight discrimination,  BMI>25.0 ",
+                                                                                          
+                                                                                          SES_level = 2, 
+                                                                                          
+                                                                                          subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                          subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                          
+                                                                                          
+                                                                                          ELSA_var1_value = 25.0, 
+                                                                                          HRS_var1_value = 25.0,  
+                                                                                          
+                                                                                          subsetting_VAR2_ELSA = "NA",
+                                                                                          subsetting_VAR2_HRS = "NA",
+                                                                                          
+                                                                                          #low SES
+                                                                                          ELSA_var2_value = "NA",
+                                                                                          HRS_var2_value  = "NA",
+                                                                                          
+                                                                                          
+                                                                                          
+                                                                                          discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                                          discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+SES_unadjusted_results = rbind(SES_unadjusted_results, SEShigh_unadjusted_cross_nat_weight_both_results) 
