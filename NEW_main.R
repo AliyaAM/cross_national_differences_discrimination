@@ -364,11 +364,6 @@ Unadjusted_cross_nat_weight_29_9_results = Unadjusted_cross_nat_comparison_weigh
                                                                                HRS_var2_value = "NA", 
                                                                                
                                                                                
-                                                                               covariate1 = "age", 
-                                                                               covariate2 = "sex", 
-                                                                               covariate3 = "wealth",
-                                                                               covariate4 = "employment",
-                                                                               
                                                                                
                                                                                discrimination_VAR_elsa = "w5weightdiscrimination2",
                                                                                discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
@@ -396,11 +391,7 @@ Unadjusted_cross_nat_weight_25_results = Unadjusted_cross_nat_comparison_weight 
                                                                              
                                                                              ELSA_var2_value = 29.9, 
                                                                              HRS_var2_value = 29.9,  
-                                                                             
-                                                                             covariate1 = "age", 
-                                                                             covariate2 = "sex", 
-                                                                             covariate3 = "wealth",
-                                                                             covariate4 = "employment",
+                                                                           
                                                                              
                                                                              
                                                                              discrimination_VAR_elsa = "w5weightdiscrimination2",
@@ -432,10 +423,6 @@ Unadjusted_cross_nat_weight_both_results = Unadjusted_cross_nat_comparison_weigh
                                                                        HRS_var2_value  = "NA",
                                                                        
                                                                        
-                                                                       covariate1 = "age", 
-                                                                       covariate2 = "sex", 
-                                                                       covariate3 = "wealth",
-                                                                       covariate4 = "employment",
                                                                        
                                                                        discrimination_VAR_elsa = "w5weightdiscrimination2",
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
@@ -3163,3 +3150,98 @@ Unadjusted_cross_nat_Situations_sexuality_results = Unadjusted_cross_nat_Situati
 
 Unadjusted_cross_nat_Situations_results = rbind(Unadjusted_cross_nat_Situations_results, Unadjusted_cross_nat_Situations_sexuality_results) 
 
+
+
+Unadjusted_cross_nat_Situations_weight_29_9_results = Unadjusted_cross_nat_Situations_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                   data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                   
+                                                                                   analysis_variable_name = "weight discrimination,  BMI>29.9",
+                                                                                   
+                                                                                   
+                                                                                   subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                   subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                   
+                                                                                   
+                                                                                   ELSA_var1_value = 29.9, 
+                                                                                   HRS_var1_value  = 29.9,  
+                                                                                   
+                                                                                   subsetting_VAR2_ELSA = "NA", 
+                                                                                   subsetting_VAR2_HRS = "NA",
+                                                                                   
+                                                                                   #low SES
+                                                                                   ELSA_var2_value = "NA", 
+                                                                                   HRS_var2_value = "NA", 
+                                                                                   
+                                                                            
+                                                                                   
+                                                                                   
+                                                                                   discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                                   discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+Unadjusted_cross_nat_Situations_results = rbind(Unadjusted_cross_nat_Situations_results, Unadjusted_cross_nat_Situations_weight_29_9_results) 
+
+
+Unadjusted_cross_nat_Situations_weight_25_results = Unadjusted_cross_nat_Situations_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                 data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                 
+                                                                                 analysis_variable_name = "weight discrimination,  BMI>25.0, <=29.9 ",
+                                                                                 
+                                                                                 
+                                                                                 subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                 subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                 
+                                                                                 ELSA_var1_value = 25.0, 
+                                                                                 HRS_var1_value  = 25.0, 
+                                                                                 
+                                                                                 
+                                                                                 
+                                                                                 subsetting_VAR2_ELSA = "w4bmi_clean", 
+                                                                                 subsetting_VAR2_HRS = "HRS2010_BMI",
+                                                                                 
+                                                                                 ELSA_var2_value = 29.9, 
+                                                                                 HRS_var2_value = 29.9,  
+                                                                                 
+                                                                             
+                                                                                 
+                                                                                 
+                                                                                 discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                                 discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+Unadjusted_cross_nat_Situations_results = rbind(Unadjusted_cross_nat_Situations_results, Unadjusted_cross_nat_Situations_weight_25_results) 
+
+
+
+Unadjusted_cross_nat_Situations_weight_both_results = Unadjusted_cross_nat_Situations_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  analysis_variable_name = "weight discrimination,  BMI>25.0 ",
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                  subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var1_value = 25.0, 
+                                                                                  HRS_var1_value = 25.0,  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA = "NA",
+                                                                                  subsetting_VAR2_HRS = "NA",
+                                                                                  
+                                                                                  #low SES
+                                                                                  ELSA_var2_value = "NA",
+                                                                                  HRS_var2_value  = "NA",
+                                                                                  
+                                                                                  
+                                                                                
+                                                                                  
+                                                                                  discrimination_VAR_elsa = "w5weightdiscrimination2",
+                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
+
+
+Unadjusted_cross_nat_Situations_results = rbind(Unadjusted_cross_nat_Situations_results, Unadjusted_cross_nat_Situations_weight_both_results) 
+
+write.csv(Unadjusted_cross_nat_Situations_results, file = paste(OUTPUT_ROOT, "Unadjusted_cross_nat_Situations_results.csv", sep=""))
+
+####################

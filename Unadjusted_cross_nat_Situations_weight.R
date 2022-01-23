@@ -271,10 +271,9 @@ Unadjusted_cross_nat_Situations_weight = function (data_ELSA,
                           "discrim_harrased_USA",
                           "discrim_harrased_UK")
   
-  findings = data.frame(rownames_situations, 
+  findings = data.frame(analysis_variable_name, rownames_situations, 
                         findings1, stringsAsFactors = TRUE)
   
   return(findings)
 }
-
 
