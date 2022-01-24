@@ -2644,12 +2644,12 @@ SESxCountry_interaction_financial_bothSexes_results = SESxCountry_interaction (d
                                                                                     
                                                                                     analysis_variable_name = "financial discrimination",
                                                                                     
-                                                                                    subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
-                                                                                    subsetting_VAR1_HRS = "median_wealth_bin_HRS",
+                                                                                    subsetting_VAR1_ELSA = "NA",
+                                                                                    subsetting_VAR1_HRS =  "NA",
                                                                                     
                                                                                     #low SES
-                                                                                    ELSA_var1_value = 1, 
-                                                                                    HRS_var1_value = 1, 
+                                                                                    ELSA_var1_value = "NA",
+                                                                                    HRS_var1_value =  "NA",
                                                                                     
                                                                                     
                                                                                     subsetting_VAR2_ELSA =  "NA",  
@@ -2672,26 +2672,25 @@ SESxCountry_interaction_financial_female_results = SESxCountry_interaction (data
                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                  
                                                                                  analysis_variable_name = "financial discrimination, female",
+                                                                            
+                                                                            subsetting_VAR1_ELSA =  "w5sex_1_0",  
+                                                                            subsetting_VAR1_HRS =   "sex_1_0", 
+                                                                            
+                                                                            
+                                                                            ELSA_var1_value = 0, 
+                                                                            HRS_var1_value = 0, 
                                                                                  
-                                                                                 subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
-                                                                                 subsetting_VAR1_HRS = "median_wealth_bin_HRS",
+                                                                                 subsetting_VAR2_ELSA =  "NA",
+                                                                                 subsetting_VAR2_HRS =  "NA",
                                                                                  
                                                                                  
                                                                                  
                                                                                  #low SES
-                                                                                 ELSA_var1_value = 1, 
-                                                                                 HRS_var1_value = 1, 
+                                                                                 ELSA_var2_value =  "NA",
+                                                                                 HRS_var2_value =  "NA",
                                                                                  
                                                                                  
-                                                                                 subsetting_VAR2_ELSA =  "w5sex_1_0",  
-                                                                                 subsetting_VAR2_HRS =   "sex_1_0", 
-                                                                                 
-                                                                                 
-                                                                                 ELSA_var2_value = 0, 
-                                                                                 HRS_var2_value = 0, 
-                                                                                 
-                                                                                 
-                                                                                 
+                                                                            
                                                                                  
                                                                                  discrimination_VAR_elsa = "w5discrim_financial2",
                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
@@ -2705,19 +2704,22 @@ SESxCountry_interaction_financial_male_results = SESxCountry_interaction (data_E
                                                                                
                                                                                analysis_variable_name = "financial discrimination, male",
                                                                                
-                                                                               subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
-                                                                               subsetting_VAR1_HRS = "median_wealth_bin_HRS",
-                                                                               
-                                                                               #low SES
-                                                                               ELSA_var1_value = 1, 
-                                                                               HRS_var1_value = 1, 
-                                                                               
-                                                                               subsetting_VAR2_ELSA =  "w5sex_1_0",  
-                                                                               subsetting_VAR2_HRS =   "sex_1_0", 
-                                                                               
-                                                                               
-                                                                               ELSA_var2_value = 1, 
-                                                                               HRS_var2_value = 1, 
+                                                                          subsetting_VAR1_ELSA =  "w5sex_1_0",  
+                                                                          subsetting_VAR1_HRS =   "sex_1_0", 
+                                                                          
+                                                                          
+                                                                          ELSA_var1_value = 1, 
+                                                                          HRS_var1_value = 1, 
+                                                                          
+                                                                          subsetting_VAR2_ELSA =  "NA",
+                                                                          subsetting_VAR2_HRS =  "NA",
+                                                                          
+                                                                          
+                                                                          
+                                                                          #low SES
+                                                                          ELSA_var2_value =  "NA",
+                                                                          HRS_var2_value =  "NA",
+                                                                          
                                                                                
                                                                                
                                                                                discrimination_VAR_elsa = "w5discrim_financial2",
