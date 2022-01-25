@@ -83,9 +83,20 @@ Unadjusted_cross_nat_Situations_weight = function (data_ELSA,
                           HRS_discrimYES_subset$HRS2010_discrim_lessrespect_bin)
   
   
+  N_discrim_lessrespect_ELSA = nrow(subset(ELSA_discrimYES_subset, ELSA_discrimYES_subset$w5discrim_lessrespect_bin2 == 1))
+  N_discrim_lessrespect_HRS = nrow(subset(HRS_discrimYES_subset, HRS_discrimYES_subset$HRS2010_discrim_lessrespect_bin == 1))
+  
+  
+  
   #Received poorer service or treatment than other people from doctors or hospitals
   unique(ELSA_discrimYES_subset$w5discrim_medical_bin2)
   unique(HRS_discrimYES_subset$HRS2010_discrim_medical_bin)
+  
+  
+  
+  N_discrim_medical_ELSA = nrow(subset(ELSA_discrimYES_subset, ELSA_discrimYES_subset$w5discrim_medical_bin2 == 1))
+  N_discrim_medical_HRS = nrow(subset(HRS_discrimYES_subset, HRS_discrimYES_subset$HRS2010_discrim_medical_bin == 1))
+  
   
   discrim_medical = c(ELSA_discrimYES_subset$w5discrim_medical_bin2, 
                       HRS_discrimYES_subset$HRS2010_discrim_medical_bin)
@@ -97,6 +108,10 @@ Unadjusted_cross_nat_Situations_weight = function (data_ELSA,
   discrim_notclever = c(ELSA_discrimYES_subset$w5discrim_notclever_bin2, 
                         HRS_discrimYES_subset$HRS2010_discrim_notclever_bin)
   
+  
+  N_discrim_notclever_ELSA = nrow(subset(ELSA_discrimYES_subset, ELSA_discrimYES_subset$w5discrim_notclever_bin2 == 1))
+  N_discrim_notclever_HRS = nrow(subset(HRS_discrimYES_subset, HRS_discrimYES_subset$HRS2010_discrim_notclever_bin == 1))
+  
   #Received poorer service than others in a restaurant or shop
   unique(ELSA_discrimYES_subset$w5discrim_poorerservice_bin2)
   unique(HRS_discrimYES_subset$HRS2010_discrim_poorerservice_bin)
@@ -104,12 +119,23 @@ Unadjusted_cross_nat_Situations_weight = function (data_ELSA,
   discrim_poor_service = c(ELSA_discrimYES_subset$w5discrim_poorerservice_bin2,
                            HRS_discrimYES_subset$HRS2010_discrim_poorerservice_bin)
   
+  
+  
+  N_discrim_poor_service_ELSA = nrow(subset(ELSA_discrimYES_subset, ELSA_discrimYES_subset$w5discrim_poorerservice_bin2 == 1))
+  N_discrim_poor_service_HRS = nrow(subset(HRS_discrimYES_subset, HRS_discrimYES_subset$HRS2010_discrim_poorerservice_bin == 1))
+  
+  
   #You are threatened or harassed
   unique(ELSA_discrimYES_subset$w5discrim_harassed_bin2)
   unique(HRS_discrimYES_subset$HRS2010_discrim_harassed_bin)
   
   discrim_harrased = c(ELSA_discrimYES_subset$w5discrim_harassed_bin2, 
                        HRS_discrimYES_subset$HRS2010_discrim_harassed_bin)
+  
+  
+  N_discrim_discrim_harrased_ELSA = nrow(subset(ELSA_discrimYES_subset, ELSA_discrimYES_subset$w5discrim_harassed_bin2 == 1))
+  N_discrim_discrim_harrased_HRS = nrow(subset(HRS_discrimYES_subset, HRS_discrimYES_subset$HRS2010_discrim_harassed_bin == 1))
+  
   
   
   data_both_countries_discrim <- data.frame(country_cat, 
@@ -260,20 +286,46 @@ Unadjusted_cross_nat_Situations_weight = function (data_ELSA,
                     findings_discrim_harrased)
   
   
-  rownames_situations = c("discrim_lessrespect_USA",
-                          "discrim_lessrespect_UK",
-                          "discrim_medical_USA",
-                          "discrim_medical_UK",
-                          "discrim_notclever_USA",
-                          "discrim_notclever_UK",
-                          "discrim_poor_service_USA",
-                          "discrim_poor_service_UK",
-                          "discrim_harrased_USA",
-                          "discrim_harrased_UK")
+  rownames_situations = c(" lessrespect USA",
+                          " lessrespect UK",
+                          " medical USA",
+                          " medical UK",
+                          " notclever USA",
+                          " notclever UK",
+                          " poor service USA",
+                          " poor service UK",
+                          " harrased USA",
+                          " harrased UK")
   
-  findings = data.frame(analysis_variable_name, rownames_situations, 
+  N_discrim = cbind(N_ELSA_discrimYES, N_HRS_discrimYES) 
+  
+  
+  N_situations = c(N_discrim_lessrespect_HRS, 
+                   N_discrim_lessrespect_ELSA, 
+                   
+                   N_discrim_medical_HRS,  
+                   N_discrim_medical_ELSA,
+                   
+                   N_discrim_notclever_HRS, 
+                   N_discrim_notclever_ELSA, 
+                   
+                   N_discrim_poor_service_HRS,
+                   N_discrim_poor_service_ELSA,
+                   
+                   N_discrim_discrim_harrased_HRS, 
+                   N_discrim_discrim_harrased_ELSA)
+  
+  
+  findings = data.frame(analysis_variable_name, 
+                        rownames_situations, 
+                        N_discrim, 
+                        N_situations, 
                         findings1, stringsAsFactors = TRUE)
+  
+  
+  
   
   return(findings)
 }
+
 

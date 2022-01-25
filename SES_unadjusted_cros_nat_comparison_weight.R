@@ -43,20 +43,20 @@ SES_unadjusted_cros_nat_comparison_weight = function (data_ELSA,
   
   if (subsetting_VAR1_ELSA == "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS == "NA" & subsetting_VAR2_HRS == "NA"){
     
-    data_ELSA_subset = data_ELSA 
-    data_HRS_subset = data_HRS
+    data_ELSA_subset = subset(data_ELSA , data_ELSA$SES == SES_level)
+    data_HRS_subset = subset(data_HRS, data_HRS$SES == SES_level)
   } 
   
   if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS == "NA"){
     
-    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value)
-    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value)
+    data_ELSA_subset = subset(data_ELSA, data_ELSA$SES == SES_level & data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value)
+    data_HRS_subset = subset(data_HRS, data_HRS$SES == SES_level & data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value)
   } 
   
   if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA !="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS != "NA"){
     
-    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] <= ELSA_var2_value)
-    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] <= HRS_var2_value)
+    data_ELSA_subset = subset(data_ELSA, data_ELSA$SES == SES_level & data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] <= ELSA_var2_value)
+    data_HRS_subset = subset(data_HRS, data_HRS$SES == SES_level & data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] <= HRS_var2_value)
   }
   
   
