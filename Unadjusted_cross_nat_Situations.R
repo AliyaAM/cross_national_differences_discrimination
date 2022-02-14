@@ -221,6 +221,8 @@ discrim_notcleverpvalue_cross_national = test_contengency_tablediscrim_notclever
 contengency_table_discrim_poor_service = table(data_both_countries_discrim$discrim_poor_service,
                                                data_both_countries_discrim$country_cat)
 test_contengency_tablediscrim_poor_service = chisq.test(contengency_table_discrim_poor_service)
+
+
 test_contengency_tablediscrim_poor_service
 ## various equivalent specifications of the LR test
 #weight_cross_national_diff= lrtest(fm1_finacial, fm2_finacial)

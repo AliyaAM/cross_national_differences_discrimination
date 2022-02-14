@@ -2871,9 +2871,9 @@ Wcountry_adjusted_SES_results_both_results = Wcountry_adjusted_SES_weight(data =
                                                                              var2_value = "NA",
                                                                           
                                                                           covariate1 = "age", 
-                                                                          covariate2 = "sex", 
-                                                                          covariate3 = "wealth",
-                                                                          covariate4 = "employment",
+                                                                          covariate2 = "sex",    
+                                                                          covariate4 = "NA",
+                                                                          covariate3 = "employment",
                                                                           
                                                                              
                                                                              discrimination_VAR = "w5weightdiscrimination2")
@@ -2912,9 +2912,9 @@ Wcountry_adjusted_SES_financial_HRS_results = Wcountry_adjusted_SES(data = HRS20
                                                                         var2_value = "NA", 
                                                                     
                                                                     covariate1 = "age",
-                                                                    covariate2 = "sex",
-                                                                    covariate3 = "wealth",
-                                                                    covariate4 = "employment", 
+                                                                    covariate2 = "sex",   
+                                                                    covariate4 = "NA",
+                                                                    covariate3 = "employment",
                                                                     
                                                                         discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
 
@@ -2930,9 +2930,9 @@ Wcountry_adjusted_SES_financial_female_HRS_results = Wcountry_adjusted_SES(data 
                                                                                var2_value =  "NA", 
                                                                            
                                                                            covariate1 = "age",
-                                                                           covariate2 = "married",
-                                                                           covariate3 = "wealth",
-                                                                           covariate4 = "employment", 
+                                                                           covariate2 = "married",   
+                                                                           covariate4 = "NA",
+                                                                           covariate3 = "employment",
                                                                            
                                                                                discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
 
@@ -2948,9 +2948,10 @@ Wcountry_adjusted_SES_financial_male_HRS_results = Wcountry_adjusted_SES(data = 
                                                                              var2_value =  "NA",
                                                                          
                                                                          covariate1 = "age",
-                                                                         covariate2 = "married",
-                                                                         covariate3 = "wealth",
-                                                                         covariate4 = "employment", 
+                                                                         covariate2 = "married",   
+                                                                         covariate4 = "NA",
+                                                                         covariate3 = "employment",
+                                                                         
                                                                          
                                                                              discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
 
@@ -2967,7 +2968,7 @@ Wcountry_adjusted_SES_sex_female_HRS_results = Wcountry_adjusted_SES(data = HRS2
                                                                          var2_value = "NA", 
                                                                      
                                                                      covariate1 = "age",
-                                                                     covariate2 = "wealth",
+                                                                     covariate2 = "NA",
                                                                      covariate3 = "NA",
                                                                      covariate4 = "NA", 
                                                                      
@@ -2988,7 +2989,7 @@ Wcountry_adjusted_SES_sex_male_HRS_results = Wcountry_adjusted_SES(data = HRS201
                                                                        var2_value = "NA", 
                                                                    
                                                                    covariate1 = "age",
-                                                                   covariate2 = "wealth",
+                                                                   covariate2 = "NA",
                                                                    covariate3 = "NA",
                                                                    covariate4 = "NA",
                                                                    
@@ -3046,9 +3047,10 @@ Wcountry_adjusted_SES_results_weight_obese_HRS_results = Wcountry_adjusted_SES_w
                                                                                   var2_value  = "NA",
                                                                                   
                                                                                   covariate1 = "age", 
-                                                                                  covariate2 = "sex", 
-                                                                                  covariate3 = "wealth",
-                                                                                  covariate4 = "employment",
+                                                                                  covariate2 = "sex",    
+                                                                                  covariate4 = "NA",
+                                                                                  covariate3 = "employment",
+                                                                                  
                                                                                   
                                                                                   discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 
 
@@ -3064,9 +3066,10 @@ Wcountry_adjusted_SES_weight_overweight_HRS_results = Wcountry_adjusted_SES_weig
                                                                                        var2_value  = 29.9,
                                                                                    
                                                                                    covariate1 = "age", 
-                                                                                   covariate2 = "sex", 
-                                                                                   covariate3 = "wealth",
-                                                                                   covariate4 = "employment",
+                                                                                   covariate2 = "sex",   
+                                                                                   covariate4 = "NA",
+                                                                                   covariate3 = "employment",
+                                                                                   
                                                                                    
                                                                                        discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 
 
@@ -3083,8 +3086,8 @@ Wcountry_adjusted_SES_weight_both_HRS_results = Wcountry_adjusted_SES_weight(dat
                                                                              
                                                                              covariate1 = "age", 
                                                                              covariate2 = "sex", 
-                                                                             covariate3 = "wealth",
-                                                                             covariate4 = "employment",
+                                                                             covariate4 = "NA",
+                                                                             covariate3 = "employment",
                                                                              
                                                                                  discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 
 
@@ -3093,7 +3096,7 @@ Wcountry_adjusted_SES_results = rbind(Wcountry_adjusted_SES_results, Wcountry_ad
 
 
 
-write.csv(Wcountry_adjusted_SES_results, file = paste(OUTPUT_ROOT, "Wcountry_adjusted_SES_results.csv", sep=""))
+write.csv(Wcountry_adjusted_SES_results, file = paste(OUTPUT_ROOT, "Wcountry_adjusted_SES_results_v2_removed_covariate.csv", sep=""))
 
 
 
