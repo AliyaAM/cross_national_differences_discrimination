@@ -97,6 +97,46 @@ adjusted_cross_nat_comparison = function (data_ELSA,
              + data_both_countries[ ,   covariate1] , 
 
              data = data_both_countries)
+  
+  #no empty cells in the contingency table
+  xtabs(~discrimination + country, data = data_both_countries)
+  
+  #
+  data_both_countries$country <- factor(data_both_countries$country)
+  mylogit <- fm2
+  
+  summary(mylogit)
+  
+  newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
+                                                   #gpa = mean(gpa), 
+                                                   country = factor(0:1)))
+  
+  newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
+  newdata1
+  
+  #below plot: from min wealth in the dataset to max wealth in the dataset, 
+  newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+                                                                2), 
+                                                   #gpa = mean(gpa), 
+                                                   country = factor(rep(0:1, each = 1000))))
+  
+  
+  newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
+                                      se = TRUE))
+  newdata3 <- within(newdata3, {
+    PredictedProb <- plogis(fit)
+    LL <- plogis(fit - (1.96 * se.fit))
+    UL <- plogis(fit + (1.96 * se.fit))
+  })
+  
+  ## view first few rows of final dataset
+  head(newdata3)
+  
+  plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
+                                                                                ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                                                                     size = 1) + ggtitle(analysis_variable_name)
+  
+  print(plot)
   }
   
   # when  covariate 1 and covariate 2  (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
@@ -123,6 +163,45 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate2] , 
                
                data = data_both_countries)
+    #no empty cells in the contingency table
+    xtabs(~discrimination + country, data = data_both_countries)
+    
+    #
+    data_both_countries$country <- factor(data_both_countries$country)
+    mylogit <- fm2
+    
+    summary(mylogit)
+    
+    newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
+                                                     #gpa = mean(gpa), 
+                                                     country = factor(0:1)))
+    
+    newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
+    newdata1
+    
+    #below plot: from min wealth in the dataset to max wealth in the dataset, 
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+                                                                  2), 
+                                                     #gpa = mean(gpa), 
+                                                     country = factor(rep(0:1, each = 1000))))
+    
+    
+    newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
+                                        se = TRUE))
+    newdata3 <- within(newdata3, {
+      PredictedProb <- plogis(fit)
+      LL <- plogis(fit - (1.96 * se.fit))
+      UL <- plogis(fit + (1.96 * se.fit))
+    })
+    
+    ## view first few rows of final dataset
+    head(newdata3)
+    
+    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
+                                                                                  ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                                                                       size = 1) + ggtitle(analysis_variable_name)
+    
+    print(plot)
   }
   
   # when  covariate 1 and covariate 2 and covariate 3 (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
@@ -152,6 +231,45 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate3], 
                
                data = data_both_countries)
+    #no empty cells in the contingency table
+    xtabs(~discrimination + country, data = data_both_countries)
+    
+    #
+    data_both_countries$country <- factor(data_both_countries$country)
+    mylogit <- fm2
+    
+    summary(mylogit)
+    
+    newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
+                                                     #gpa = mean(gpa), 
+                                                     country = factor(0:1)))
+    
+    newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
+    newdata1
+    
+    #below plot: from min wealth in the dataset to max wealth in the dataset, 
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+                                                                  2), 
+                                                     #gpa = mean(gpa), 
+                                                     country = factor(rep(0:1, each = 1000))))
+    
+    
+    newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
+                                        se = TRUE))
+    newdata3 <- within(newdata3, {
+      PredictedProb <- plogis(fit)
+      LL <- plogis(fit - (1.96 * se.fit))
+      UL <- plogis(fit + (1.96 * se.fit))
+    })
+    
+    ## view first few rows of final dataset
+    head(newdata3)
+    
+    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
+                                                                                  ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                                                                       size = 1) + ggtitle(analysis_variable_name)
+    
+    print(plot)
     
   } 
   
@@ -186,9 +304,51 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate4], 
                
                data = data_both_countries)
+    #no empty cells in the contingency table
+    xtabs(~discrimination + country, data = data_both_countries)
+    
+    #
+    data_both_countries$country <- factor(data_both_countries$country)
+    mylogit <- fm2
+    
+    summary(mylogit)
+    
+    newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
+                                                     #gpa = mean(gpa), 
+                                                     country = factor(0:1)))
+    
+    newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
+    newdata1
+    
+    #below plot: from min wealth in the dataset to max wealth in the dataset, 
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+                                                                  2), 
+                                                     #gpa = mean(gpa), 
+                                                     country = factor(rep(0:1, each = 1000))))
+    
+    
+    newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
+                                        se = TRUE))
+    newdata3 <- within(newdata3, {
+      PredictedProb <- plogis(fit)
+      LL <- plogis(fit - (1.96 * se.fit))
+      UL <- plogis(fit + (1.96 * se.fit))
+    })
+    
+    ## view first few rows of final dataset
+    head(newdata3)
+    
+    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
+                                                                                  ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                                                                       size = 1) + ggtitle(analysis_variable_name)
+    
+    print(plot)
     
     
   }
+  
+
+  
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
   cross_country_OR_UK = cross_country_OR[2, 1]
