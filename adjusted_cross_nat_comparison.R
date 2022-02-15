@@ -69,6 +69,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   country_cat = c(data_ELSA_subset$country, 
                   data_HRS_subset$country)
   
+  country_cat = as.factor(country_cat)
+  
   data_both_countries = data.frame(country_cat)
   #outcome concatinated into a new dataframe pooling ELSA and HRS (make sure the order as above)
   
@@ -108,19 +110,16 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   summary(mylogit)
   
-  newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
-                                                   #gpa = mean(gpa), 
-                                                   country_cat = factor(0:1)))
   
-  newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
-  newdata1
+  Number_cases = nrow(data_both_countries)
+  Number_cases_level = Number_cases/2
   
   #below plot: from min wealth in the dataset to max wealth in the dataset, 
-  newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+  newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                 2), 
                                                    #gpa = mean(gpa), 
-                                                   country_cat = factor(rep(0:1, each = 1000))))
-  
+                                                   country_cat = factor(rep(0:1, each = Number_cases_level))))
+  print("test")
   
   newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
                                       se = TRUE))
@@ -173,18 +172,15 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     
     summary(mylogit)
     
-    newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
-                                                     #gpa = mean(gpa), 
-                                                     country_cat = factor(0:1)))
+
     
-    newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
-    newdata1
-    
+    Number_cases = nrow(data_both_countries)
+    Number_cases_level = Number_cases/2
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
-    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
-                                                     country_cat = factor(rep(0:1, each = 1000))))
+                                                     country_cat = factor(rep(0:1, each = Number_cases_level))))
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -241,18 +237,15 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     
     summary(mylogit)
     
-    newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
-                                                     #gpa = mean(gpa), 
-                                                     country_cat = factor(0:1)))
     
-    newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
-    newdata1
+    Number_cases = nrow(data_both_countries)
+    Number_cases_level = Number_cases/2
     
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
-    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
-                                                     country_cat = factor(rep(0:1, each = 1000))))
+                                                     country_cat = factor(rep(0:1, each = Number_cases_level))))
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -314,18 +307,14 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     
     summary(mylogit)
     
-    newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
-                                                     #gpa = mean(gpa), 
-                                                     country_cat = factor(0:1)))
-    
-    newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
-    newdata1
+    Number_cases = nrow(data_both_countries)
+    Number_cases_level = Number_cases/2
     
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
-    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
-                                                     country_cat = factor(rep(0:1, each = 1000))))
+                                                     country_cat = factor(rep(0:1, each = Number_cases_level))))
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
