@@ -75,7 +75,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   data_both_countries$discrimination = c(data_ELSA_subset[ , discrimination_VAR_elsa],
                                          data_HRS_subset[ , discrimination_VAR_hrs] )
   
-  
+  data_both_countries$wealth = c(data_ELSA_subset$wealth,
+                                 data_HRS_subset$wealth)
   
   
   # if then rule for a number of covariates, if the covariates are NA then a different glm model is passed 
@@ -99,17 +100,17 @@ adjusted_cross_nat_comparison = function (data_ELSA,
              data = data_both_countries)
   
   #no empty cells in the contingency table
-  xtabs(~discrimination + country, data = data_both_countries)
+  xtabs(~discrimination + country_cat, data = data_both_countries)
   
   #
-  data_both_countries$country <- factor(data_both_countries$country)
+  data_both_countries$country_cat <- factor(data_both_countries$country_cat)
   mylogit <- fm2
   
   summary(mylogit)
   
   newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
                                                    #gpa = mean(gpa), 
-                                                   country = factor(0:1)))
+                                                   country_cat = factor(0:1)))
   
   newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
   newdata1
@@ -118,7 +119,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
                                                                 2), 
                                                    #gpa = mean(gpa), 
-                                                   country = factor(rep(0:1, each = 1000))))
+                                                   country_cat = factor(rep(0:1, each = 1000))))
   
   
   newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -133,7 +134,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   head(newdata3)
   
   plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
                                                                                                                                      size = 1) + ggtitle(analysis_variable_name)
   
   print(plot)
@@ -164,17 +165,17 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                
                data = data_both_countries)
     #no empty cells in the contingency table
-    xtabs(~discrimination + country, data = data_both_countries)
+    xtabs(~discrimination + country_cat, data = data_both_countries)
     
     #
-    data_both_countries$country <- factor(data_both_countries$country)
+    data_both_countries$country_cat <- factor(data_both_countries$country_cat)
     mylogit <- fm2
     
     summary(mylogit)
     
     newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
                                                      #gpa = mean(gpa), 
-                                                     country = factor(0:1)))
+                                                     country_cat = factor(0:1)))
     
     newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
     newdata1
@@ -183,7 +184,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
                                                                   2), 
                                                      #gpa = mean(gpa), 
-                                                     country = factor(rep(0:1, each = 1000))))
+                                                     country_cat = factor(rep(0:1, each = 1000))))
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -198,7 +199,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     head(newdata3)
     
     plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                  ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
                                                                                                                                        size = 1) + ggtitle(analysis_variable_name)
     
     print(plot)
@@ -232,17 +233,17 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                
                data = data_both_countries)
     #no empty cells in the contingency table
-    xtabs(~discrimination + country, data = data_both_countries)
+    xtabs(~discrimination + country_cat, data = data_both_countries)
     
     #
-    data_both_countries$country <- factor(data_both_countries$country)
+    data_both_countries$country_cat <- factor(data_both_countries$country_cat)
     mylogit <- fm2
     
     summary(mylogit)
     
     newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
                                                      #gpa = mean(gpa), 
-                                                     country = factor(0:1)))
+                                                     country_cat = factor(0:1)))
     
     newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
     newdata1
@@ -251,7 +252,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
                                                                   2), 
                                                      #gpa = mean(gpa), 
-                                                     country = factor(rep(0:1, each = 1000))))
+                                                     country_cat = factor(rep(0:1, each = 1000))))
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -266,7 +267,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     head(newdata3)
     
     plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                  ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
                                                                                                                                        size = 1) + ggtitle(analysis_variable_name)
     
     print(plot)
@@ -305,17 +306,17 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                
                data = data_both_countries)
     #no empty cells in the contingency table
-    xtabs(~discrimination + country, data = data_both_countries)
+    xtabs(~discrimination + country_cat, data = data_both_countries)
     
     #
-    data_both_countries$country <- factor(data_both_countries$country)
+    data_both_countries$country_cat <- factor(data_both_countries$country_cat)
     mylogit <- fm2
     
     summary(mylogit)
     
     newdata1 <- with(data_both_countries, data.frame(wealth = mean(wealth),
                                                      #gpa = mean(gpa), 
-                                                     country = factor(0:1)))
+                                                     country_cat = factor(0:1)))
     
     newdata1$rankP <- predict(mylogit, newdata = newdata1, type = "response")
     newdata1
@@ -324,7 +325,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = 100),
                                                                   2), 
                                                      #gpa = mean(gpa), 
-                                                     country = factor(rep(0:1, each = 1000))))
+                                                     country_cat = factor(rep(0:1, each = 1000))))
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -339,7 +340,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     head(newdata3)
     
     plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country), alpha = 0.2) + geom_line(aes(colour = country),
+                                                                                  ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
                                                                                                                                        size = 1) + ggtitle(analysis_variable_name)
     
     print(plot)
