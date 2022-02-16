@@ -153,8 +153,9 @@ adjusted_cross_nat_comparison = function (data_ELSA,
 
 data_both_countries = na.omit(data_both_countries)
 
-data_both_countries %>%
-  mutate(prob = ifelse(discrimination == "1", 1, 0)) %>%
+
+  data_both_countries$prob = ifelse(data_both_countries$discrimination == "1", 1, 0)
+
   ggplot(aes(wealth, prob)) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "glm", method.args = list(family = "binomial")) +

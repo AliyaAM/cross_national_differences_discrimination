@@ -101,67 +101,14 @@ adjusted_cross_nat_comparison = function (data_ELSA,
 
              data = data_both_countries)
   
-  #no empty cells in the contingency table
-  xtabs(~discrimination + country_cat, data = data_both_countries)
-  
-  #
-  data_both_countries$country_cat <- factor(data_both_countries$country_cat)
-  mylogit <- fm2
-  
-  summary(mylogit)
-  
-  
-  Number_cases = nrow(data_both_countries)
-  
-  if (Number_cases) 
-    
-    if((Number_cases %% 2) == 0) {
-      print(paste(Number_cases,"is Even"))
-      data_both_countries = data_both_countries 
-      
-    } else {
-      print(paste(Number_cases,"is Odd"))
-      data_both_countries = data_both_countries[-c(1),]
-      
-    }
-  
-  Number_cases = nrow(data_both_countries)
-  print("new data frme")
-  print(Number_cases)
-  
-  Number_cases_level = Number_cases/2 
-  
-  #below plot: from min wealth in the dataset to max wealth in the dataset, 
-  newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
-                                                                2), 
-                                                   #gpa = mean(gpa), 
-                                                   country_cat = factor(rep(0:1, each = Number_cases_level))))
-  print("test 1")
-  
-  newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
-                                      se = TRUE))
-  newdata3 <- within(newdata3, {
-    PredictedProb <- plogis(fit)
-    LL <- plogis(fit - (1.96 * se.fit))
-    UL <- plogis(fit + (1.96 * se.fit))
-  })
-  
-  ## view first few rows of final dataset
-  head(newdata3)
-  
-  plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                ymax = UL, fill = country_cat), alpha = 0.02) + geom_line(aes(colour = country_cat),
-                                                                                                                                     size = 1) + ggtitle(analysis_variable_name) + scale_fill_discrete(name = "Country", labels = c("United States", "United Kingdom"))
-  
-  print(plot)
+
   }
   
   # when  covariate 1 and covariate 2  (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 == "NA" &  covariate4 == "NA"){
     
-    print("we are in test 2, test two covars")
-    
+
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                               data_HRS_subset[ ,   covariate1])
     
@@ -181,60 +128,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate2] , 
                
                data = data_both_countries)
-    #no empty cells in the contingency table
-    xtabs(~discrimination + country_cat, data = data_both_countries)
-    
-    #
-    data_both_countries$country_cat <- factor(data_both_countries$country_cat)
-    mylogit <- fm2
-    
-    summary(mylogit)
-    
-    Number_cases = nrow(data_both_countries)
-    
-    if (Number_cases) 
-      
-      if((Number_cases %% 2) == 0) {
-        print(paste(Number_cases,"is Even"))
-        data_both_countries = data_both_countries 
-        
-      } else {
-        print(paste(Number_cases,"is Odd"))
-        data_both_countries = data_both_countries[-c(1),]
-        
-      }
-    
-    Number_cases = nrow(data_both_countries)
-    print("new data frme")
-    print(Number_cases)
-    
-    Number_cases_level = Number_cases/2 
-    #below plot: from min wealth in the dataset to max wealth in the dataset, 
-    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
-                                                                  2), 
-                                                     #gpa = mean(gpa), 
-                                                     country_cat = factor(rep(0:1, each = Number_cases_level))))
-    
-    print("test 2")
-    
-    
-    
-    newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
-                                        se = TRUE))
-    newdata3 <- within(newdata3, {
-      PredictedProb <- plogis(fit)
-      LL <- plogis(fit - (1.96 * se.fit))
-      UL <- plogis(fit + (1.96 * se.fit))
-    })
-    
-    ## view first few rows of final dataset
-    head(newdata3)
-    
-    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country_cat), alpha = 0.02) + geom_line(aes(colour = country_cat),
-                                                                                                                                       size = 1) + ggtitle(analysis_variable_name) + scale_fill_discrete(name = "Country", labels = c("United States", "United Kingdom"))
-    
-    print(plot)
+   
   }
   
   # when  covariate 1 and covariate 2 and covariate 3 (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
@@ -242,8 +136,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 == "NA"){
     
     
-    print("we are in test 3")
-    
+
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                               data_HRS_subset[ ,   covariate1])
     
@@ -267,61 +160,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate3], 
                
                data = data_both_countries)
-    #no empty cells in the contingency table
-    xtabs(~discrimination + country_cat, data = data_both_countries)
-    
-    #
-    data_both_countries$country_cat <- factor(data_both_countries$country_cat)
-    mylogit <- fm2
-    
-    summary(mylogit)
-    
-    
-    Number_cases = nrow(data_both_countries)
-    
-    if (Number_cases) 
-      
-      if((Number_cases %% 2) == 0) {
-        print(paste(Number_cases,"is Even"))
-        data_both_countries = data_both_countries 
-        
-      } else {
-        print(paste(Number_cases,"is Odd"))
-        data_both_countries = data_both_countries[-c(1),]
-        
-      }
-    
-    Number_cases = nrow(data_both_countries)
-    print("new data frme")
-    print(Number_cases)
-    
-    Number_cases_level = Number_cases/2 
-    
-    #below plot: from min wealth in the dataset to max wealth in the dataset, 
-    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
-                                                                  2), 
-                                                     #gpa = mean(gpa), 
-                                                     country_cat = factor(rep(0:1, each = Number_cases_level))))
-    
-    print("test 3")
-    
-    
-    newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
-                                        se = TRUE))
-    newdata3 <- within(newdata3, {
-      PredictedProb <- plogis(fit)
-      LL <- plogis(fit - (1.96 * se.fit))
-      UL <- plogis(fit + (1.96 * se.fit))
-    })
-    
-    ## view first few rows of final dataset
-    head(newdata3)
-    
-    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country_cat), alpha = 0.02) + geom_line(aes(colour = country_cat),
-                                                                                                                                       size = 1) + ggtitle(analysis_variable_name) + scale_fill_discrete(name = "Country", labels = c("United States", "United Kingdom"))
-    
-    print(plot)
+   
     
   } 
   
@@ -373,21 +212,22 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   data_both_countries = na.omit(data_both_countries)
   
-  data_both_countries %>%
-    mutate(prob = ifelse(discrimination == "1", 1, 0)) 
-  plot =  ggplot(data_both_countries, aes(wealth, prob)) +
+
+  
+  plot_wealth = ggplot(data_both_countries, aes(wealth, discrimination)) +
     geom_point(alpha = 0.2) +
-    geom_smooth(method = "glm", method.args = list(family = "binomial")) +
+    geom_smooth(aes(colour = country_cat), method = "glm", method.args = list(family = "binomial"), fullrange = TRUE) +
+    scale_colour_discrete(name="country",
+                          breaks = c(0, 1), 
+                          labels=c("United States", "England")) + 
     labs(
       title = analysis_variable_name, 
       x = "wealth excluding pension, USD",
       y = "Probability of perceived discrimination"
     )
   
-  plot
   
-  print(plot)
-  
+  print(plot_wealth) 
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
   cross_country_OR_UK = cross_country_OR[2, 1]
