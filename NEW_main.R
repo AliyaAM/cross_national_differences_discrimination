@@ -116,6 +116,19 @@ HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(H
 
 ###### to be able to subset to low ses and high ses creaate new var: 
 
+ELSAdiscrimination_data_wave5_before_subsetting$wealth_pounds = ELSAdiscrimination_data_wave5_before_subsetting$w5wealth
+#median in ELSA: £239600  OR $324211.1 
+
+median(ELSAdiscrimination_data_wave5_before_subsetting$wealth_pounds, na.rm = TRUE)
+
+######### for the plots and ajusted analysis convert wealth to dollars, however when creating binary SES var it is irrelevent as it is a relative wealth within the sample that matters for that analysis 
+ELSAdiscrimination_data_wave5_before_subsetting$wealth = ELSAdiscrimination_data_wave5_before_subsetting$wealth_pounds * 1.353135
+median(ELSAdiscrimination_data_wave5_before_subsetting$wealth, na.rm = TRUE)
+
+
+HRS2010_discrimination_dataset_before_subsetting$wealth = HRS2010_discrimination_dataset_before_subsetting$wealth_noIRA_HRS2010
+
+########################################################
 
 ELSAdiscrimination_data_wave5_before_subsetting$medianWealth_ELSA = median(ELSAdiscrimination_data_wave5_before_subsetting$w5wealth)
 #ELSA median: 652000
@@ -475,8 +488,8 @@ ELSAdiscrimination_data_wave5_before_subsetting$employment = ELSAdiscrimination_
 HRS2010_discrimination_dataset_before_subsetting$employment =  HRS2010_discrimination_dataset_before_subsetting$employment_allCategories
 
 
-ELSAdiscrimination_data_wave5_before_subsetting$wealth = ELSAdiscrimination_data_wave5_before_subsetting$w5wealth
-HRS2010_discrimination_dataset_before_subsetting$wealth = HRS2010_discrimination_dataset_before_subsetting$wealth_noIRA_HRS2010
+ELSAdiscrimination_data_wave5_before_subsetting$wealth = ELSAdiscrimination_data_wave5_before_subsetting$wealth
+HRS2010_discrimination_dataset_before_subsetting$wealth = HRS2010_discrimination_dataset_before_subsetting$wealth
 
 
 ELSAdiscrimination_data_wave5_before_subsetting$wealth_quantiles = ELSAdiscrimination_data_wave5_before_subsetting$w5wealthq

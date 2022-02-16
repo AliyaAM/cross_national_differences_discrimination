@@ -150,8 +150,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   head(newdata3)
   
   plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
-                                                                                                                                     size = 1) + ggtitle(analysis_variable_name)
+                                                                                ymax = UL, fill = country_cat), alpha = 0.02) + geom_line(aes(colour = country_cat),
+                                                                                                                                     size = 1) + ggtitle(analysis_variable_name) + scale_fill_discrete(name = "Country", labels = c("United States", "United Kingdom"))
   
   print(plot)
   }
@@ -231,8 +231,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     head(newdata3)
     
     plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
-                                                                                                                                       size = 1) + ggtitle(analysis_variable_name)
+                                                                                  ymax = UL, fill = country_cat), alpha = 0.02) + geom_line(aes(colour = country_cat),
+                                                                                                                                       size = 1) + ggtitle(analysis_variable_name) + scale_fill_discrete(name = "Country", labels = c("United States", "United Kingdom"))
     
     print(plot)
   }
@@ -318,8 +318,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     head(newdata3)
     
     plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
-                                                                                                                                       size = 1) + ggtitle(analysis_variable_name)
+                                                                                  ymax = UL, fill = country_cat), alpha = 0.02) + geom_line(aes(colour = country_cat),
+                                                                                                                                       size = 1) + ggtitle(analysis_variable_name) + scale_fill_discrete(name = "Country", labels = c("United States", "United Kingdom"))
     
     print(plot)
     
@@ -402,7 +402,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     Number_cases_level = Number_cases/2 
     
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
-    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
+    newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 50000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
                                                      country_cat = factor(rep(0:1, each = Number_cases_level))))
@@ -431,9 +431,17 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     ## view first few rows of final dataset
     head(newdata3)
     
-    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + geom_ribbon(aes(ymin = LL,
-                                                                                  ymax = UL, fill = country_cat), alpha = 0.2) + geom_line(aes(colour = country_cat),
-                                                                                                                                       size = 1) + ggtitle(analysis_variable_name)
+    plot = ggplot(newdata3, aes(x = wealth, y = PredictedProb)) + 
+     geom_ribbon(aes(ymin = LL,
+                      ymax = UL, 
+                      fill = country_cat), 
+                  alpha = 0.02) + #this is thickness/transparency of the coloured CI area and NOT p-value
+      geom_line(aes(colour = country_cat), size = 0.1) + 
+      
+      ggtitle(analysis_variable_name) + 
+      
+      scale_fill_discrete(name = "Country",
+                            labels = c("United States", "United Kingdom"))
     
     print(plot)
     
