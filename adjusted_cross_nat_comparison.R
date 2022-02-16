@@ -87,7 +87,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   if(covariate1 != "NA" & covariate2 == "NA" &  covariate3 == "NA" &  covariate4 == "NA" ){
     
-    
+    print("we are in test 1")
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                               data_HRS_subset[ ,   covariate1])
     
@@ -112,14 +112,31 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   
   Number_cases = nrow(data_both_countries)
-  Number_cases_level = Number_cases/2
+  
+  if (Number_cases) 
+    
+    if((Number_cases %% 2) == 0) {
+      print(paste(Number_cases,"is Even"))
+      data_both_countries = data_both_countries 
+      
+    } else {
+      print(paste(Number_cases,"is Odd"))
+      data_both_countries = data_both_countries[-c(1),]
+      
+    }
+  
+  Number_cases = nrow(data_both_countries)
+  print("new data frme")
+  print(Number_cases)
+  
+  Number_cases_level = Number_cases/2 
   
   #below plot: from min wealth in the dataset to max wealth in the dataset, 
   newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                 2), 
                                                    #gpa = mean(gpa), 
                                                    country_cat = factor(rep(0:1, each = Number_cases_level))))
-  print("test")
+  print("test 1")
   
   newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
                                       se = TRUE))
@@ -143,6 +160,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 == "NA" &  covariate4 == "NA"){
     
+    print("we are in test 2, test two covars")
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                               data_HRS_subset[ ,   covariate1])
@@ -172,15 +190,33 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     
     summary(mylogit)
     
-
+    Number_cases = nrow(data_both_countries)
+    
+    if (Number_cases) 
+      
+      if((Number_cases %% 2) == 0) {
+        print(paste(Number_cases,"is Even"))
+        data_both_countries = data_both_countries 
+        
+      } else {
+        print(paste(Number_cases,"is Odd"))
+        data_both_countries = data_both_countries[-c(1),]
+        
+      }
     
     Number_cases = nrow(data_both_countries)
-    Number_cases_level = Number_cases/2
+    print("new data frme")
+    print(Number_cases)
+    
+    Number_cases_level = Number_cases/2 
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
     newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
                                                      country_cat = factor(rep(0:1, each = Number_cases_level))))
+    
+    print("test 2")
+    
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -204,6 +240,9 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   # when  covariate 1 and covariate 2 and covariate 3 (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 == "NA"){
+    
+    
+    print("we are in test 3")
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                               data_HRS_subset[ ,   covariate1])
@@ -239,13 +278,32 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     
     
     Number_cases = nrow(data_both_countries)
-    Number_cases_level = Number_cases/2
+    
+    if (Number_cases) 
+      
+      if((Number_cases %% 2) == 0) {
+        print(paste(Number_cases,"is Even"))
+        data_both_countries = data_both_countries 
+        
+      } else {
+        print(paste(Number_cases,"is Odd"))
+        data_both_countries = data_both_countries[-c(1),]
+        
+      }
+    
+    Number_cases = nrow(data_both_countries)
+    print("new data frme")
+    print(Number_cases)
+    
+    Number_cases_level = Number_cases/2 
     
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
     newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
                                                      country_cat = factor(rep(0:1, each = Number_cases_level))))
+    
+    print("test 3")
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
@@ -270,6 +328,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   # when  covariate 1 and covariate 2 and covariate 3 and covariate 4 (i.e, not NA, !=NA)  are included and the rest are NA then take the glm in the if statement below 
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
+    print("we are in, test 4")
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
     
@@ -308,17 +367,61 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     summary(mylogit)
     
     Number_cases = nrow(data_both_countries)
-    Number_cases_level = Number_cases/2
+    Number_cases_level = Number_cases/2 
+   
+    print("number of cases:") 
+    print(Number_cases)
+    
+    print(length(data_both_countries[ ,   covariate1]))
+    print(length(data_both_countries[ ,   covariate2]))
+    print(length(data_both_countries[ ,   covariate3]))
+    print(length(data_both_countries[ ,   covariate4]))
+    print(length(data_both_countries$country_cat))
+    print(length(data_both_countries$wealth))
+    
+  
+    
+    if (Number_cases) 
+        
+        if((Number_cases %% 2) == 0) {
+          print(paste(Number_cases,"is Even"))
+          data_both_countries = data_both_countries 
+          
+        } else {
+          print(paste(Number_cases,"is Odd"))
+          data_both_countries = data_both_countries[-c(1),]
+          
+        }
+      
+    
+    Number_cases = nrow(data_both_countries)
+    print("new data frme")
+    
+    print(Number_cases)
+    
+    Number_cases_level = Number_cases/2 
     
     #below plot: from min wealth in the dataset to max wealth in the dataset, 
     newdata2 <- with(data_both_countries, data.frame(wealth = rep(seq(from = -10000, to = 400000, length.out = Number_cases_level),
                                                                   2), 
                                                      #gpa = mean(gpa), 
                                                      country_cat = factor(rep(0:1, each = Number_cases_level))))
+    print("number of cases in newdata2")
+    print(nrow(newdata2))
+    
+    print(newdata2)
+    
+    print("test 4")
+    
     
     
     newdata3 <- cbind(newdata2, predict(mylogit, newdata = newdata2, type = "link",
                                         se = TRUE))
+    
+    print("number of cases in newdata3")
+    print(nrow(newdata3))
+    
+    
     newdata3 <- within(newdata3, {
       PredictedProb <- plogis(fit)
       LL <- plogis(fit - (1.96 * se.fit))

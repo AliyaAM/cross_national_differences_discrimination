@@ -741,7 +741,6 @@ adjusted_cross_nat_race_results = adjusted_cross_nat_comparison (data_ELSA = ELS
                                                                  discrimination_VAR_elsa = "w5racediscrimination2",
                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_race")
 
-
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_race_results) 
 
 
