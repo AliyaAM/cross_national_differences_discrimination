@@ -357,10 +357,36 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                + data_both_countries[ ,   covariate4], 
                
                data = data_both_countries)
-   
+    
+  plot_coeffcients =  coefplot(fm2, col.pts="blue")
+  print(plot_coeffcients)
+  
+  #https://cran.r-project.org/web/packages/jtools/vignettes/effect_plot.html
+  
+  
+  
+  #glm plotting logit regression 
+  #http://www.sthda.com/english/articles/36-classification-methods-essentials/151-logistic-regression-essentials-in-r/
+  
+    
   }
   
-
+  data_both_countries = na.omit(data_both_countries)
+  
+  data_both_countries %>%
+    mutate(prob = ifelse(discrimination == "1", 1, 0)) 
+  plot =  ggplot(data_both_countries, aes(wealth, prob)) +
+    geom_point(alpha = 0.2) +
+    geom_smooth(method = "glm", method.args = list(family = "binomial")) +
+    labs(
+      title = analysis_variable_name, 
+      x = "wealth excluding pension, USD",
+      y = "Probability of perceived discrimination"
+    )
+  
+  plot
+  
+  print(plot)
   
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
@@ -411,3 +437,4 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   return(cross_national_findings)
 }
+
