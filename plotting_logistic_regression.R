@@ -156,7 +156,7 @@ data_both_countries = na.omit(data_both_countries)
 
   data_both_countries$prob = ifelse(data_both_countries$discrimination == "1", 1, 0)
 
-  ggplot(aes(wealth, prob)) +
+  ggplot(data_both_countries, aes(wealth, prob), colour = country_cat) +
   geom_point(alpha = 0.2) +
   geom_smooth(method = "glm", method.args = list(family = "binomial")) +
   labs(

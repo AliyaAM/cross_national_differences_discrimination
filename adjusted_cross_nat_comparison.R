@@ -80,6 +80,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   data_both_countries$wealth = c(data_ELSA_subset$wealth,
                                  data_HRS_subset$wealth)
   
+  data_both_countries$age =  c(data_ELSA_subset$age,
+                               data_HRS_subset$age)
   
   # if then rule for a number of covariates, if the covariates are NA then a different glm model is passed 
 
@@ -197,25 +199,17 @@ adjusted_cross_nat_comparison = function (data_ELSA,
                
                data = data_both_countries)
     
-  plot_coeffcients =  coefplot(fm2, col.pts="blue")
-  print(plot_coeffcients)
-  
-  #https://cran.r-project.org/web/packages/jtools/vignettes/effect_plot.html
-  
-  
-  
-  #glm plotting logit regression 
-  #http://www.sthda.com/english/articles/36-classification-methods-essentials/151-logistic-regression-essentials-in-r/
   
     
   }
   
   data_both_countries = na.omit(data_both_countries)
-  
 
+
+  # plotting discrimination against wealth and age 
   
   plot_wealth = ggplot(data_both_countries, aes(wealth, discrimination)) +
-    geom_point(alpha = 0.2) +
+    #geom_point(alpha = 0.2) +
     geom_smooth(aes(colour = country_cat), method = "glm", method.args = list(family = "binomial"), fullrange = TRUE) +
     scale_colour_discrete(name="country",
                           breaks = c(0, 1), 
@@ -224,11 +218,106 @@ adjusted_cross_nat_comparison = function (data_ELSA,
       title = analysis_variable_name, 
       x = "wealth excluding pension, USD",
       y = "Probability of perceived discrimination"
-    )
+    )+
+    scale_x_continuous(labels = comma, limits = c(-500000, 500000))+ 
+    scale_y_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits = c(0, 1)) + 
+    
+    theme(text = element_text(size = 20), legend.justification=c(1,1), legend.position=c(1,1))
   
+  plot_age = ggplot(data_both_countries, aes(age, discrimination)) +
+    #geom_point(alpha = 0.2) +
+    geom_smooth(aes(colour = country_cat), method = "glm", method.args = list(family = "binomial"), fullrange = TRUE) +
+    scale_y_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits = c(0, 1)) + 
+    
+    scale_colour_discrete(name="country",
+                          breaks = c(0, 1), 
+                          labels=c("United States", "England")) + 
+    labs(
+      title = analysis_variable_name, 
+      x = "age, years",
+      y = "Probability of perceived discrimination"
+    )+
+    theme(text = element_text(size = 20), legend.justification=c(1,1), legend.position=c(1,1))
+
+
   
   print(plot_wealth) 
+  print(plot_age) 
   
+  ############
+  #outputting wealth gradient results 
+  
+  path <- OUTPUT_ROOT
+  
+  folder = paste(analysis_variable_name, "/", sep = "")
+  
+  dir.create(paste(path, folder, sep = ""))
+  
+  
+  #wealth gradient 
+  wealth_discrimination =  summary(glm(discrimination ~ wealth, family = "binomial", data = data_both_countries))
+  wealth_gradient = wealth_discrimination$coefficients
+  wealth_gradient = as.data.frame(wealth_gradient)
+  
+  
+  write.csv(wealth_gradient, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination.csv", sep=""))
+  
+  ########
+  ELSA_subset_wealth_gradient = subset(data_both_countries, data_both_countries$country_cat == 1)
+  
+  
+  wealth_discrimination_ELSA =  summary(glm(discrimination ~ wealth, family = "binomial", data = ELSA_subset_wealth_gradient))
+  wealth_gradient_ELSA = wealth_discrimination_ELSA$coefficients
+  wealth_gradient_ELSA = as.data.frame(wealth_gradient_ELSA)
+  
+  
+  write.csv(wealth_gradient_ELSA, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_ELSA.csv", sep=""))
+  
+  
+  ########
+  HRS_subset_wealth_gradient = subset(data_both_countries, data_both_countries$country_cat == 0)
+  
+  
+  wealth_discrimination_HRS =  summary(glm(discrimination ~ wealth, family = "binomial", data = HRS_subset_wealth_gradient))
+  wealth_gradient_HRS = wealth_discrimination_HRS$coefficients
+  wealth_gradient_HRS = as.data.frame(wealth_gradient_HRS)
+  
+  
+  write.csv(wealth_gradient_HRS, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_HRS.csv", sep=""))
+  
+  #outputting age gradient results 
+  
+  age_discrimination =  summary(glm(discrimination ~ age, family = "binomial", data = data_both_countries))
+  age_gradient = age_discrimination$coefficients
+  age_gradient = as.data.frame(age_gradient)
+  
+  write.csv(age_gradient, file = paste(OUTPUT_ROOT, folder,  "age_gradient_discrimination.csv", sep=""))
+  
+  
+  ########
+  ELSA_subset_age_gradient = subset(data_both_countries, data_both_countries$country_cat == 1)
+  
+  
+  age_discrimination_ELSA =  summary(glm(discrimination ~ age, family = "binomial", data = ELSA_subset_age_gradient))
+  age_gradient_ELSA = age_discrimination_ELSA$coefficients
+  age_gradient_ELSA = as.data.frame(age_gradient_ELSA)
+  
+  
+  write.csv(age_gradient_ELSA, file = paste(OUTPUT_ROOT, folder,  "age_gradient_discrimination_ELSA.csv", sep=""))
+  
+  
+  ########
+  HRS_subset_age_gradient = subset(data_both_countries, data_both_countries$country_cat == 0)
+  
+  
+  age_discrimination_HRS =  summary(glm(discrimination ~ age, family = "binomial", data = HRS_subset_age_gradient))
+  age_gradient_HRS = age_discrimination_HRS$coefficients
+  age_gradient_HRS = as.data.frame(age_gradient_HRS)
+  
+  
+  write.csv(age_gradient_HRS, file = paste(OUTPUT_ROOT, folder,  "age_gradient_discrimination_HRS.csv", sep=""))
+  
+  ##### cross-national differences in discriminaiton, outputting results 
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
   cross_country_OR_UK = cross_country_OR[2, 1]
   CI1_UK = cross_country_OR[2, 2]
@@ -278,3 +367,11 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   return(cross_national_findings)
 }
 
+
+
+#https://cran.r-project.org/web/packages/jtools/vignettes/effect_plot.html
+
+
+
+#glm plotting logit regression 
+#http://www.sthda.com/english/articles/36-classification-methods-essentials/151-logistic-regression-essentials-in-r/
