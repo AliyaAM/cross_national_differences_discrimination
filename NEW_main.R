@@ -6,6 +6,8 @@ library(stats)
 library(ggplot2)
 library(scales)
 library(arm)
+library(stats)
+
 
 library(tidyverse)
 
@@ -182,6 +184,10 @@ HRS2010_discrimination_dataset_before_subsetting$employment =  HRS2010_discrimin
 ELSAdiscrimination_data_wave5_before_subsetting$wealth = ELSAdiscrimination_data_wave5_before_subsetting$wealth
 HRS2010_discrimination_dataset_before_subsetting$wealth = HRS2010_discrimination_dataset_before_subsetting$wealth
 
+ELSA_wealth = (ELSAdiscrimination_data_wave5_before_subsetting$wealth)
+sd(ELSA_wealth)
+
+sd(HRS2010_discrimination_dataset_before_subsetting$wealth)
 
 ELSAdiscrimination_data_wave5_before_subsetting$wealth_quantiles = ELSAdiscrimination_data_wave5_before_subsetting$w5wealthq
 HRS2010_discrimination_dataset_before_subsetting$wealth_quantiles =  HRS2010_discrimination_dataset_before_subsetting$Percentile_wealth_noIRA_HRS2010
@@ -553,7 +559,11 @@ adjusted_cross_nat_disability_results = adjusted_cross_nat_comparison (data_ELSA
                                                                        covariate3 = "wealth",
                                                                        covariate4 = "NA",
                                                                        
+                                                                       wealth_gradient_cov1 = "age", 
+                                                                       wealth_gradient_cov2 = "employment",
+                                                                       wealth_gradient_cov3 = "NA", 
                                                                        
+
                                                                        discrimination_VAR_elsa = "w5disabilitydiscrimination2",
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_disability")
 
@@ -586,7 +596,11 @@ adjusted_cross_nat_financial_bothSexes_results = adjusted_cross_nat_comparison (
                                                                                 covariate3 = "wealth",
                                                                                 covariate4 = "NA", 
                                                                                 
+                                                                                wealth_gradient_cov1 = "age", 
+                                                                                wealth_gradient_cov2 = "employment",
+                                                                                wealth_gradient_cov3 = "sex", 
                                                                                 
+
                                                                                 discrimination_VAR_elsa = "w5discrim_financial2",
                                                                                 discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
 
@@ -621,7 +635,11 @@ adjusted_cross_nat_financial_female_results = adjusted_cross_nat_comparison (dat
                                                                              covariate3 = "NA",
                                                                              covariate4 = "NA", 
                                                                              
+                                                                             wealth_gradient_cov1 = "age", 
+                                                                             wealth_gradient_cov2 = "employment",
+                                                                             wealth_gradient_cov3 = "NA", 
                                                                              
+
                                                                              discrimination_VAR_elsa = "w5discrim_financial2",
                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
 
@@ -655,6 +673,11 @@ adjusted_cross_nat_financial_male_results = adjusted_cross_nat_comparison (data_
                                                                            covariate4 = "NA", 
                                                                            
                                                                            
+                                                                           wealth_gradient_cov1 = "age", 
+                                                                           wealth_gradient_cov2 = "employment",
+                                                                           wealth_gradient_cov3 = "NA", 
+                                                                           
+
                                                                            discrimination_VAR_elsa = "w5discrim_financial2",
                                                                            discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
 
@@ -688,6 +711,12 @@ adjusted_cross_nat_sex_female_results = adjusted_cross_nat_comparison (data_ELSA
                                                                        covariate4 = "NA", 
                                                                        
                                                                        
+                                                                       wealth_gradient_cov1 = "age", 
+                                                                       wealth_gradient_cov2 = "NA",
+                                                                       wealth_gradient_cov3 = "NA", 
+                                                                       
+
+                                                                      
                                                                        discrimination_VAR_elsa = "w5sexdiscrimination2",
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
 
@@ -722,6 +751,10 @@ adjusted_cross_nat_sex_male_results = adjusted_cross_nat_comparison (data_ELSA =
                                                                      covariate2 = "wealth",
                                                                      covariate3 = "NA",
                                                                      covariate4 = "NA", 
+                                                                     
+                                                                     wealth_gradient_cov1 = "age", 
+                                                                     wealth_gradient_cov2 = "NA",
+                                                                     wealth_gradient_cov3 = "NA", 
                                                                      
                                                                      
                                                                      discrimination_VAR_elsa = "w5sexdiscrimination2",
@@ -759,6 +792,11 @@ adjusted_cross_nat_race_results = adjusted_cross_nat_comparison (data_ELSA = ELS
                                                                  covariate3 = "wealth",
                                                                  covariate4 = "NA", 
                                                                  
+                                                                 wealth_gradient_cov1 = "sex", 
+                                                                 wealth_gradient_cov2 = "NA",
+                                                                 wealth_gradient_cov3 = "NA", 
+                                                                 
+
                                                                  
                                                                  discrimination_VAR_elsa = "w5racediscrimination2",
                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_race")
@@ -809,6 +847,11 @@ adjusted_cross_nat_weight_29_9_results = adjusted_cross_nat_comparison_weight (d
                                                                                covariate3 = "wealth",
                                                                                covariate4 = "NA",
                                                                                
+                                                                               wealth_gradient_cov1 = "age", 
+                                                                               wealth_gradient_cov2 = "employment",
+                                                                               wealth_gradient_cov3 = "sex", 
+                                                                               
+                                                                              
                                                                                
                                                                                discrimination_VAR_elsa = "w5weightdiscrimination2",
                                                                                discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
@@ -844,6 +887,13 @@ adjusted_cross_nat_weight_25_results = adjusted_cross_nat_comparison_weight (dat
                                                                              covariate4 = "NA",
                                                                              
                                                                              
+                                                                             wealth_gradient_cov1 = "age", 
+                                                                             wealth_gradient_cov2 = "employment",
+                                                                             wealth_gradient_cov3 = "sex", 
+                                                                             
+                                                                          
+                                                                             
+                                                                             
                                                                              discrimination_VAR_elsa = "w5weightdiscrimination2",
                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
 
@@ -877,6 +927,12 @@ adjusted_cross_nat_weight_both_results = adjusted_cross_nat_comparison_weight(da
                                                                        covariate2 = "sex", 
                                                                        covariate3 = "wealth",
                                                                        covariate4 = "NA",
+                                                                       
+                                                                       wealth_gradient_cov1 = "age", 
+                                                                       wealth_gradient_cov2 = "employment",
+                                                                       wealth_gradient_cov3 = "sex", 
+                                                                       
+                                                                      
                                                                        
                                                                        discrimination_VAR_elsa = "w5weightdiscrimination2",
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
