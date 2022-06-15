@@ -81,7 +81,7 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   data_both_countries$discrimination = c(data_ELSA_subset[ , discrimination_VAR_elsa],
                                          data_HRS_subset[ , discrimination_VAR_hrs] )
   
-  data_both_countries$discrimination = as.factor(data_both_countries$discrimination)
+  #data_both_countries$discrimination = as.factor(data_both_countries$discrimination)
   
   data_both_countries$wealth = c(data_ELSA_subset$wealth,
                                  data_HRS_subset$wealth)
@@ -212,12 +212,12 @@ adjusted_cross_nat_comparison = function (data_ELSA,
     
   }
   
-  #data_both_countries = na.omit(data_both_countries)
+  data_both_countries = na.omit(data_both_countries)
 
 
   # plotting discrimination against wealth and age 
   
-  plot_wealth = ggplot(data_both_countries, aes(wealth, discrimination)) +
+  plot_wealth = ggplot(data_both_countries, aes(x = wealth, y = discrimination)) +
     #geom_point(alpha = 0.2) +
     geom_smooth(aes(colour = country_cat), method = "glm", method.args = list(family = "binomial"), fullrange = TRUE) +
     scale_colour_discrete(name="country",
@@ -260,6 +260,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   folder = paste(analysis_variable_name, "/", sep = "")
   
   dir.create(paste(path, folder, sep = ""))
+  
+
   
   if(wealth_gradient_cov1 == "NA" & wealth_gradient_cov2 == "NA" & wealth_gradient_cov3 == "NA"){
     
@@ -311,15 +313,33 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   ########
   ########
   ########
+  
+  print("got here, debugging wealth_gradient_cov1")
+  
   if(wealth_gradient_cov1 != "NA" & wealth_gradient_cov2 == "NA" & wealth_gradient_cov3 == "NA"){
     
+    print("nrow(data_ELSA_subset)")
+    print(nrow(data_ELSA_subset))
+    
+    print("nrow(data_HRS_subset)")
+    print(nrow(data_HRS_subset))
+    
+    print("(data_ELSA_subset[ ,   wealth_gradient_cov1]")
+    print(data_ELSA_subset[ ,   wealth_gradient_cov1])
+    
+    print("data_HRS_subset[ ,   wealth_gradient_cov1]")
+    print(data_HRS_subset[ ,   wealth_gradient_cov1])
+    
+
     data_both_countries[ ,   wealth_gradient_cov1] = c(data_ELSA_subset[ ,   wealth_gradient_cov1],
                                                        data_HRS_subset[ ,   wealth_gradient_cov1])
     
+    print(nrow(data_both_countries))
     
     #wealth gradient 
     wealth_discrimination_adjusted =  summary(glm(scale(discrimination) ~ scale(wealth) + scale(data_both_countries[ ,   wealth_gradient_cov1]), 
                                                   family = "binomial", data = data_both_countries))
+    
     wealth_gradient_adjusted  = wealth_discrimination_adjusted$coefficients
     wealth_gradient_adjusted = as.data.frame(wealth_gradient_adjusted)
     
@@ -375,24 +395,62 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   ########
   if(wealth_gradient_cov1 != "NA" & wealth_gradient_cov2 != "NA" & wealth_gradient_cov3 == "NA"){
     
+    print("second if statement")
+    
+    print("nrow(data_ELSA_subset) 2")
+    print(nrow(data_ELSA_subset))
+    
+    print("nrow(data_HRS_subset) 2")
+    print(nrow(data_HRS_subset))
+    
+    print("(data_ELSA_subset[ ,   wealth_gradient_cov1] 2")
+    print(data_ELSA_subset[ ,   wealth_gradient_cov1])
+    
+    print("data_HRS_subset[ ,   wealth_gradient_cov1] 2")
+    print(data_HRS_subset[ ,   wealth_gradient_cov1])
+    
+    
     data_both_countries[ ,   wealth_gradient_cov1] = c(data_ELSA_subset[ ,   wealth_gradient_cov1],
                                                        data_HRS_subset[ ,   wealth_gradient_cov1])
     
+    
+    print("one_")
+    
     data_both_countries[ ,   wealth_gradient_cov2] = c(data_ELSA_subset[ ,   wealth_gradient_cov2],
                                                        data_HRS_subset[ ,   wealth_gradient_cov2])
+    
+    
+    print("two_")
     
     #wealth gradient 
     wealth_discrimination_adjusted2 =  summary(glm(scale(discrimination) ~ scale(wealth) + scale(data_both_countries[ ,   wealth_gradient_cov1]) + scale(data_both_countries[ ,   wealth_gradient_cov2]), 
                                                    family = "binomial", data = data_both_countries))
     
+    
+    
+    print("three_")
+    
+    
+    
     wealth_gradient_adjusted2  = wealth_discrimination_adjusted2$coefficients
     wealth_gradient_adjusted2 = as.data.frame(wealth_gradient_adjusted2)
+    
+    
+    print("four_")
     
     
     write.csv(wealth_gradient_adjusted2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_cov2.csv", sep=""))
     
     
+    print("five_")
+    
+    
+    
     wealth_gradient_adjusted_coef2 = coef(wealth_discrimination_adjusted2)
+    
+    
+    
+    print("six_")
     
     write.csv(wealth_gradient_adjusted_coef2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_coef2.csv", sep=""))
     
@@ -434,6 +492,21 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   
   if(wealth_gradient_cov1 != "NA" & wealth_gradient_cov2 != "NA" & wealth_gradient_cov3 != "NA"){
+    
+    
+    print("third if statement")
+    
+    print("nrow(data_ELSA_subset) 3")
+    print(nrow(data_ELSA_subset))
+    
+    print("nrow(data_HRS_subset) 3")
+    print(nrow(data_HRS_subset))
+    
+    print("(data_ELSA_subset[ ,   wealth_gradient_cov1] 3")
+    print(data_ELSA_subset[ ,   wealth_gradient_cov1])
+    
+    print("data_HRS_subset[ ,   wealth_gradient_cov1] 3")
+    print(data_HRS_subset[ ,   wealth_gradient_cov1])
     
     
     data_both_countries[ ,   wealth_gradient_cov1] = c(data_ELSA_subset[ ,   wealth_gradient_cov1],
@@ -549,6 +622,9 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   chi_value_cross_national = cross_national_diff$stats[1]
   pvalue_cross_national = cross_national_diff$stats[3]
   
+  
+  
+  print("got here, debugging wealth_gradient_cov1 second message")
   
   
   cross_national_findings = cbind(analysis_variable_name, 

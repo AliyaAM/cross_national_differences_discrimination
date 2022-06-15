@@ -518,7 +518,7 @@ Unadjusted_results = rbind(Unadjusted_results, Unadjusted_cross_nat_weight_both_
 
 ################### Adjusted analysis is below: 
 
-
+print("Unadjusted_results done")
 
 
 # append the results for the adjusted for covariates ORs using function adjusted_cross_nat_comparison
@@ -568,6 +568,7 @@ adjusted_cross_nat_disability_results = adjusted_cross_nat_comparison (data_ELSA
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_disability")
 
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_disability_results) 
+
 
 #adjusted model for financial discrimination both genders 
 
