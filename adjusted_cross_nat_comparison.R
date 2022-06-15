@@ -81,6 +81,8 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   data_both_countries$discrimination = c(data_ELSA_subset[ , discrimination_VAR_elsa],
                                          data_HRS_subset[ , discrimination_VAR_hrs] )
   
+  data_both_countries$discrimination = as.factor(data_both_countries$discrimination)
+  
   data_both_countries$wealth = c(data_ELSA_subset$wealth,
                                  data_HRS_subset$wealth)
   
