@@ -90,12 +90,15 @@ SES_unadjusted_cros_nat_comparison = function (data_ELSA,
   Odds_ratio_HRS_CI_upper = exp(log(Odds_ratio_HRS) + 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
   
   
-  
+  print("country before")
   #predictor dummy varibale: country (UK vs USA)
   country_cat = c(data_ELSA_subset$country, 
                   data_HRS_subset$country)
   
   data_both_countries = data.frame(country_cat)
+  
+  print("country concuntinated .... ")
+  
   #outcome concatinated into a new dataframe pooling ELSA and HRS (make sure the order as above)
   
   data_both_countries$discrimination = c(data_ELSA_subset[ , discrimination_VAR_elsa],

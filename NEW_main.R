@@ -940,6 +940,20 @@ adjusted_cross_nat_weight_both_results = adjusted_cross_nat_comparison_weight(da
 
 
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_both_results) 
+
+print("adjusted results done")
+
+print("adjusted results done")
+
+print("adjusted results done")
+
+print("adjusted results done")
+
+print("adjusted results done")
+
+print("adjusted results done")
+
+
 ####################
 
 write.csv(adjusted_results, file = paste(OUTPUT_ROOT, "Cross_nat_diff_adjusted_results_basic_adjustment.csv", sep=""))
