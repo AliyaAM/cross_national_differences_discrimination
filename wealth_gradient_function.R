@@ -93,9 +93,9 @@ wealth_gradient_function = function (data_ELSA,
   
   version = version
   
-  folder = paste(analysis_variable_name, "/", sep = "")
+  folder = paste(analysis_variable_name,version, "/", sep = "")
   
-  dir.create(paste(path, folder, version, sep = ""))
+  dir.create(paste(path, folder, sep = ""))
   
   
   
@@ -154,20 +154,42 @@ wealth_gradient_function = function (data_ELSA,
     data_both_countries[ ,   wealth_gradient_cov1] = c(data_ELSA_subset[ ,   wealth_gradient_cov1],
                                                        data_HRS_subset[ ,   wealth_gradient_cov1])
     
+    print("nrow(data_both_countries)") 
+    
+    print(nrow(data_both_countries)) 
+    
+    print("length(data_both_countries[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_both_countries[ ,   wealth_gradient_cov1]))
+   
+
+    
+    print("nrow(data_ELSA_subset)") 
+    
+    print(nrow(data_ELSA_subset)) 
+    
+    print("length(data_ELSA_subset[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_ELSA_subset[ ,   wealth_gradient_cov1]))
+    
+ 
+    print("nrow(data_HRS_subset)") 
+    
+    print(nrow(data_HRS_subset)) 
+    
+    print("length(data_HRS_subset[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_HRS_subset[ ,   wealth_gradient_cov1]))
     
     #wealth gradient 
     wealth_discrimination_adjusted =  summary(glm(discrimination ~ wealth + data_both_countries[ ,   wealth_gradient_cov1], 
                                                   family = "binomial", data = data_both_countries))
+     
     wealth_gradient_adjusted  = wealth_discrimination_adjusted$coefficients
-    wealth_gradient_adjusted = as.data.frame(wealth_gradient_adjusted)
-    
+    #wealth_gradient_adjusted = as.data.frame(wealth_gradient_adjusted)
     
     write.csv(wealth_gradient_adjusted, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_cov1.csv", sep=""))
     
-    
-    wealth_gradient_adjusted_coef = coef(wealth_discrimination_adjusted)
-    
-    write.csv(wealth_gradient_adjusted_coef, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_coef_cov1.csv", sep=""))
     
     
     ########
@@ -182,9 +204,6 @@ wealth_gradient_function = function (data_ELSA,
     
     write.csv(wealth_gradient_ELSA_adjusted, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_ELSA_adjusted_cov1.csv", sep=""))
     
-    wealth_gradient_adjusted_coef_ELSA = coef(wealth_discrimination_ELSA_adjusted)
-    
-    write.csv(wealth_gradient_adjusted_coef_ELSA, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_coef_ELSA_cov1.csv", sep=""))
     
     
     ########
@@ -199,10 +218,7 @@ wealth_gradient_function = function (data_ELSA,
     
     write.csv(wealth_gradient_HRS_adjusted, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_HRS_adjusted_cov1.csv", sep=""))
     
-    wealth_gradient_adjusted_coef_HRS = coef(wealth_discrimination_HRS_adjusted)
-    
-    write.csv(wealth_gradient_adjusted_coef_HRS, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_coef_HRS_cov1.csv", sep=""))
-    
+   
   }
   #########
   #########
@@ -219,6 +235,35 @@ wealth_gradient_function = function (data_ELSA,
     data_both_countries[ ,   wealth_gradient_cov2] = c(data_ELSA_subset[ ,   wealth_gradient_cov2],
                                                        data_HRS_subset[ ,   wealth_gradient_cov2])
     
+    
+    
+    print("nrow(data_both_countries)") 
+    
+    print(nrow(data_both_countries)) 
+    
+    print("length(data_both_countries[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_both_countries[ ,   wealth_gradient_cov1]))
+    
+    
+    
+    print("nrow(data_ELSA_subset)") 
+    
+    print(nrow(data_ELSA_subset)) 
+    
+    print("length(data_ELSA_subset[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_ELSA_subset[ ,   wealth_gradient_cov1]))
+    
+    
+    print("nrow(data_HRS_subset)") 
+    
+    print(nrow(data_HRS_subset)) 
+    
+    print("length(data_HRS_subset[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_HRS_subset[ ,   wealth_gradient_cov1]))
+    
     #wealth gradient 
     wealth_discrimination_adjusted2 =  summary(glm(discrimination ~ wealth + data_both_countries[ ,   wealth_gradient_cov1] + data_both_countries[ ,   wealth_gradient_cov2], 
                                                    family = "binomial", data = data_both_countries))
@@ -230,9 +275,6 @@ wealth_gradient_function = function (data_ELSA,
     write.csv(wealth_gradient_adjusted2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_cov2.csv", sep=""))
     
     
-    wealth_gradient_adjusted_coef2 = coef(wealth_discrimination_adjusted2)
-    
-    write.csv(wealth_gradient_adjusted_coef2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_coef2.csv", sep=""))
     
     ########
     ELSA_subset_wealth_gradient = subset(data_both_countries, data_both_countries$country_cat == 1)
@@ -244,9 +286,7 @@ wealth_gradient_function = function (data_ELSA,
     wealth_gradient_ELSA_adjusted2 = wealth_discrimination_ELSA_adjusted2$coefficients
     wealth_gradient_ELSA_adjusted2 = as.data.frame(wealth_gradient_ELSA_adjusted2)
     
-    wealth_gradient_adjusted_ELSA_coef2 = coef(wealth_discrimination_ELSA_adjusted2)
-    write.csv(wealth_gradient_adjusted_ELSA_coef2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_ELSA_coef2.csv", sep=""))
-    
+  
     
     write.csv(wealth_gradient_ELSA_adjusted2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_ELSA_adjusted_cov2.csv", sep=""))
     
@@ -264,8 +304,6 @@ wealth_gradient_function = function (data_ELSA,
     
     write.csv(wealth_gradient_HRS_adjusted2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_HRS_adjusted_cov2.csv", sep=""))
     
-    wealth_gradient_adjusted_HRS_coef2 = coef(wealth_discrimination_HRS_adjusted2)
-    write.csv(wealth_gradient_adjusted_HRS_coef2, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_HRS_coef2.csv", sep=""))
     
     
   }
@@ -285,6 +323,33 @@ wealth_gradient_function = function (data_ELSA,
     
     
     
+    print("nrow(data_both_countries)") 
+    
+    print(nrow(data_both_countries)) 
+    
+    print("length(data_both_countries[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_both_countries[ ,   wealth_gradient_cov1]))
+    
+    
+    
+    print("nrow(data_ELSA_subset)") 
+    
+    print(nrow(data_ELSA_subset)) 
+    
+    print("length(data_ELSA_subset[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_ELSA_subset[ ,   wealth_gradient_cov1]))
+    
+    
+    print("nrow(data_HRS_subset)") 
+    
+    print(nrow(data_HRS_subset)) 
+    
+    print("length(data_HRS_subset[ ,   wealth_gradient_cov1])")
+    
+    print(length(data_HRS_subset[ ,   wealth_gradient_cov1]))
+    
     #wealth gradient 
     wealth_discrimination_adjusted3 =  summary(glm(discrimination ~ wealth + data_both_countries[ ,   wealth_gradient_cov1] + data_both_countries[ ,   wealth_gradient_cov2] + data_both_countries[ ,   wealth_gradient_cov3], 
                                                    family = "binomial", data = data_both_countries))
@@ -295,8 +360,6 @@ wealth_gradient_function = function (data_ELSA,
     
     write.csv(wealth_gradient_adjusted3, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_cov3.csv", sep=""))
     
-    wealth_gradient_adjusted_coef3 = coef(wealth_discrimination_adjusted3)
-    write.csv(wealth_gradient_adjusted_coef3, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_adjusted_coef3.csv", sep=""))
     
     
     ########
@@ -312,9 +375,6 @@ wealth_gradient_function = function (data_ELSA,
     
     write.csv(wealth_gradient_ELSA_adjusted3, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_ELSA_adjusted_cov3.csv", sep=""))
     
-    wealth_gradient_ELSA_adjusted_coef3 = coef(wealth_discrimination_ELSA_adjusted3)
-    write.csv(wealth_gradient_ELSA_adjusted_coef3, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_ELSA_adjusted_coef3.csv", sep=""))
-    
     
     ########
     HRS_subset_wealth_gradient = subset(data_both_countries, data_both_countries$country_cat == 0)
@@ -329,8 +389,6 @@ wealth_gradient_function = function (data_ELSA,
     
     write.csv(wealth_gradient_HRS_adjusted3, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_discrimination_HRS_adjusted_cov3.csv", sep=""))
     
-    wealth_gradient_HRS_adjusted_coef3 = coef(wealth_discrimination_HRS_adjusted3)
-    write.csv(wealth_gradient_HRS_adjusted_coef3, file = paste(OUTPUT_ROOT, folder,  "wealth_gradient_HRS_adjusted_coef3.csv", sep=""))
     
     
   }

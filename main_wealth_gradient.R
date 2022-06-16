@@ -25,7 +25,7 @@ SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 
 
 ###### sourcing code for the unadjusted analysis 
-source(paste(SOURCE_ROOT, "wealth_gradient_function.R", sep=""))
+source(paste(SOURCE_ROOT, "wealth_gradient_function_adjust_age_only.R", sep=""))
 
 
 
@@ -153,7 +153,7 @@ HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discri
 
 
 #adjusted model for disability, subsettign further to those who have a physical lim. 
-adjusted_cross_nat_disability_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_disability_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                        
                                                                        
@@ -180,10 +180,6 @@ adjusted_cross_nat_disability_results = wealth_gradient_function (data_ELSA = EL
                                                                        
                                                                        
                                                                        
-                                                                       wealth_gradient_cov1 = "age", 
-                                                                       wealth_gradient_cov2 = "NA",
-                                                                       wealth_gradient_cov3 = "NA", 
-                                                                       
                                                                        version = "basic_adjustment_wealth_gradient", 
                                                                        
                                                                        discrimination_VAR_elsa = "w5disabilitydiscrimination2",
@@ -194,7 +190,7 @@ adjusted_results = rbind(adjusted_results, adjusted_cross_nat_disability_results
 
 #adjusted model for financial discrimination both genders 
 
-adjusted_cross_nat_financial_bothSexes_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_financial_bothSexes_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                 data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                 
                                                                                 analysis_variable_name = "financial_status_discrimination",
@@ -214,11 +210,7 @@ adjusted_cross_nat_financial_bothSexes_results = wealth_gradient_function (data_
                                                                                 ELSA_var2_value = "NA", 
                                                                                 HRS_var2_value = "NA", 
                                                                             
-                                                                                
-                                                                                wealth_gradient_cov1 = "age", 
-                                                                                wealth_gradient_cov2 = "sex",
-                                                                                wealth_gradient_cov3 = "NA", 
-                                                                                
+                                                                              
                                                                                 version = "basic_adjustment_wealth_gradient", 
                                                                                 
                                                                                 
@@ -228,7 +220,7 @@ adjusted_cross_nat_financial_bothSexes_results = wealth_gradient_function (data_
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_financial_bothSexes_results) 
 
 #####
-adjusted_cross_nat_financial_female_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_financial_female_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                              data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                              
                                                                              analysis_variable_name = "financial_status_discrimination_female",
@@ -252,9 +244,6 @@ adjusted_cross_nat_financial_female_results = wealth_gradient_function (data_ELS
                                                                              
                                                                           
                                                                              
-                                                                             wealth_gradient_cov1 = "age", 
-                                                                             wealth_gradient_cov2 = "NA",
-                                                                             wealth_gradient_cov3 = "NA", 
                                                                              
                                                                              
                                                                              version = "basic_adjustment_wealth_gradient", 
@@ -268,7 +257,7 @@ adjusted_results = rbind(adjusted_results, adjusted_cross_nat_financial_female_r
 
 
 #####
-adjusted_cross_nat_financial_male_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_financial_male_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                            data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                            
                                                                            analysis_variable_name = "financial_status_discrimination_male",
@@ -290,11 +279,6 @@ adjusted_cross_nat_financial_male_results = wealth_gradient_function (data_ELSA 
                                                                       
                                                                            
                                                                            
-                                                                           wealth_gradient_cov1 = "age", 
-                                                                           wealth_gradient_cov2 = "NA",
-                                                                           wealth_gradient_cov3 = "NA", 
-                                                                           
-                                                                           
                                                                            version = "basic_adjustment_wealth_gradient", 
                                                                            
                                                                            
@@ -305,7 +289,7 @@ adjusted_cross_nat_financial_male_results = wealth_gradient_function (data_ELSA 
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_financial_male_results) 
 
 #####
-adjusted_cross_nat_sex_female_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_sex_female_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                        
                                                                        analysis_variable_name = "sex_discrimination",
@@ -328,9 +312,6 @@ adjusted_cross_nat_sex_female_results = wealth_gradient_function (data_ELSA = EL
                                                               
                                                                        
                                                                        
-                                                                       wealth_gradient_cov1 = "age", 
-                                                                       wealth_gradient_cov2 = "NA",
-                                                                       wealth_gradient_cov3 = "NA", 
                                                                        
                                                                        
                                                                        version = "basic_adjustment_wealth_gradient", 
@@ -347,7 +328,7 @@ adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sex_female_results
 
 
 #####
-adjusted_cross_nat_sex_male_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_sex_male_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                      data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                      
                                                                      analysis_variable_name = "sex_discrimination_male",
@@ -370,9 +351,6 @@ adjusted_cross_nat_sex_male_results = wealth_gradient_function (data_ELSA = ELSA
                                                                      
                                                                 
                                                                      
-                                                                     wealth_gradient_cov1 = "age", 
-                                                                     wealth_gradient_cov2 = "NA",
-                                                                     wealth_gradient_cov3 = "NA", 
                                                                      
                                                                      
                                                                      version = "basic_adjustment_wealth_gradient", 
@@ -388,7 +366,7 @@ adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sex_male_results)
 
 
 #####
-adjusted_cross_nat_race_results = wealth_gradient_function (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_race_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                  
                                                                  analysis_variable_name = "race_discrimination",
@@ -409,10 +387,6 @@ adjusted_cross_nat_race_results = wealth_gradient_function (data_ELSA = ELSAdisc
                                                                  HRS_var2_value = "NA", 
                                                                  
                                                         
-                                                                 
-                                                                 wealth_gradient_cov1 = "sex", 
-                                                                 wealth_gradient_cov2 = "NA",
-                                                                 wealth_gradient_cov3 = "NA", 
                                                                  
                                                                  
                                                                  version = "basic_adjustment_wealth_gradient", 
@@ -443,7 +417,7 @@ adjusted_cross_nat_sexuality_results = c(NA,
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sexuality_results) 
 
 
-adjusted_cross_nat_weight_29_9_results = wealth_gradient_function_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_weight_29_9_results = wealth_gradient_function_adjust_age_only_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                
                                                                                analysis_variable_name = "weight_discrimination_BMI_more30",
@@ -464,9 +438,6 @@ adjusted_cross_nat_weight_29_9_results = wealth_gradient_function_weight (data_E
                                                                                HRS_var2_value = "NA", 
                                                                                
                                                                                
-                                                                               wealth_gradient_cov1 = "age", 
-                                                                               wealth_gradient_cov2 = "sex",
-                                                                               wealth_gradient_cov3 = "NA", 
                                                                                
                                                                             
                                                                                version = "basic_adjustment_wealth_gradient", 
@@ -480,7 +451,7 @@ adjusted_cross_nat_weight_29_9_results = wealth_gradient_function_weight (data_E
 adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_29_9_results) 
 
 
-adjusted_cross_nat_weight_25_results = wealth_gradient_function_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_weight_25_results = wealth_gradient_function_adjust_age_only_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                              data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                              
                                                                              analysis_variable_name = "weight_discrimination_BMImore25_less29.9",
@@ -503,10 +474,6 @@ adjusted_cross_nat_weight_25_results = wealth_gradient_function_weight (data_ELS
                                                                             
                                                                              
                                                                              
-                                                                             wealth_gradient_cov1 = "age", 
-                                                                             wealth_gradient_cov2 = "sex",
-                                                                             wealth_gradient_cov3 = "NA", 
-                                                                             
                                                                              version = "basic_adjustment_wealth_gradient", 
                                                                              
                                                                              
@@ -519,7 +486,7 @@ adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_25_results)
 
 
 
-adjusted_cross_nat_weight_both_results = wealth_gradient_function_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+adjusted_cross_nat_weight_both_results = wealth_gradient_function_adjust_age_only_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                               data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                               
                                                                               analysis_variable_name = "weight_discrimination_BMImore25",
@@ -540,9 +507,7 @@ adjusted_cross_nat_weight_both_results = wealth_gradient_function_weight(data_EL
                                                                               HRS_var2_value  = "NA",
                                                                               
                                                                               
-                                                                              wealth_gradient_cov1 = "age", 
-                                                                              wealth_gradient_cov2 = "sex",
-                                                                              wealth_gradient_cov3 = "NA", 
+                                                                              
                                                                               
                                                                               
                                                                               version = "basic_adjustment_wealth_gradient", 
