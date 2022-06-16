@@ -303,7 +303,7 @@ wealth_gradient_function = function (data_ELSA,
     ELSA_subset_wealth_gradient = subset(data_both_countries, data_both_countries$country_cat == 1)
     
     
-    wealth_discrimination_ELSA_adjusted3 =  summary(glm(discrimination ~ wealth + data_both_countries[ ,   wealth_gradient_cov1]) + data_both_countries[ ,   wealth_gradient_cov2] + data_both_countries[ ,   wealth_gradient_cov3], 
+    wealth_discrimination_ELSA_adjusted3 =  summary(glm(discrimination ~ wealth + data_both_countries[ ,   wealth_gradient_cov1] + data_both_countries[ ,   wealth_gradient_cov2] + data_both_countries[ ,   wealth_gradient_cov3], 
                                                         family = "binomial", data = ELSA_subset_wealth_gradient))
     
     wealth_gradient_ELSA_adjusted3 = wealth_discrimination_ELSA_adjusted3$coefficients
