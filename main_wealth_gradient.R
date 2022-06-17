@@ -185,7 +185,6 @@ adjusted_cross_nat_disability_results = wealth_gradient_function_adjust_age_only
                                                                        discrimination_VAR_elsa = "w5disabilitydiscrimination2",
                                                                        discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_disability")
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_disability_results) 
 
 
 #adjusted model for financial discrimination both genders 
@@ -217,7 +216,6 @@ adjusted_cross_nat_financial_bothSexes_results = wealth_gradient_function_adjust
                                                                                 discrimination_VAR_elsa = "w5discrim_financial2",
                                                                                 discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_financial_bothSexes_results) 
 
 #####
 adjusted_cross_nat_financial_female_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
@@ -253,7 +251,6 @@ adjusted_cross_nat_financial_female_results = wealth_gradient_function_adjust_ag
                                                                              discrimination_VAR_elsa = "w5discrim_financial2",
                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_financial_female_results) 
 
 
 #####
@@ -286,7 +283,6 @@ adjusted_cross_nat_financial_male_results = wealth_gradient_function_adjust_age_
                                                                            discrimination_VAR_elsa = "w5discrim_financial2",
                                                                            discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_financial")
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_financial_male_results) 
 
 #####
 adjusted_cross_nat_sex_female_results = wealth_gradient_function_adjust_age_only (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
@@ -324,7 +320,6 @@ adjusted_cross_nat_sex_female_results = wealth_gradient_function_adjust_age_only
 
 
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sex_female_results) 
 
 
 #####
@@ -360,7 +355,6 @@ adjusted_cross_nat_sex_male_results = wealth_gradient_function_adjust_age_only (
                                                                      discrimination_VAR_elsa = "w5sexdiscrimination2",
                                                                      discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_gender")
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sex_male_results) 
 
 
 
@@ -397,7 +391,6 @@ adjusted_cross_nat_race_results = wealth_gradient_function_adjust_age_only (data
                                                                  discrimination_VAR_elsa = "w5racediscrimination2",
                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_race")
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_race_results) 
 
 
 ##### there are no significnat covariates for sexual discrimination orientation 
@@ -414,7 +407,6 @@ adjusted_cross_nat_sexuality_results = c(NA,
                                          NA)
 
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_sexuality_results) 
 
 
 adjusted_cross_nat_weight_29_9_results = wealth_gradient_function_adjust_age_only_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
@@ -448,7 +440,6 @@ adjusted_cross_nat_weight_29_9_results = wealth_gradient_function_adjust_age_onl
 
 
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_29_9_results) 
 
 
 adjusted_cross_nat_weight_25_results = wealth_gradient_function_adjust_age_only_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
@@ -482,7 +473,6 @@ adjusted_cross_nat_weight_25_results = wealth_gradient_function_adjust_age_only_
                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
 
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_25_results) 
 
 
 
@@ -516,5 +506,4 @@ adjusted_cross_nat_weight_both_results = wealth_gradient_function_adjust_age_onl
                                                                               discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_weight")
 
 
-adjusted_results = rbind(adjusted_results, adjusted_cross_nat_weight_both_results) 
 
