@@ -250,24 +250,9 @@ adjusted_cross_nat_comparison = function (data_ELSA,
 
 
   ############
+  #outputting wealth gradient results 
   
-  #### cross-national differences in discriminaiton, outputting results 
-  cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
-  cross_country_OR_UK = cross_country_OR[2, 1]
-  CI1_UK = cross_country_OR[2, 2]
-  CI2_UK = cross_country_OR[2, 3]
-  
-  
-  cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
-  cross_country_OR_USA = cross_country_OR[1, 1]
-  CI1_USA = cross_country_OR[1, 2]
-  CI2_USA = cross_country_OR[1, 3]
-  
-  ## various equivalent specifications of the LR test
-  cross_national_diff = lrtest(fm1, fm2)
-  
-  chi_value_cross_national = cross_national_diff$stats[1]
-  pvalue_cross_national = cross_national_diff$stats[3]
+ 
   
   
   cross_national_findings = cbind(analysis_variable_name, 
