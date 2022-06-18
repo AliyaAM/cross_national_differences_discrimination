@@ -234,9 +234,9 @@ subset_name = subset_name
 
 folder = paste(path, subset_name, version, "/", sep = "")
 
-#dir.create(paste(path, folder, sep = ""))
+dir.create(paste(path, folder, sep = ""))
 
-pdf(file = paste(folder, "age_compare_plot.pdf"),   # The directory you want to save the file in
+pdf(file = paste(folder, "age_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
     width = 4, # The width of the plot in inches
     height = 4)
 
@@ -260,23 +260,23 @@ SW_test_1 = with(data_both_countries, shapiro.test(age[country_cat == 1])) # sho
 SW_test_1 = as.data.frame(SW_test_1)
 SW_test_2 = as.data.frame(SW_test_2)
 
-write.csv(SW_test_1, file = paste(folder, "age_SW_test_1.csv", "/", sep = "")) 
+write.csv(SW_test_1, file = paste(folder, "age_SW_test_1.csv", sep = "")) 
 
-write.csv(SW_test_2, file = paste(folder, "age_SW_test_2.csv", "/", sep = "")) 
+write.csv(SW_test_2, file = paste(folder, "age_SW_test_2.csv", sep = "")) 
 
 
 #teting that US sample and UK sample have the same variance 
 res.ftest_age <- var.test(age ~ country_cat, data = data_both_countries)
 res.ftest_age
 
-write.csv(res.ftest_age, file = paste(folder, "age_ftest.csv", "/", sep = "")) 
+write.csv(res.ftest_age, file = paste(folder, "age_ftest.csv", sep = "")) 
 
 
 #t-test comparing differences in age between US sample and UK sample 
 res_age <- t.test(age ~ country_cat, data = data_both_countries, var.equal = TRUE)
 res_age
 
-write.csv(res_age, file = paste(folder, "age_compare.csv", "/", sep = "")) 
+write.csv(res_age, file = paste(folder, "age_compare.csv", sep = "")) 
 
 #############
 
@@ -284,7 +284,7 @@ write.csv(res_age, file = paste(folder, "age_compare.csv", "/", sep = ""))
 #plots for wealth
 
 
-pdf(file = paste(folder, "wealth_compare_plot.pdf", "/", sep = ""),   # The directory you want to save the file in
+pdf(file = paste(folder, "wealth_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
     width = 4, # The width of the plot in inches
     height = 4)
 
@@ -305,29 +305,29 @@ SW_test_1 = with(data_both_countries, shapiro.test(wealth[country_cat == 1])) # 
 SW_test_1 = as.data.frame(SW_test_1)
 SW_test_2 = as.data.frame(SW_test_2)
 
-write.csv(SW_test_1, file = paste(folder, "wealth_SW_test_1.csv", "/", sep = "")) 
+write.csv(SW_test_1, file = paste(folder, "wealth_SW_test_1.csv", sep = "")) 
 
-write.csv(SW_test_2, file = paste(folder, "wealth_SW_test_2.csv", "/", sep = "")) 
+write.csv(SW_test_2, file = paste(folder, "wealth_SW_test_2.csv", sep = "")) 
 
 
 #teting that US sample and UK sample have the same variance 
 res.ftest_wealth <- var.test(wealth ~ country_cat, data = data_both_countries)
 res.ftest_wealth
 
-write.csv(res.ftest_wealth, file = paste(folder, "wealth_ftest.csv", "/", sep = "")) 
+write.csv(res.ftest_wealth, file = paste(folder, "wealth_ftest.csv", sep = "")) 
 
 
 #t-test comparing differences in wealth between US sample and UK sample 
 res_wealth <- t.test(wealth ~ country_cat, data = data_both_countries, var.equal = TRUE)
 res_wealth
 
-write.csv(res_wealth, file = paste(folder, "wealth_compare.csv", "/", sep = "")) 
+write.csv(res_wealth, file = paste(folder, "wealth_compare.csv",  sep = "")) 
 
 
 #plots for BMI
 
 
-pdf(file = paste(folder, "BMI_compare_plot.pdf", "/", sep = ""),   # The directory you want to save the file in
+pdf(file = paste(folder, "BMI_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
     width = 4, # The width of the plot in inches
     height = 4)
 
@@ -351,21 +351,21 @@ SW_test_1 = with(data_both_countries, shapiro.test(BMI[country_cat == 1])) # sho
 SW_test_1 = as.data.frame(SW_test_1)
 SW_test_2 = as.data.frame(SW_test_2)
 
-write.csv(SW_test_1, file = paste(folder, "BMI_SW_test_1.csv", "/", sep = "")) 
+write.csv(SW_test_1, file = paste(folder, "BMI_SW_test_1.csv",  sep = "")) 
 
-write.csv(SW_test_2, file = paste(folder, "BMI_SW_test_2.csv", "/", sep = "")) 
+write.csv(SW_test_2, file = paste(folder, "BMI_SW_test_2.csv",  sep = "")) 
 
 
 #teting that US sample and UK sample have the same variance 
 res.ftest_BMI <- var.test(BMI ~ country_cat, data = data_both_countries)
 res.ftest_BMI
 
-write.csv(res.ftest_BMI, file = paste(folder, "BMI_ftest.csv", "/", sep = "")) 
+write.csv(res.ftest_BMI, file = paste(folder, "BMI_ftest.csv", sep = "")) 
 
 
 #t-test comparing differences in BMI between US sample and UK sample 
 res_BMI <- t.test(BMI ~ country_cat, data = data_both_countries, var.equal = TRUE)
 res_BMI
 
-write.csv(res_BMI, file = paste(folder, "BMI_compare.csv", "/", sep = "")) 
+write.csv(res_BMI, file = paste(folder, "BMI_compare.csv", sep = "")) 
 
