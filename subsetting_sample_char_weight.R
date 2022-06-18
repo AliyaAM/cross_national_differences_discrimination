@@ -1,6 +1,6 @@
-subsetting_sample_char = function (data_ELSA,
+subsetting_sample_char_weight = function (data_ELSA,
                                    data_HRS,
-                
+                                   
                                    version, 
                                    subset_name, 
                                    
@@ -17,7 +17,7 @@ subsetting_sample_char = function (data_ELSA,
                                    HRS_var2_value){
   
   #list the subsetting var name inside the function 
-
+  
   
   
   #data_HRS <- data_HRS[ , subsetting_VAR_HRS]
@@ -26,24 +26,28 @@ subsetting_sample_char = function (data_ELSA,
   
   # subsetting data to the right variable for the analysis (eg, sex, physical lim.)
   # if there is only one subsetting var: subsetting_VAR1_ELSA and subsetting_VAR1_HRS
+  
   if (subsetting_VAR1_ELSA == "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS == "NA" & subsetting_VAR2_HRS == "NA"){
     
     data_ELSA_subset = data_ELSA 
     data_HRS_subset = data_HRS
-    
-    } 
+  } 
   
   if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS == "NA"){
     
-    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value)
-    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value)
+    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value)
+    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value) 
   } 
   
   if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA !="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS != "NA"){
     
-    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] == ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] == ELSA_var2_value)
-    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] == HRS_var2_value)
+    data_ELSA_subset = subset(data_ELSA, data_ELSA[ , subsetting_VAR1_ELSA] > ELSA_var1_value & data_ELSA[subsetting_VAR2_ELSA] <= ELSA_var2_value)
+    data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] > HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] <= HRS_var2_value)
   }
+  
+
+  
+  
   
   # calculate the number of cases for this subset 
   N_ELSA_subset = nrow(data_ELSA_subset)
@@ -301,5 +305,5 @@ subsetting_sample_char = function (data_ELSA,
   write.csv(res_BMI, file = paste(path, folder, "BMI_compare.csv", sep = "")) 
   
   
- 
+  
 }

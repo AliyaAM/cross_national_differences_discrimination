@@ -30,6 +30,7 @@ SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 ###### sourcing code for the unadjusted analysis 
 source(paste(SOURCE_ROOT, "subsetting_sample_char.R", sep=""))
 
+source(paste(SOURCE_ROOT, "subsetting_sample_char_weight.R", sep=""))
 
 
 ###### read data files for ELSA and HRS
@@ -386,12 +387,12 @@ sample_cross_nat_weight_29_9_results = subsetting_sample_char_weight (data_ELSA 
                                                                                           
 
                                                                                           
-                                                                                          subsetting_VAR1_ELSA =  "w4bmi_clean",  
-                                                                                          subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                         subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                         subsetting_VAR1_HRS =   "HRS2010_BMI", 
                                                                                           
                                                                                           
-                                                                                          ELSA_var1_value = 29.9, 
-                                                                                          HRS_var1_value  = 29.9,  
+                                                                                         ELSA_var1_value = 29.9, 
+                                                                                         HRS_var1_value  = 29.9,  
                                                                                           
                                                                                           subsetting_VAR2_ELSA = "NA", 
                                                                                           subsetting_VAR2_HRS = "NA",
@@ -404,47 +405,47 @@ sample_cross_nat_weight_29_9_results = subsetting_sample_char_weight (data_ELSA 
 
 
 
-#sample_cross_nat_weight_25_results = subsetting_sample_char_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
-#                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+sample_cross_nat_weight_25_results = subsetting_sample_char_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                       data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                         
 
                                                                                         
-#                                                                                        subsetting_VAR1_ELSA =  "w4bmi_clean",  
-#                                                                                        subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                       subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                        subsetting_VAR1_HRS =   "HRS2010_BMI", 
                                                                                         
-#                                                                                        ELSA_var1_value = 25.0, 
-#                                                                                        HRS_var1_value  = 25.0, 
+                                                                                       ELSA_var1_value = 25.0, 
+                                                                                        HRS_var1_value  = 25.0, 
                                                                                         
                                                                                         
                                                                                         
-#                                                                                        subsetting_VAR2_ELSA = "w4bmi_clean", 
-#                                                                                        subsetting_VAR2_HRS = "HRS2010_BMI",
-                                                                                        
- #                                                                                       ELSA_var2_value = 29.9, 
-#                                                                                        HRS_var2_value = 29.9)
+                                                                                        subsetting_VAR2_ELSA = "w4bmi_clean", 
+                                                                                        subsetting_VAR2_HRS = "HRS2010_BMI",
+                                                                                      
+                                                                                        ELSA_var2_value = 29.9, 
+                                                                                        HRS_var2_value = 29.9)
 
 
 
 
 
-#sample_cross_nat_weight_both_results = subsetting_sample_char_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
- #                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+sample_cross_nat_weight_both_results = subsetting_sample_char_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                          
 
                                                                                          
- #                                                                                        subsetting_VAR1_ELSA =  "w4bmi_clean",  
- #                                                                                        subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                         subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                         subsetting_VAR1_HRS =   "HRS2010_BMI", 
                                                                                          
                                                                                          
- #                                                                                        ELSA_var1_value = 25.0, 
- #                                                                                        HRS_var1_value = 25.0,  
+                                                                                         ELSA_var1_value = 25.0, 
+                                                                                         HRS_var1_value = 25.0,  
                                                                                          
- #                                                                                        subsetting_VAR2_ELSA = "NA",
- #                                                                                        subsetting_VAR2_HRS = "NA",
+                                                                                        subsetting_VAR2_ELSA = "NA",
+                                                                                         subsetting_VAR2_HRS = "NA",
                                                                                          
                                                                                          
- #                                                                                        ELSA_var2_value = "NA",
-  #                                                                                       HRS_var2_value  = "NA")
+                                                                                         ELSA_var2_value = "NA",
+                                                                                         HRS_var2_value  = "NA")
 
 
 
