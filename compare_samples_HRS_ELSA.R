@@ -8,6 +8,9 @@ library(scales)
 library(arm)
 library(stats)
 
+library("ggpubr")
+
+
 
 library(tidyverse)
 
@@ -25,7 +28,7 @@ SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 
 
 ###### sourcing code for the unadjusted analysis 
-source(paste(SOURCE_ROOT, "wealth_gradient_function_adjust_age_only.R", sep=""))
+source(paste(SOURCE_ROOT, "subsetting_sample_char.R", sep=""))
 
 
 
@@ -149,5 +152,300 @@ HRS2010_discrimination_dataset_before_subsetting$married =  HRS2010_discriminati
 #Done in gender merging file check that they are coded correctly: 0 -retired, 1 - Employed in ELSA..etc, match to HRS
 ELSAdiscrimination_data_wave5_before_subsetting$marital_status = ELSAdiscrimination_data_wave5_before_subsetting$w5married4
 HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discrimination_dataset_before_subsetting$marital_status
+
+
+
+
+
+#adjusted model for disability, subsettign further to those who have a physical lim. 
+sample_cross_nat_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                
+                                                                                
+                                                   version = "version_1", 
+                                                   subset_name = "ALL", 
+                                                                                
+                                                                                
+                                                                                subsetting_VAR1_ELSA = "NA", 
+                                                                                subsetting_VAR1_HRS = "NA",
+                                                                                
+                                                                                
+                                                                                
+                                                                                #has physical limitation 
+                                                                                ELSA_var1_value = 1, 
+                                                                                HRS_var1_value = 1, 
+                                                                                
+                                                                                
+                                                                                subsetting_VAR2_ELSA =  "NA",  
+                                                                                subsetting_VAR2_HRS =   "NA", 
+                                                                                
+                                                                                
+                                                                                ELSA_var2_value = "NA", 
+                                                                                HRS_var2_value = "NA")
+
+
+#adjusted model for disability, subsettign further to those who have a physical lim. 
+sample_cross_nat_disability_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                                                  
+                                                              version = "version_1", 
+                                                              subset_name = "disability", 
+                                                              
+                                                                                  
+
+                                                                                  subsetting_VAR1_ELSA = "w5limill", 
+                                                                                  subsetting_VAR1_HRS = "limiting_condition_bin",
+                                                                                  
+                                                                                  
+                                                                                  
+                                                                                  #has physical limitation 
+                                                                                  ELSA_var1_value = 1, 
+                                                                                  HRS_var1_value = 1, 
+                                                                                  
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA =  "NA",  
+                                                                                  subsetting_VAR2_HRS =   "NA", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA")
+
+
+
+#adjusted model for financial discrimination both genders 
+
+sample_cross_nat_financial_bothSexes_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                           data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                       
+                                                                       version = "version_1", 
+                                                                       subset_name = "financial",    
+
+                                                                                           subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
+                                                                                           subsetting_VAR1_HRS = "median_wealth_bin_HRS",
+                                                                                           
+                                                                                           #low SES
+                                                                                           ELSA_var1_value = 1, 
+                                                                                           HRS_var1_value = 1, 
+                                                                                           
+                                                                                           
+                                                                                           subsetting_VAR2_ELSA =  "NA",  
+                                                                                           subsetting_VAR2_HRS =   "NA", 
+                                                                                           
+                                                                                           
+                                                                                           ELSA_var2_value = "NA", 
+                                                                                           HRS_var2_value = "NA")
+
+
+#####
+sample_cross_nat_financial_female_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                    
+                                                                    version = "version_1", 
+                                                                    subset_name = "financial_female",                       
+
+                                                                                        subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
+                                                                                        subsetting_VAR1_HRS = "median_wealth_bin_HRS",
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        #low SES
+                                                                                        ELSA_var1_value = 1, 
+                                                                                        HRS_var1_value = 1, 
+                                                                                        
+                                                                                        
+                                                                                        subsetting_VAR2_ELSA =  "sex",  
+                                                                                        subsetting_VAR2_HRS =   "sex", 
+                                                                                        
+                                                                                        
+                                                                                        ELSA_var2_value = 0, 
+                                                                                        HRS_var2_value = 0)
+
+
+
+#####
+sample_cross_nat_financial_male_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                      data_HRS = HRS2010_discrimination_dataset_before_subsetting,
+                                                                  
+                                                                  version = "version_1", 
+                                                                  subset_name = "financial_male", 
+                                                                                      
+
+                                                                                      subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
+                                                                                      subsetting_VAR1_HRS = "median_wealth_bin_HRS",
+                                                                                      
+                                                                                      #low SES
+                                                                                      ELSA_var1_value = 1, 
+                                                                                      HRS_var1_value = 1, 
+                                                                                      
+                                                                                      subsetting_VAR2_ELSA =  "sex",  
+                                                                                      subsetting_VAR2_HRS =   "sex", 
+                                                                                      
+                                                                                      
+                                                                                      ELSA_var2_value = 1, 
+                                                                                      HRS_var2_value = 1)
+
+
+#####
+sample_cross_nat_sex_female_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                  
+                                                              
+                                                              version = "version_1", 
+                                                              subset_name = "sex_female", 
+                                                              
+                                                                                  
+                                                                                  subsetting_VAR1_ELSA =  "sex",  
+                                                                                  subsetting_VAR1_HRS =   "sex", 
+                                                                                  
+                                                                                  
+                                                                                  ELSA_var1_value = 0, 
+                                                                                  HRS_var1_value = 0, 
+                                                                                  
+                                                                                  subsetting_VAR2_ELSA = "NA", 
+                                                                                  subsetting_VAR2_HRS = "NA",
+                                                                                  
+                                                                                  #low SES
+                                                                                  ELSA_var2_value = "NA", 
+                                                                                  HRS_var2_value = "NA")
+
+
+
+
+
+#####
+sample_cross_nat_sex_male_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                
+                                                            
+                                                            version = "version_1", 
+                                                            subset_name = "sex_male", 
+                                                            
+                                                                                
+                                                                                subsetting_VAR1_ELSA =  "sex",  
+                                                                                subsetting_VAR1_HRS =   "sex", 
+                                                                                
+                                                                                
+                                                                                ELSA_var1_value = 1, 
+                                                                                HRS_var1_value = 1, 
+                                                                                
+                                                                                subsetting_VAR2_ELSA = "NA", 
+                                                                                subsetting_VAR2_HRS = "NA",
+                                                                                
+                                                                                #low SES
+                                                                                ELSA_var2_value = "NA", 
+                                                                                HRS_var2_value = "NA")
+
+
+
+
+
+#####
+sample_cross_nat_race_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                            data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                            
+                                                        
+                                                        version = "version_1", 
+                                                        subset_name = "race", 
+                                                        
+                                                                            
+                                                                            subsetting_VAR1_ELSA =  "w5ethnicity",  
+                                                                            subsetting_VAR1_HRS =   "HRS2010_race_nonwhite", 
+                                                                            
+                                                                            
+                                                                            ELSA_var1_value = 2, 
+                                                                            HRS_var1_value = 1, 
+                                                                            
+                                                                            subsetting_VAR2_ELSA = "NA", 
+                                                                            subsetting_VAR2_HRS = "NA",
+                                                                            
+                                                                            #low SES
+                                                                            ELSA_var2_value = "NA", 
+                                                                            HRS_var2_value = "NA")
+
+
+
+##### there are no significnat covariates for sexual discrimination orientation 
+sample_cross_nat_sexuality_results = c(NA, 
+                                         NA,
+                                         NA, 
+                                         NA,
+                                         NA,
+                                         NA, 
+                                         NA, 
+                                         NA, 
+                                         NA, 
+                                         NA,
+                                         NA)
+
+
+
+
+sample_cross_nat_weight_29_9_results = subsetting_sample_char_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+                                                                                          data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                          
+
+                                                                                          
+                                                                                          subsetting_VAR1_ELSA =  "w4bmi_clean",  
+                                                                                          subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                          
+                                                                                          
+                                                                                          ELSA_var1_value = 29.9, 
+                                                                                          HRS_var1_value  = 29.9,  
+                                                                                          
+                                                                                          subsetting_VAR2_ELSA = "NA", 
+                                                                                          subsetting_VAR2_HRS = "NA",
+                                                                                          
+                                                                                          #low SES
+                                                                                          ELSA_var2_value = "NA", 
+                                                                                          HRS_var2_value = "NA")
+
+
+
+
+
+#sample_cross_nat_weight_25_results = subsetting_sample_char_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+#                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                        
+
+                                                                                        
+#                                                                                        subsetting_VAR1_ELSA =  "w4bmi_clean",  
+#                                                                                        subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                        
+#                                                                                        ELSA_var1_value = 25.0, 
+#                                                                                        HRS_var1_value  = 25.0, 
+                                                                                        
+                                                                                        
+                                                                                        
+#                                                                                        subsetting_VAR2_ELSA = "w4bmi_clean", 
+#                                                                                        subsetting_VAR2_HRS = "HRS2010_BMI",
+                                                                                        
+ #                                                                                       ELSA_var2_value = 29.9, 
+#                                                                                        HRS_var2_value = 29.9)
+
+
+
+
+
+#sample_cross_nat_weight_both_results = subsetting_sample_char_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+ #                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
+                                                                                         
+
+                                                                                         
+ #                                                                                        subsetting_VAR1_ELSA =  "w4bmi_clean",  
+ #                                                                                        subsetting_VAR1_HRS =   "HRS2010_BMI", 
+                                                                                         
+                                                                                         
+ #                                                                                        ELSA_var1_value = 25.0, 
+ #                                                                                        HRS_var1_value = 25.0,  
+                                                                                         
+ #                                                                                        subsetting_VAR2_ELSA = "NA",
+ #                                                                                        subsetting_VAR2_HRS = "NA",
+                                                                                         
+                                                                                         
+ #                                                                                        ELSA_var2_value = "NA",
+  #                                                                                       HRS_var2_value  = "NA")
+
+
 
 
