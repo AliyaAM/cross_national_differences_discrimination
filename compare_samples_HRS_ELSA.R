@@ -385,7 +385,8 @@ sample_cross_nat_sexuality_results = c(NA,
 sample_cross_nat_weight_29_9_results = subsetting_sample_char_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                           data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                           
-
+                                                                      version = "version_1", 
+                                                                      subset_name = "BMI_30", 
                                                                                           
                                                                                          subsetting_VAR1_ELSA =  "w4bmi_clean",  
                                                                                          subsetting_VAR1_HRS =   "HRS2010_BMI", 
@@ -408,7 +409,8 @@ sample_cross_nat_weight_29_9_results = subsetting_sample_char_weight (data_ELSA 
 sample_cross_nat_weight_25_results = subsetting_sample_char_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                         
-
+                                                                    version = "version_1", 
+                                                                    subset_name = "BMI_25_30", 
                                                                                         
                                                                                        subsetting_VAR1_ELSA =  "w4bmi_clean",  
                                                                                         subsetting_VAR1_HRS =   "HRS2010_BMI", 
@@ -431,6 +433,8 @@ sample_cross_nat_weight_25_results = subsetting_sample_char_weight (data_ELSA = 
 sample_cross_nat_weight_both_results = subsetting_sample_char_weight(data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                         data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                          
+                                                                     version = "version_1", 
+                                                                     subset_name = "BMI_25", 
 
                                                                                          
                                                                                          subsetting_VAR1_ELSA =  "w4bmi_clean",  
