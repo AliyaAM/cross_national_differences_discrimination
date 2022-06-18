@@ -78,11 +78,11 @@ subsetting_sample_char = function (data_ELSA,
                                data_HRS_subset$age)
   
   
-  data_both_countries$sex =  c(data_ELSA_subset$age,
-                               data_HRS_subset$age)
+  data_both_countries$sex =  c(data_ELSA_subset$sex,
+                               data_HRS_subset$sex)
   
   
-  data_both_countries$BMI =  c(data_ELSA_subset$w5bmi_clean,
+  data_both_countries$BMI =  c(data_ELSA_subset$w4bmi_clean,
                                data_HRS_subset$HRS2010_BMI)
   
   
