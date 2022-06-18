@@ -232,13 +232,17 @@ path <- OUTPUT_ROOT
 version = version
 subset_name = subset_name
 
-folder = paste(path, subset_name, version, "/", sep = "")
+folder = paste(subset_name, version, "/", sep = "")
 
 dir.create(paste(path, folder, sep = ""))
 
-pdf(file = paste(folder, "age_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
-    width = 4, # The width of the plot in inches
-    height = 4)
+#pdf(file = paste(folder, "age_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
+#    width = 4, # The width of the plot in inches
+#    height = 4)
+
+pdf(file = paste(path, folder, "age_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
+width = 4, # The width of the plot in inches
+height = 4)
 
 #plots for age
 age_plot = ggboxplot(data_both_countries, x = "country_cat", y = "age", 
@@ -251,32 +255,50 @@ print(age_plot)
 dev.off()
 
 
-#testing assumption of normality test 
-# Shapiro-Wilk normality test 
-SW_test_1 = with(data_both_countries, shapiro.test(age[country_cat == 0]))# should be >0.05
-# Shapiro-Wilk normality test 
-SW_test_1 = with(data_both_countries, shapiro.test(age[country_cat == 1])) # should be >0.05
-
-SW_test_1 = as.data.frame(SW_test_1)
-SW_test_2 = as.data.frame(SW_test_2)
-
-write.csv(SW_test_1, file = paste(folder, "age_SW_test_1.csv", sep = "")) 
-
-write.csv(SW_test_2, file = paste(folder, "age_SW_test_2.csv", sep = "")) 
 
 
 #teting that US sample and UK sample have the same variance 
 res.ftest_age <- var.test(age ~ country_cat, data = data_both_countries)
 res.ftest_age
 
-write.csv(res.ftest_age, file = paste(folder, "age_ftest.csv", sep = "")) 
+ftest_names = c("F value", 
+                  "95% CI ", 
+                  "95% CI", 
+                  "p-value")
+
+age_ftest_age = c(res.ftest_age$statistic, 
+  res.ftest_age$conf.int[1], 
+  res.ftest_age$conf.int[2], 
+  res.ftest_age$p.value) 
+
+age_ftest_age = rbind(ftest_names, age_ftest_age)
+age_ftest_age = as.data.frame(age_ftest_age)
+
+write.csv(age_ftest_age, file = paste(path, folder, "age_ftest.csv", sep = "")) 
 
 
 #t-test comparing differences in age between US sample and UK sample 
 res_age <- t.test(age ~ country_cat, data = data_both_countries, var.equal = TRUE)
-res_age
 
-write.csv(res_age, file = paste(folder, "age_compare.csv", sep = "")) 
+T_test_names = c("t value", 
+                 "df",
+                 "p-value", 
+                "95% CI ", 
+                "95% CI",
+                "samples means")
+
+res_age = c(res_age$statistic, 
+            res_age$parameter, 
+            res_age$p.value, 
+            res_age$conf.int[1], 
+            res_age$conf.int[2], 
+            res_age$estimate)
+
+res_age = rbind(T_test_names, res_age)
+
+res_age = as.data.frame(res_age)
+
+write.csv(res_age, file = paste(path, folder, "age_compare.csv", sep = "")) 
 
 #############
 
@@ -284,7 +306,7 @@ write.csv(res_age, file = paste(folder, "age_compare.csv", sep = ""))
 #plots for wealth
 
 
-pdf(file = paste(folder, "wealth_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
+pdf(file = paste(path, folder, "wealth_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
     width = 4, # The width of the plot in inches
     height = 4)
 
@@ -296,38 +318,48 @@ print(wealth_plot)
 
 dev.off()
 
-#testing assumption of normality test 
-# Shapiro-Wilk normality test 
-SW_test_1 = with(data_both_countries, shapiro.test(wealth[country_cat == 0]))# should be >0.05
-# Shapiro-Wilk normality test 
-SW_test_1 = with(data_both_countries, shapiro.test(wealth[country_cat == 1])) # should be >0.05
 
-SW_test_1 = as.data.frame(SW_test_1)
-SW_test_2 = as.data.frame(SW_test_2)
 
-write.csv(SW_test_1, file = paste(folder, "wealth_SW_test_1.csv", sep = "")) 
-
-write.csv(SW_test_2, file = paste(folder, "wealth_SW_test_2.csv", sep = "")) 
 
 
 #teting that US sample and UK sample have the same variance 
 res.ftest_wealth <- var.test(wealth ~ country_cat, data = data_both_countries)
 res.ftest_wealth
 
-write.csv(res.ftest_wealth, file = paste(folder, "wealth_ftest.csv", sep = "")) 
+res.ftest_wealth = c(res.ftest_wealth$statistic, 
+                     res.ftest_wealth$conf.int[1], 
+                     res.ftest_wealth$conf.int[2], 
+                     res.ftest_wealth$p.value) 
+
+res.ftest_wealth = rbind(ftest_names, res.ftest_wealth)
+res.ftest_wealth = as.data.frame(res.ftest_wealth)
+
+write.csv(res.ftest_wealth, file = paste(path, folder, "wealth_ftest.csv", sep = "")) 
 
 
 #t-test comparing differences in wealth between US sample and UK sample 
 res_wealth <- t.test(wealth ~ country_cat, data = data_both_countries, var.equal = TRUE)
 res_wealth
 
-write.csv(res_wealth, file = paste(folder, "wealth_compare.csv",  sep = "")) 
+res_wealth = c(res_wealth$statistic, 
+               res_wealth$parameter, 
+               res_wealth$p.value, 
+               res_wealth$conf.int[1], 
+               res_wealth$conf.int[2], 
+               res_wealth$estimate)
+
+res_wealth = rbind(T_test_names, res_wealth)
+
+
+res_wealth = as.data.frame(res_wealth)
+
+write.csv(res_wealth, file = paste(path, folder, "wealth_compare.csv",  sep = "")) 
 
 
 #plots for BMI
 
 
-pdf(file = paste(folder, "BMI_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
+pdf(file = paste(path, folder, "BMI_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
     width = 4, # The width of the plot in inches
     height = 4)
 
@@ -342,30 +374,81 @@ print(BMI_plot)
 dev.off()
 
 
-#testing assumption of normality test 
-# Shapiro-Wilk normality test 
-SW_test_1 = with(data_both_countries, shapiro.test(BMI[country_cat == 0]))# should be >0.05
-# Shapiro-Wilk normality test 
-SW_test_1 = with(data_both_countries, shapiro.test(BMI[country_cat == 1])) # should be >0.05
-
-SW_test_1 = as.data.frame(SW_test_1)
-SW_test_2 = as.data.frame(SW_test_2)
-
-write.csv(SW_test_1, file = paste(folder, "BMI_SW_test_1.csv",  sep = "")) 
-
-write.csv(SW_test_2, file = paste(folder, "BMI_SW_test_2.csv",  sep = "")) 
-
 
 #teting that US sample and UK sample have the same variance 
 res.ftest_BMI <- var.test(BMI ~ country_cat, data = data_both_countries)
 res.ftest_BMI
 
-write.csv(res.ftest_BMI, file = paste(folder, "BMI_ftest.csv", sep = "")) 
+res.ftest_BMI = c(res.ftest_BMI$statistic, 
+                     res.ftest_BMI$conf.int[1], 
+                     res.ftest_BMI$conf.int[2], 
+                     res.ftest_BMI$p.value) 
+
+res.ftest_BMI = rbind(ftest_names, res.ftest_BMI)
+res.ftest_BMI = as.data.frame(res.ftest_BMI)
+
+write.csv(res.ftest_BMI, file = paste(path, folder, "BMI_ftest.csv", sep = "")) 
 
 
 #t-test comparing differences in BMI between US sample and UK sample 
 res_BMI <- t.test(BMI ~ country_cat, data = data_both_countries, var.equal = TRUE)
 res_BMI
 
-write.csv(res_BMI, file = paste(folder, "BMI_compare.csv", sep = "")) 
+
+res_BMI = c(res_BMI$statistic, 
+            res_BMI$parameter, 
+            res_BMI$p.value, 
+            res_BMI$conf.int[1], 
+            res_BMI$conf.int[2], 
+            res_BMI$estimate)
+
+res_BMI = rbind(T_test_names, res_BMI)
+
+
+res_BMI = as.data.frame(res_BMI)
+
+write.csv(res_BMI, file = paste(path, folder, "BMI_compare.csv", sep = "")) 
+
+
+############
+
+
+#testing assumption of normality test 
+# Shapiro-Wilk normality test 
+#SW_test_1age = with(data_both_countries, shapiro.test(age[country_cat == 0]))# should be >0.05
+# Shapiro-Wilk normality test 
+#SW_test_2age = with(data_both_countries, shapiro.test(age[country_cat == 1])) # should be >0.05
+
+#SW_test_1age = as.data.frame(SW_test_1age)
+#SW_test_2age = as.data.frame(SW_test_2age)
+
+#write.csv(SW_test_1age, file = paste(path, folder, "age_SW_test_1.csv", sep = "")) 
+
+#write.csv(SW_test_2age, file = paste(path, folder, "age_SW_test_2.csv", sep = "")) 
+
+#testing assumption of normality test 
+# Shapiro-Wilk normality test 
+#SW_test_1wealth = with(data_both_countries, shapiro.test(wealth[country_cat == 0]))# should be >0.05
+# Shapiro-Wilk normality test 
+#SW_test_2wealth = with(data_both_countries, shapiro.test(wealth[country_cat == 1])) # should be >0.05
+
+#SW_test_1wealth = as.data.frame(SW_test_1wealth)
+#SW_test_2wealth = as.data.frame(SW_test_2wealth)
+
+#write.csv(SW_test_1wealth, file = paste(path, folder, "wealth_SW_test_1.csv", sep = "")) 
+
+#write.csv(SW_test_2wealth, file = paste(path, folder, "wealth_SW_test_2.csv", sep = "")) 
+
+#testing assumption of normality test 
+# Shapiro-Wilk normality test 
+#SW_test_1BMI = with(data_both_countries, shapiro.test(BMI[country_cat == 0]))# should be >0.05
+# Shapiro-Wilk normality test 
+#SW_test_2BMI = with(data_both_countries, shapiro.test(BMI[country_cat == 1])) # should be >0.05
+
+#SW_test_1BMI = as.data.frame(SW_test_1BMI)
+#SW_test_2BMI = as.data.frame(SW_test_2BMI)
+
+#write.csv(SW_test_1BMI, file = paste(path, folder, "BMI_SW_test_1.csv",  sep = "")) 
+
+#write.csv(SW_test_2BMI, file = paste(path, folder, "BMI_SW_test_2.csv",  sep = "")) 
 
