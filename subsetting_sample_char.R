@@ -193,6 +193,24 @@ subsetting_sample_char = function (data_ELSA,
   
   #############
   
+  #############
+  
+  sex_diff = chisq.test(data_both_countries$country_cat, data_both_countries$sex)
+  sex_diff_names = c("chi sq",
+                     "df",
+                     "p value")
+  
+  sex_diff = cbind(sex_diff$statistic,
+                   sex_diff$parameter,
+                   sex_diff$p.value) 
+  
+  
+  sex_diff = rbind(sex_diff_names,
+                   sex_diff) 
+  
+  sex_diff = as.data.frame(sex_diff)
+  
+  write.csv(sex_diff, file = paste(path, folder, "sex_diff.csv", sep = "")) 
   
   #plots for wealth
   
