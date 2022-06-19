@@ -30,6 +30,9 @@ SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 ###### sourcing code for the unadjusted analysis 
 source(paste(SOURCE_ROOT, "subsetting_sample_char.R", sep=""))
 
+source(paste(SOURCE_ROOT, "subsetting_sample_char_sex.R", sep=""))
+
+
 source(paste(SOURCE_ROOT, "subsetting_sample_char_weight.R", sep=""))
 
 
@@ -239,7 +242,7 @@ sample_cross_nat_financial_bothSexes_results = subsetting_sample_char (data_ELSA
 
 
 #####
-sample_cross_nat_financial_female_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+sample_cross_nat_financial_female_results = subsetting_sample_char_sex (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                         data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                     
                                                                     version = "version_1", 
@@ -265,7 +268,7 @@ sample_cross_nat_financial_female_results = subsetting_sample_char (data_ELSA = 
 
 
 #####
-sample_cross_nat_financial_male_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+sample_cross_nat_financial_male_results = subsetting_sample_char_sex (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                       data_HRS = HRS2010_discrimination_dataset_before_subsetting,
                                                                   
                                                                   version = "version_1", 
@@ -288,7 +291,7 @@ sample_cross_nat_financial_male_results = subsetting_sample_char (data_ELSA = EL
 
 
 #####
-sample_cross_nat_sex_female_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+sample_cross_nat_sex_female_results = subsetting_sample_char_sex (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                   data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                   
                                                               
@@ -315,7 +318,7 @@ sample_cross_nat_sex_female_results = subsetting_sample_char (data_ELSA = ELSAdi
 
 
 #####
-sample_cross_nat_sex_male_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
+sample_cross_nat_sex_male_results = subsetting_sample_char_sex (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                 data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                 
                                                             

@@ -1,3 +1,3 @@
 "","t","df","V3","V4","V5","mean in group 0","mean in group 1"
-"T_test_names","t value","df","p-value","95% CI ","95% CI","samples means","t value"
+"T_test_names","t value","df","p-value","95% CI ","95% CI","samples 1 mean","samples 2 mean"
 "res_age","4.57236232125622","16596","4.85739537757073e-06","0.40254739909839","1.00665062292292","67.2776586350448","66.5730596240341"

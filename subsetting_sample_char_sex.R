@@ -1,6 +1,6 @@
 subsetting_sample_char = function (data_ELSA,
                                    data_HRS,
-                
+                                   
                                    version, 
                                    subset_name, 
                                    
@@ -17,7 +17,7 @@ subsetting_sample_char = function (data_ELSA,
                                    HRS_var2_value){
   
   #list the subsetting var name inside the function 
-
+  
   
   
   #data_HRS <- data_HRS[ , subsetting_VAR_HRS]
@@ -31,7 +31,7 @@ subsetting_sample_char = function (data_ELSA,
     data_ELSA_subset = data_ELSA 
     data_HRS_subset = data_HRS
     
-    } 
+  } 
   
   if (subsetting_VAR1_ELSA != "NA" & subsetting_VAR2_ELSA =="NA" & subsetting_VAR1_HRS != "NA" & subsetting_VAR2_HRS == "NA"){
     
@@ -192,25 +192,7 @@ subsetting_sample_char = function (data_ELSA,
   write.csv(res_age, file = paste(path, folder, "age_compare.csv", sep = "")) 
   
   #############
-  
-  #############
-  
-  sex_diff = chisq.test(data_both_countries$country_cat, data_both_countries$sex)
-  sex_diff_names = c("chi sq",
-                     "df",
-                     "p value")
-  
-  sex_diff = cbind(sex_diff$statistic,
-                   sex_diff$parameter,
-                   sex_diff$p.value) 
-  
-  
-  sex_diff = rbind(sex_diff_names,
-                   sex_diff) 
-  
-  sex_diff = as.data.frame(sex_diff)
-  
-  write.csv(sex_diff, file = paste(path, folder, "sex_diff.csv", sep = "")) 
+
   
   #plots for wealth
   
@@ -319,5 +301,5 @@ subsetting_sample_char = function (data_ELSA,
   write.csv(res_BMI, file = paste(path, folder, "BMI_compare.csv", sep = "")) 
   
   
- 
+  
 }
