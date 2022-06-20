@@ -49,6 +49,15 @@ subsetting_sample_char_weight = function (data_ELSA,
   
   
   
+  path <- OUTPUT_ROOT
+  
+  version = version
+  subset_name = subset_name
+  
+  folder = paste(subset_name, version, "/", sep = "")
+  
+  dir.create(paste(path, folder, sep = ""))
+  
   # calculate the number of cases for this subset 
   N_ELSA_subset = nrow(data_ELSA_subset)
   N_HRS_subset = nrow(data_HRS_subset)
@@ -103,6 +112,51 @@ subsetting_sample_char_weight = function (data_ELSA,
                                  data_HRS_subset$wealth)
   
   
+  
+  
+  data_both_countries$SES = c(data_ELSA_subset$median_wealth_bin_ELSA, 
+                              data_HRS_subset$median_wealth_bin_HRS) 
+  
+  
+  mean_ELSA_age = mean(data_ELSA_subset$age)
+  mean_HRS_age = mean(data_HRS_subset$age)
+  
+  sd_ELSA_age = sd(data_ELSA_subset$age)
+  sd_HRS_age = sd(data_HRS_subset$age) 
+  
+  data_ELSA_subset$w4bmi_clean = as.numeric(data_ELSA_subset$w4bmi_clean)
+  mean_ELSA_BMI =  mean(data_ELSA_subset$w4bmi_clean,  na.rm = TRUE) 
+  mean_HRS_BMI = mean(data_HRS_subset$HRS2010_BMI,  na.rm = TRUE)
+  
+  sd_ELSA_BMI =  sd(data_ELSA_subset$w4bmi_clean,  na.rm = TRUE) 
+  sd_HRS_BMI = sd(data_HRS_subset$HRS2010_BMI,  na.rm = TRUE)
+  
+  data_ELSA_subset$wealth = as.numeric(data_ELSA_subset$wealth)
+  mean_ELSA_wealth = mean(data_ELSA_subset$wealth, na.rm = TRUE)
+  mean_HRS_wealth = mean(data_HRS_subset$wealth, na.rm = TRUE)
+  
+  sd_ELSA_wealth = sd(data_ELSA_subset$wealth , na.rm = TRUE)
+  sd_HRS_wealth = sd(data_HRS_subset$wealth, na.rm = TRUE) 
+  
+  ######## 
+  low_SES_ELSA = subset(data_ELSA_subset, data_ELSA_subset$median_wealth_bin_ELSA == 1) 
+  low_SES_ELSA_n = nrow(low_SES_ELSA)
+  
+  #quantile(low_SES_ELSA_n, na.rm = TRUE, 1/4)
+  #qnorm(low_SES_ELSA_n)
+  #data_ELSA_subset$median_wealth_bin_ELSA = as.factor(data_ELSA_subset$median_wealth_bin_ELSA)
+  #quantile(data_ELSA_subset$median_wealth_bin_ELSA,na.rm = TRUE, 3/4)
+  
+  low_SES_HRS = subset(data_HRS_subset, data_HRS_subset$median_wealth_bin_HRS == 1) 
+  low_SES_HRS_n =nrow(low_SES_HRS)
+  
+  female_ELSA = subset(data_ELSA_subset, data_ELSA_subset$sex == 1) 
+  female_ELSA_n = nrow(female_ELSA)
+  
+  female_HRS = subset(data_HRS_subset, data_HRS_subset$sex == 1) 
+  female_HRS_n = nrow(female_HRS)
+  
+  
   #data_ELSA_subset$age
   #data_ELSA_subset$sex
   #data_ELSA_subset$wealth
@@ -116,19 +170,59 @@ subsetting_sample_char_weight = function (data_ELSA,
   #data_HRS_subset$HRS2010_BMI
   
   
+  
+  ######
+  ######
+  ######
+  
+  
+  Participant_char_sample_by_HRS_ELSA = cbind(mean_ELSA_age,
+                                              mean_HRS_age ,
+                                              
+                                              sd_ELSA_age ,
+                                              sd_HRS_age,
+                                              
+                                              mean_ELSA_BMI ,
+                                              mean_HRS_BMI,
+                                              
+                                              sd_ELSA_BMI,
+                                              sd_HRS_BMI,
+                                              
+                                              
+                                              mean_ELSA_wealth,
+                                              mean_HRS_wealth,
+                                              
+                                              sd_ELSA_wealth ,
+                                              sd_HRS_wealth, 
+                                              
+                                              low_SES_ELSA_n ,
+                                              
+                                              
+                                              low_SES_HRS_n ,
+                                              
+                                              female_ELSA_n,
+                                              
+                                              female_HRS_n) 
+  
+  
+  
+  write.csv(Participant_char_sample_by_HRS_ELSA, file = paste(path, folder, "Participant_char_sample_by_HRS_ELSA.csv", sep = "")) 
+  
+  
   #summary descriptive statistic 
-  by(data_both_countries, data_both_countries$country_cat, summary)
+  summary_descriptive_statistic = by(data_both_countries, data_both_countries$country_cat, summary)
   
   
+  summary_descriptive_statistic_ELSA = summary_descriptive_statistic$`0`
   
-  path <- OUTPUT_ROOT
+  write.csv(summary_descriptive_statistic_ELSA, file = paste(path, folder, "summary_descriptive_statistic_ELSA.csv", sep = "")) 
   
-  version = version
-  subset_name = subset_name
+  summary_descriptive_statistic_HRS = summary_descriptive_statistic$`1`
   
-  folder = paste(subset_name, version, "/", sep = "")
+  write.csv(summary_descriptive_statistic_HRS, file = paste(path, folder, "summary_descriptive_statistic_HRS.csv", sep = "")) 
   
-  dir.create(paste(path, folder, sep = ""))
+  
+
   
   #pdf(file = paste(folder, "age_compare_plot.pdf", sep = ""),   # The directory you want to save the file in
   #    width = 4, # The width of the plot in inches
@@ -197,6 +291,38 @@ subsetting_sample_char_weight = function (data_ELSA,
   
   #############
   
+  
+  sex_diff = chisq.test(data_both_countries$country_cat, data_both_countries$sex)
+  sex_diff_names = c("chi sq",
+                     "df",
+                     "p value")
+  
+  sex_diff = cbind(sex_diff$statistic,
+                   sex_diff$parameter,
+                   sex_diff$p.value) 
+  
+  
+  sex_diff = rbind(sex_diff_names,
+                   sex_diff) 
+  
+  table_freq = table(data_both_countries$country_cat, data_both_countries$sex)
+  
+  table_freq_names = c("0_0",
+                       "0_1",
+                       "1_0",
+                       "1_1")
+  
+  table_freq_all = c(table_freq[1,1],
+                     table_freq[1,2],
+                     table_freq[2,1],
+                     table_freq[2,2]) 
+  
+  table_frequencies = rbind(table_freq_names,
+                            table_freq_all)
+  
+  sex_diff = cbind(sex_diff, table_frequencies)
+  
+  write.csv(sex_diff, file = paste(path, folder, "sex_diff.csv", sep = "")) 
   
   #plots for wealth
   
