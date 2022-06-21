@@ -209,6 +209,7 @@ Unadjusted_results = data.frame()
 Unadjusted_cross_nat_disability_results = Unadjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                            data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                            analysis_variable_name = "disability_discrimination",
+                                                                           plot_title_name = "disability discrimination",
                                                                            subsetting_VAR1_ELSA = "w5limill", 
                                                                            subsetting_VAR1_HRS = "limiting_condition_bin",
                                                                            #has physical limitation
@@ -228,7 +229,7 @@ Unadjusted_cross_nat_financial_bothSexes_results = Unadjusted_cross_nat_comparis
                                                                                 data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                 
                                                                                 analysis_variable_name = "financial_status_discrimination",
-                                                                                
+                                                                                plot_title_name = "financial status discrimination",
                                                                                 subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
                                                                                 subsetting_VAR1_HRS = "median_wealth_bin_HRS",
                                                                                 
@@ -257,6 +258,7 @@ Unadjusted_cross_nat_financial_female_results = Unadjusted_cross_nat_comparison 
                                                                              data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                              
                                                                              analysis_variable_name = "financial_status_discrimination_female",
+                                                                             plot_title_name = "financial status discrimination, females",
                                                                              
                                                                              subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
                                                                              subsetting_VAR1_HRS = "median_wealth_bin_HRS",
@@ -289,6 +291,7 @@ Unadjusted_cross_nat_financial_male_results = Unadjusted_cross_nat_comparison (d
                                                                            data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                            
                                                                            analysis_variable_name = "financial_status_discrimination_male",
+                                                                           plot_title_name = "financial status discrimination, males",
                                                                            
                                                                            subsetting_VAR1_ELSA = "median_wealth_bin_ELSA", 
                                                                            subsetting_VAR1_HRS = "median_wealth_bin_HRS",
@@ -314,8 +317,8 @@ Unadjusted_results = rbind(Unadjusted_results, Unadjusted_cross_nat_financial_ma
 Unadjusted_cross_nat_sex_female_results = Unadjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                        
-                                                                       analysis_variable_name = "sex discrimination",
-                                                                       
+                                                                       analysis_variable_name = "sex_discrimination",
+                                                                       plot_title_name = "sex discrimination",
                                                                        
                                                                        subsetting_VAR1_ELSA =  "w5sex_1_0",  
                                                                        subsetting_VAR1_HRS =   "sex_1_0", 
@@ -344,6 +347,7 @@ Unadjusted_cross_nat_sex_male_results = Unadjusted_cross_nat_comparison (data_EL
                                                                      data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                      
                                                                      analysis_variable_name = "sex_discrimination_male",
+                                                                     plot_title_name = "sex discrimination, males",
                                                                      
                                                                      
                                                                      subsetting_VAR1_ELSA =  "w5sex_1_0",  
@@ -375,6 +379,7 @@ Unadjusted_cross_nat_race_results = Unadjusted_cross_nat_comparison (data_ELSA =
                                                                  data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                  
                                                                  analysis_variable_name = "race_discrimination",
+                                                                 plot_title_name = "race discrimination",
                                                                  
                                                                  
                                                                  subsetting_VAR1_ELSA =  "w5ethnicity",  
@@ -403,7 +408,7 @@ Unadjusted_cross_nat_sexuality_results = Unadjusted_cross_nat_comparison (data_E
                                                                           data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                           
                                                                           analysis_variable_name = "sexual_orientation_discrimination",
-                                                                          
+                                                                          plot_title_name = "sexual orientation discrimination",
                                                                           
                                                                           subsetting_VAR1_ELSA =  "NA",  
                                                                           subsetting_VAR1_HRS =   "NA",  
@@ -429,8 +434,8 @@ Unadjusted_results = rbind(Unadjusted_results, Unadjusted_cross_nat_sexuality_re
 Unadjusted_cross_nat_weight_29_9_results = Unadjusted_cross_nat_comparison_weight (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                                
-                                                                               analysis_variable_name = "weight discrimination,  BMI>30",
-                                                                               
+                                                                               analysis_variable_name = "weight_discrimination_BMImore30",
+                                                                               plot_title_name = "weight discrimination",
                                                                                
                                                                                subsetting_VAR1_ELSA =  "w4bmi_clean",  
                                                                                subsetting_VAR1_HRS =   "HRS2010_BMI", 
@@ -459,7 +464,7 @@ Unadjusted_cross_nat_weight_25_results = Unadjusted_cross_nat_comparison_weight 
                                                                              data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                              
                                                                              analysis_variable_name = "weight_discrimination_BMImore25_less30",
-                                                                             
+                                                                             plot_title_name = "weight discrimination, BMI: 25-30",
                                                                              
                                                                              subsetting_VAR1_ELSA =  "w4bmi_clean",  
                                                                              subsetting_VAR1_HRS =   "HRS2010_BMI", 
@@ -489,6 +494,7 @@ Unadjusted_cross_nat_weight_both_results = Unadjusted_cross_nat_comparison_weigh
                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
                                                                        
                                                                        analysis_variable_name = "weight discrimination_BMImore25.0",
+                                                                       plot_title_name = "weight discrimination, BMI>25",
                                                                        
                                                                        
                                                                        subsetting_VAR1_ELSA =  "w4bmi_clean",  

@@ -3,6 +3,7 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
                                           data_HRS,
                                           
                                           analysis_variable_name, 
+                                          plot_title_name, 
                                           
                                           subsetting_VAR1_ELSA, 
                                           subsetting_VAR1_HRS,
@@ -23,6 +24,7 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
   #list the subsetting var name inside the function 
   
   analysis_variable_name = analysis_variable_name
+  plot_title_name = plot_title_name
   
   
   #data_HRS <- data_HRS[ , subsetting_VAR_HRS]
@@ -120,7 +122,7 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
                           breaks = c(0, 1), 
                           labels=c("United States", "England")) + 
     labs(
-      title = analysis_variable_name, 
+      title = plot_title_name, 
       x = "wealth excluding pension, USD",
       y = "Probability of perceived discrimination"
     )+
@@ -140,7 +142,7 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
                           breaks = c(0, 1), 
                           labels=c("United States", "England")) + 
     labs(
-      title = analysis_variable_name, 
+      title = plot_title_name, 
       x = "age, years",
       y = "Probability of perceived discrimination"
     )+
