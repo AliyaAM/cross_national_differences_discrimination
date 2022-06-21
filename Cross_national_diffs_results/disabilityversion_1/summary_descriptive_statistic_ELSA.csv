@@ -1,0 +1,7 @@
+""," country_cat","     age","     sex","     BMI","    wealth","    SES"
+"","Min.   :0  ","Min.   :50.00  ","Min.   :0.0000  ","Min.   : 10.83  ","Min.   :-205000  ","Length:386        "
+"","1st Qu.:0  ","1st Qu.:62.25  ","1st Qu.:0.0000  ","1st Qu.: 28.32  ","1st Qu.:  68525  ","Class :character  "
+"","Median :0  ","Median :70.50  ","Median :0.0000  ","Median : 33.20  ","Median : 180450  ","Mode  :character  "
+"","Mean   :0  ","Mean   :70.70  ","Mean   :0.4637  ","Mean   : 35.49  ","Mean   : 426604  ",NA
+"","3rd Qu.:0  ","3rd Qu.:78.00  ","3rd Qu.:1.0000  ","3rd Qu.: 38.66  ","3rd Qu.: 423750  ",NA
+"","Max.   :0  ","Max.   :97.00  ","Max.   :1.0000  ","Max.   :195.10  ","Max.   :9435000  ",NA

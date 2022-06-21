@@ -187,6 +187,102 @@ write.csv(Participant_characteristics_table, paste(OUTPUT_ROOT, "Participant_cha
 ##############
 
 
+
+ALL_age_Participant_char = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+ALL_sex_Participant_char = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+ALL_wealth_Participant_char = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+ALL_BMI_Participant_char = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+
+
+disability_age_Participant_char = read.csv(paste(OUTPUT_ROOT, "disabilityversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+disability_sex_Participant_char = read.csv(paste(OUTPUT_ROOT, "disabilityversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+disability_wealth_Participant_char = read.csv(paste(OUTPUT_ROOT, "disabilityversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+disability_BMI_Participant_char = read.csv(paste(OUTPUT_ROOT, "disabilityversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+
+
+financial_age_Participant_char = read.csv(paste(OUTPUT_ROOT, "financialversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+financial_sex_Participant_char = read.csv(paste(OUTPUT_ROOT, "financialversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+financial_wealth_Participant_char = read.csv(paste(OUTPUT_ROOT, "financialversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+financial_BMI_Participant_char = read.csv(paste(OUTPUT_ROOT, "financialversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+
+
+
+sex_female_age_Participant_char = read.csv(paste(OUTPUT_ROOT, "sex_femaleversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+sex_female_wealth_Participant_char = read.csv(paste(OUTPUT_ROOT, "sex_femaleversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+sex_female_BMI_Participant_char = read.csv(paste(OUTPUT_ROOT, "sex_femaleversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+
+
+
+
+race_female_age_Participant_char = read.csv(paste(OUTPUT_ROOT, "raceversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+race_female_sex_Participant_char = read.csv(paste(OUTPUT_ROOT, "raceversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+race_female_wealth_Participant_char = read.csv(paste(OUTPUT_ROOT, "raceversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+race_female_BMI_Participant_char = read.csv(paste(OUTPUT_ROOT, "raceversion_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+
+
+
+BMI_30_female_age_Participant_char = read.csv(paste(OUTPUT_ROOT, "BMI_30version_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = "")) 
+BMI_30_female_sex_Participant_char = read.csv(paste(OUTPUT_ROOT, "BMI_30version_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+BMI_30_female_wealth_Participant_char = read.csv(paste(OUTPUT_ROOT, "BMI_30version_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = ""))  
+BMI_30_female_BMI_Participant_char = read.csv(paste(OUTPUT_ROOT, "BMI_30version_1/", "Participant_char_sample_by_HRS_ELSA.csv", sep = "")) 
+
+
+
+###########################
+###########################
+###########################
+
+Participant_char_mean_sd = rbind(ALL_age_Participant_char,
+                   
+                                
+                                
+                                disability_age_Participant_char,
+                             
+                                
+                                
+                                financial_age_Participant_char,
+                     
+                                
+                                sex_female_age_Participant_char,
+                       
+                                
+                                race_female_age_Participant_char,
+                              
+                                
+                                BMI_30_female_age_Participant_char) 
+
+
+
+nrow(Participant_char_mean_sd)
+
+table_names_mean_sd = c("ALL",
+                        
+                        
+                        
+                        "disability",
+                        
+                        
+                        
+                        "financial",
+                        
+                        
+                        "sex_female",
+                        
+                        
+                        "race",
+                        
+                        
+                        "BMI_30") 
+
+
+Participant_char_mean_sd = cbind(table_names_mean_sd, Participant_char_mean_sd)
+
+write.csv(Participant_char_mean_sd, paste(OUTPUT_ROOT, "Participant_char_mean_sd.csv", sep = "")) 
+
+
+##############
+##############
+
 ALL_age_ftest = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "age_ftest.csv", sep = ""))  
 ALL_wealth_ftest = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "wealth_ftest.csv", sep = ""))  
 ALL_BMI_ftest = read.csv(paste(OUTPUT_ROOT, "ALLversion_1/", "BMI_ftest.csv", sep = ""))  
