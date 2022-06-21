@@ -159,8 +159,6 @@ HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discri
 
 
 
-
-
 #adjusted model for disability, subsettign further to those who have a physical lim. 
 sample_cross_nat_results = subsetting_sample_char (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                                 data_HRS = HRS2010_discrimination_dataset_before_subsetting, 

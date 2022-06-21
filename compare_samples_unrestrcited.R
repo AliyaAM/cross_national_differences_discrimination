@@ -23,6 +23,10 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 
 path <- OUTPUT_ROOT
 
+
+version = "version_1"
+subset_name = "ALL"
+
 version = version
 subset_name = subset_name
 
@@ -165,8 +169,7 @@ HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discri
 data_ELSA_subset = ELSAdiscrimination_data_wave5_before_subsetting 
 data_HRS_subset = HRS2010_discrimination_dataset_before_subsetting
 
-version = "version_1"
-subset_name = "ALL"
+
 
 
 
@@ -218,8 +221,12 @@ data_both_countries$BMI =  c(data_ELSA_subset$w4bmi_clean,
 data_both_countries$wealth = c(data_ELSA_subset$wealth,
                                data_HRS_subset$wealth)
 
-data_both_countries$SES = c(data_ELSA_subset$median_wealth_bin_ELSA, 
-                               data_HRS_subset$median_wealth_bin_HRS) 
+
+data_ELSA_subset$median_wealth_bin = data_ELSA_subset$median_wealth_bin_ELSA
+data_HRS_subset$median_wealth_bin = data_HRS_subset$median_wealth_bin_HRS
+
+data_both_countries$SES = c(data_ELSA_subset$median_wealth_bin, 
+                            data_HRS_subset$median_wealth_bin) 
 
 
 mean_ELSA_age = mean(data_ELSA_subset$age)
@@ -481,6 +488,42 @@ res_wealth = as.data.frame(res_wealth)
 write.csv(res_wealth, file = paste(path, folder, "wealth_compare.csv",  sep = "")) 
 
 
+
+#################
+# comparing low SES frequency between HRS and ELSA 
+
+
+lowSES_diff = chisq.test(data_both_countries$country_cat, data_both_countries$SES)
+lowSES_diff_names = c("chi sq",
+                      "df",
+                      "p value")
+
+lowSES_diff = cbind(lowSES_diff$statistic,
+                    lowSES_diff$parameter,
+                    lowSES_diff$p.value) 
+
+
+lowSES_diff = rbind(lowSES_diff_names,
+                    lowSES_diff) 
+
+table_freq = table(data_both_countries$country_cat, data_both_countries$SES)
+
+table_freq_names = c("0_0",
+                     "0_1",
+                     "1_0",
+                     "1_1")
+
+table_freq_all = c(table_freq[1,1],
+                   table_freq[1,2],
+                   table_freq[2,1],
+                   table_freq[2,2]) 
+
+table_frequencies = rbind(table_freq_names,
+                          table_freq_all)
+
+lowSES_diff = cbind(lowSES_diff, table_frequencies)
+
+write.csv(lowSES_diff, file = paste(path, folder, "lowSES_diff.csv", sep = "")) 
 #plots for BMI
 
 

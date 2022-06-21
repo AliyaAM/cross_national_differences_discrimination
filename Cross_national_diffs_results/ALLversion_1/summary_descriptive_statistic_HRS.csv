@@ -1,8 +1,8 @@
-""," country_cat","     age","     sex","     BMI","    wealth","    SES"
-"","Min.   :1  ","Min.   :50.00  ","Min.   :0.0000  ","Min.   :15.05  ","Min.   : -590522  ","Length:8671       "
-"","1st Qu.:1  ","1st Qu.:59.00  ","1st Qu.:0.0000  ","1st Qu.:24.75  ","1st Qu.:  173212  ","Class :character  "
-"","Median :1  ","Median :65.00  ","Median :0.0000  ","Median :27.45  ","Median :  324211  ","Mode  :character  "
-"","Mean   :1  ","Mean   :66.57  ","Mean   :0.4446  ","Mean   :28.16  ","Mean   :  464920  ",NA
-"","3rd Qu.:1  ","3rd Qu.:73.00  ","3rd Qu.:1.0000  ","3rd Qu.:30.88  ","3rd Qu.:  561390  ",NA
-"","Max.   :1  ","Max.   :90.00  ","Max.   :1.0000  ","Max.   :58.05  ","Max.   :14340525  ",NA
+"","country_cat","     age","     sex","     BMI","    wealth","    SES"
+"","0:   0  ","Min.   :50.00  ","Min.   :0.0000  ","Min.   :15.05  ","Min.   : -590522  ","Length:8671       "
+"","1:8671  ","1st Qu.:59.00  ","1st Qu.:0.0000  ","1st Qu.:24.75  ","1st Qu.:  173212  ","Class :character  "
+"",NA,"Median :65.00  ","Median :0.0000  ","Median :27.45  ","Median :  324211  ","Mode  :character  "
+"",NA,"Mean   :66.57  ","Mean   :0.4446  ","Mean   :28.16  ","Mean   :  464920  ",NA
+"",NA,"3rd Qu.:73.00  ","3rd Qu.:1.0000  ","3rd Qu.:30.88  ","3rd Qu.:  561390  ",NA
+"",NA,"Max.   :90.00  ","Max.   :1.0000  ","Max.   :58.05  ","Max.   :14340525  ",NA
 "",NA,NA,NA,"NA's   :2441  ","NA's   :131  ",NA
