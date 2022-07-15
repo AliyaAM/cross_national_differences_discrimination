@@ -16,7 +16,7 @@ library(tidyverse)
 ###### Set the root directory to look for source code.
 SOURCE_data_ROOT = "/Users/aliya/my_docs/KCL_postDoc/"
 ######  Set the root location on the user's local machine to save output files.
-OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/Cross_national_diffs_results/"
+OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/Cross_national_diffs_results/revisions_frontiers/running_previously_submited-result/"
 ###### Set the source location on the user's local machine  for sourcing functions 
 SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/"
 
