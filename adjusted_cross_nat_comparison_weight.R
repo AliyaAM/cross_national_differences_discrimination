@@ -1,3 +1,5 @@
+
+
 adjusted_cross_nat_comparison_weight = function (data_ELSA, 
                                           data_HRS,
                                           
@@ -31,6 +33,7 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   
   analysis_variable_name = analysis_variable_name
   
+
   
   #data_HRS <- data_HRS[ , subsetting_VAR_HRS]
   #data_ELSA <- data_ELSA[ , subsetting_VAR_ELSA]
@@ -104,7 +107,7 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   
   if(covariate1 != "NA" & covariate2 == "NA" &  covariate3 == "NA" &  covariate4 == "NA" ){
     
-    
+    print("first if statement ")
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
     
@@ -123,6 +126,7 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 == "NA" &  covariate4 == "NA"){
     
+    print("2 if statement ")
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
@@ -148,6 +152,8 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   # when  covariate 1 and covariate 2 and covariate 3 (i.e, not NA, !=NA) are included and the rest are NA then take the glm in the if statement below 
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 == "NA"){
+    
+    print("3 if statement ")
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
@@ -178,6 +184,9 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   # when  covariate 1 and covariate 2 and covariate 3 and covariate 4 (i.e, not NA, !=NA)  are included and the rest are NA then take the glm in the if statement below 
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
+    
+    print("4 if statement ")
+    
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
     
@@ -212,45 +221,7 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   #data_both_countries = na.omit(data_both_countries)
   
   
-  
-  plot_wealth = ggplot(data_both_countries, aes(wealth, discrimination)) +
-    #geom_point(alpha = 0.2) +
-    geom_smooth(aes(colour = country_cat), method = "glm", method.args = list(family = "binomial"), fullrange = TRUE) +
-    scale_colour_discrete(name="country",
-                          breaks = c(0, 1), 
-                          labels=c("United States", "England")) + 
-    labs(
-      title = analysis_variable_name, 
-      x = "wealth excluding pension, USD",
-      y = "Probability of perceived discrimination"
-    )+
-    scale_x_continuous(labels = comma, limits = c(-500000, 500000))+ 
-    scale_y_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits = c(0, 1)) + 
-    
-    theme(text = element_text(size = 20), legend.justification=c(1,1), legend.position=c(1,1))
-  
-  
-  
-  plot_age = ggplot(data_both_countries, aes(age, discrimination)) +
-    #geom_point(alpha = 0.2) +
-    geom_smooth(aes(colour = country_cat), method = "glm", method.args = list(family = "binomial"), fullrange = TRUE) +
-    scale_y_continuous(breaks = c(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits = c(0, 1)) + 
-    
-    scale_colour_discrete(name="country",
-                          breaks = c(0, 1), 
-                          labels=c("United States", "England")) + 
-    labs(
-      title = analysis_variable_name, 
-      x = "age, years",
-      y = "Probability of perceived discrimination"
-    )+
-    theme(text = element_text(size = 20), legend.justification=c(1,1), legend.position=c(1,1))
-  
-  
-  
-  
-  print(plot_wealth) 
-  print(plot_age) 
+  print("if statements done ")
   
   
   
@@ -447,7 +418,7 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
     data_both_countries[ ,   wealth_gradient_cov3] = c(data_ELSA_subset[ ,   wealth_gradient_cov3],
                                                        data_HRS_subset[ ,   wealth_gradient_cov3])
     
-    
+    print(" TEST 0 stopped here")
     
     #wealth gradient 
     wealth_discrimination_adjusted3 =  summary(glm(scale(discrimination) ~ scale(wealth) + scale(data_both_countries[ ,   wealth_gradient_cov1]) + scale(data_both_countries[ ,   wealth_gradient_cov2]) + scale(data_both_countries[ ,   wealth_gradient_cov3]), 
@@ -501,6 +472,9 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   #########
   #########
   
+  print(" TEST stopped here")
+  data_both_countries = na.omit(data_both_countries)
+  
   #outputting age gradient results 
   
   age_discrimination =  summary(glm(discrimination ~ age, family = "binomial", data = data_both_countries))
@@ -526,12 +500,13 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   HRS_subset_age_gradient = subset(data_both_countries, data_both_countries$country_cat == 0)
   
   
-  age_discrimination_HRS =  summary(glm(discrimination ~ age, family = "binomial", data = HRS_subset_age_gradient))
-  age_gradient_HRS = age_discrimination_HRS$coefficients
-  age_gradient_HRS = as.data.frame(age_gradient_HRS)
+  #age_discrimination_HRS =  summary(glm(discrimination ~ age, family = "binomial", data = HRS_subset_age_gradient))
+  #age_gradient_HRS = age_discrimination_HRS$coefficients
+  #age_gradient_HRS = as.data.frame(age_gradient_HRS)
   
   
-  write.csv(age_gradient_HRS, file = paste(OUTPUT_ROOT, folder,  "age_gradient_discrimination_HRS.csv", sep=""))
+  #write.csv(age_gradient_HRS, file = paste(OUTPUT_ROOT, folder,  "age_gradient_discrimination_HRS.csv", sep=""))
+  print("stopped here")
   
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
@@ -539,14 +514,21 @@ adjusted_cross_nat_comparison_weight = function (data_ELSA,
   CI1_UK = cross_country_OR[2, 2]
   CI2_UK = cross_country_OR[2, 3]
   
+  print("stopped here 2")
+  
   
   cross_country_OR = exp(cbind(OR = coef(fm2), confint(fm2)))
   cross_country_OR_USA = cross_country_OR[1, 1]
   CI1_USA = cross_country_OR[1, 2]
   CI2_USA = cross_country_OR[1, 3]
   
+  print("stopped here 3")
+  
   ## various equivalent specifications of the LR test
   cross_national_diff = lrtest(fm1, fm2)
+  
+  print("stopped here 4")
+  
   
   chi_value_cross_national = cross_national_diff$stats[1]
   pvalue_cross_national = cross_national_diff$stats[3]
