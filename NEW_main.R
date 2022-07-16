@@ -84,6 +84,7 @@ ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analy
 HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))
 
 
+
 ###### subset HRS and ELSA dataset to those who are 50 years old and older
 ELSAdiscrimination_data_wave5_age50 = subset(ELSAdiscrimination_data_wave5_ALL, w5age >= 50) 
 HRS2010_discrimination_dataset_age50 = subset(HRS2010_discrimination_dataset_ALL, HRS2010_discrimination_dataset_ALL$continious_age >=50)
@@ -176,6 +177,13 @@ HRS2010_discrimination_dataset_before_subsetting$sex = HRS2010_discrimination_da
 ELSAdiscrimination_data_wave5_before_subsetting$education = ELSAdiscrimination_data_wave5_before_subsetting$ELSA_Education
 HRS2010_discrimination_dataset_before_subsetting$education = HRS2010_discrimination_dataset_before_subsetting$education_levels
 
+unique(ELSAdiscrimination_data_wave5_before_subsetting$education)
+unique(HRS2010_discrimination_dataset_before_subsetting$education)
+
+HRS2010_discrimination_dataset_before_subsetting$education = case_when(HRS2010_discrimination_dataset_before_subsetting$education == 0 ~ 0, 
+                                                                       HRS2010_discrimination_dataset_before_subsetting$education == 1 ~ 1, 
+                                                                       HRS2010_discrimination_dataset_before_subsetting$education == 2 ~ 2,
+                                                                       HRS2010_discrimination_dataset_before_subsetting$education == 3 ~ 3)
 
 ELSAdiscrimination_data_wave5_before_subsetting$employment = ELSAdiscrimination_data_wave5_before_subsetting$employment
 HRS2010_discrimination_dataset_before_subsetting$employment =  HRS2010_discrimination_dataset_before_subsetting$employment_allCategories
@@ -2894,21 +2902,6 @@ Wcountry_adjusted_SES_results = rbind(Wcountry_adjusted_SES_results, Wcountry_ad
 
 
 
-##### there are no significnat covariates for sexual discrimination orientation 
-Wcountry_adjusted_SES_sexuality_results = cbind(NA,
-                                                NA,
-                                                NA,
-                                                NA,
-                                                NA, 
-                                                NA, 
-                                                NA, 
-                                                NA ,
-                                                NA, 
-                                                NA, 
-                                                NA,
-                                                NA, 
-                                                NA, 
-                                                NA)
 
 
 
