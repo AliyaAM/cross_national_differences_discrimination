@@ -185,6 +185,10 @@ HRS2010_discrimination_dataset_before_subsetting$education = case_when(HRS2010_d
                                                                        HRS2010_discrimination_dataset_before_subsetting$education == 2 ~ 2,
                                                                        HRS2010_discrimination_dataset_before_subsetting$education == 3 ~ 3)
 
+HRS2010_discrimination_dataset_before_subsetting$education = as.factor(HRS2010_discrimination_dataset_before_subsetting$education)
+ELSAdiscrimination_data_wave5_before_subsetting$education = as.factor(ELSAdiscrimination_data_wave5_before_subsetting$education)
+
+
 ELSAdiscrimination_data_wave5_before_subsetting$employment = ELSAdiscrimination_data_wave5_before_subsetting$employment
 HRS2010_discrimination_dataset_before_subsetting$employment =  HRS2010_discrimination_dataset_before_subsetting$employment_allCategories
 

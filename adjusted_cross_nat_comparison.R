@@ -179,6 +179,10 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
     print("we are in, test 4")
+    print("the values in education are: ")
+    
+    print(unique(data_both_countries[ ,   covariate4]))
+    
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
     
