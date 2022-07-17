@@ -1,0 +1,2 @@
+"","analysis_variable_name","N_ELSA_subset","N_HRS_subset","N_ELSA_discrimYES","N_HRS_discrimYES","cross_country_OR_UK","CI1_UK","CI2_UK","cross_country_OR_USA","CI1_USA","CI2_USA","chi_value_cross_national","pvalue_cross_national"
+"L.R. Chisq","age_discrimination","8671","7927","1943","1331","0.988659086595902","0.904168043924091","1.08104549378512","0.740558920592424","0.571336402639881","0.959902978936728","0.00785925803651821","0.929358117938256"
