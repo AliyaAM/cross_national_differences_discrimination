@@ -543,6 +543,11 @@ print("Unadjusted_results done")
 
 adjusted_results = data.frame()
 
+#ELSAdiscrimination_data_wave5_test = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$w5limill == 1)
+#unique(ELSAdiscrimination_data_wave5_test$education)
+#HRS2010_discrimination_data_wave5_test = subset(HRS2010_discrimination_dataset_before_subsetting, HRS2010_discrimination_dataset_before_subsetting$limiting_condition_bin == 1)
+#unique(HRS2010_discrimination_dataset_before_subsetting$education)
+
 #adjusted model for disability, subsettign further to those who have a physical lim. 
 adjusted_cross_nat_disability_results = adjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                        data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
@@ -575,7 +580,7 @@ adjusted_cross_nat_disability_results = adjusted_cross_nat_comparison (data_ELSA
                                                                        covariate1 = "age",
                                                                        covariate2 = "sex",
                                                                        covariate3 = "wealth",
-                                                                       covariate4 = "education",
+                                                                       covariate4 = "NA", # we are setting this to NA becuase people with physical limitaitons in the HRS study did not provide data on this. 
                                                                        
                                                                        wealth_gradient_cov1 = "age", 
                                                                        wealth_gradient_cov2 = "employment",
@@ -612,8 +617,8 @@ adjusted_cross_nat_financial_bothSexes_results = adjusted_cross_nat_comparison (
                                                                                 
                                                                                 covariate1 = "age",
                                                                                 covariate2 = "sex",
-                                                                                covariate3 = "wealth",
-                                                                                covariate4 = "education", 
+                                                                                covariate3 = "NA",
+                                                                                covariate4 = "NA", 
                                                                                 
                                                                                 wealth_gradient_cov1 = "age", 
                                                                                 wealth_gradient_cov2 = "employment",
@@ -650,8 +655,8 @@ adjusted_cross_nat_financial_female_results = adjusted_cross_nat_comparison (dat
                                                                              
                                                                              
                                                                              covariate1 = "age",
-                                                                             covariate2 = "wealth",
-                                                                             covariate3 = "education",
+                                                                             covariate2 = "NA",
+                                                                             covariate3 = "NA",
                                                                              covariate4 = "NA", 
                                                                              
                                                                              wealth_gradient_cov1 = "age", 
@@ -687,8 +692,8 @@ adjusted_cross_nat_financial_male_results = adjusted_cross_nat_comparison (data_
                                                                            
                                                                            
                                                                            covariate1 = "age",
-                                                                           covariate2 = "wealth",
-                                                                           covariate3 = "education",
+                                                                           covariate2 = "NA",
+                                                                           covariate3 = "NA",
                                                                            covariate4 = "NA", 
                                                                            
                                                                            
@@ -1685,7 +1690,7 @@ SES_adjusted_cross_nat_disability_results = SES_adjusted_cros_nat_comparison (da
                                                                               
                                                                               covariate1 = "age",
                                                                               covariate2 = "sex",
-                                                                              covariate3 = "education",
+                                                                              covariate3 = "NA",
                                                                               covariate4 = "NA",
                                                                               
                                                                               
@@ -1724,7 +1729,7 @@ SEShigh_adjusted_cross_nat_disability_results = SES_adjusted_cros_nat_comparison
                                                                                   
                                                                                   covariate1 = "age",
                                                                                   covariate2 = "sex",
-                                                                                  covariate3 = "education",
+                                                                                  covariate3 = "NA",
                                                                                   covariate4 = "NA",
                                                                                   
                                                                                   
@@ -1758,7 +1763,7 @@ SES_adjusted_cross_nat_financial_bothSexes_results = SES_adjusted_cros_nat_compa
                                                                                        
                                                                                        covariate1 = "age",
                                                                                        covariate2 = "sex",   
-                                                                                       covariate4 = "education",
+                                                                                       covariate4 = "NA",
                                                                                        covariate3 = "NA",
                                                                                        
                                                                                        
@@ -1792,7 +1797,7 @@ SEShigh_adjusted_cross_nat_financial_bothSexes_results = SES_adjusted_cros_nat_c
                                                                                            
                                                                                            covariate1 = "age",
                                                                                            covariate2 = "sex",  
-                                                                                           covariate4 = "education",
+                                                                                           covariate4 = "NA",
                                                                                            covariate3 = "NA",
                                                                                            
                                                                                            
@@ -1830,7 +1835,7 @@ SES_adjusted_cross_nat_financial_female_results = SES_adjusted_cros_nat_comparis
                                                                                     
                                                                                     
                                                                                     covariate1 = "age",
-                                                                                    covariate2 = "education",   
+                                                                                    covariate2 = "NA",   
                                                                                     covariate4 = "NA",
                                                                                     covariate3 = "NA",
                                                                                     
@@ -1865,7 +1870,7 @@ SEShigh_adjusted_cross_nat_financial_female_results = SES_adjusted_cros_nat_comp
                                                                                         
                                                                                         
                                                                                         covariate1 = "age",
-                                                                                        covariate2 = "education",    
+                                                                                        covariate2 = "NA",    
                                                                                         covariate4 = "NA",
                                                                                         covariate3 = "NA",
                                                                                         
@@ -1898,7 +1903,7 @@ SES_adjusted_cross_nat_financial_male_results = SES_adjusted_cros_nat_comparison
                                                                                   HRS_var2_value = "NA",
                                                                                   
                                                                                   covariate1 = "age",
-                                                                                  covariate2 = "education",    
+                                                                                  covariate2 = "NA",    
                                                                                   covariate4 = "NA",
                                                                                   covariate3 = "NA",
                                                                                   
@@ -1931,7 +1936,7 @@ SEShigh_adjusted_cross_nat_financial_male_results = SES_adjusted_cros_nat_compar
                                                                                       
                                                                                       
                                                                                       covariate1 = "age",
-                                                                                      covariate2 = "education",    
+                                                                                      covariate2 = "NA",    
                                                                                       covariate4 = "NA",
                                                                                       covariate3 = "NA",
                                                                                       
@@ -1965,7 +1970,7 @@ SES_adjusted_cross_nat_sex_female_results = SES_adjusted_cros_nat_comparison (da
                                                                               
                                                                               
                                                                               covariate1 = "age",
-                                                                              covariate2 = "education",
+                                                                              covariate2 = "NA",
                                                                               covariate3 = "NA",
                                                                               covariate4 = "NA", 
                                                                               
@@ -2002,7 +2007,7 @@ SEShigh_adjusted_cross_nat_sex_female_results = SES_adjusted_cros_nat_comparison
                                                                                   
                                                                                   
                                                                                   covariate1 = "age",
-                                                                                  covariate2 = "education",
+                                                                                  covariate2 = "NA",
                                                                                   covariate3 = "NA",
                                                                                   covariate4 = "NA", 
                                                                                   
@@ -2040,7 +2045,7 @@ SES_adjusted_cross_nat_sex_male_results = SES_adjusted_cros_nat_comparison (data
                                                                             
                                                                             
                                                                             covariate1 = "age",
-                                                                            covariate2 = "education",
+                                                                            covariate2 = "NA",
                                                                             covariate3 = "NA",
                                                                             covariate4 = "NA", 
                                                                             
@@ -2114,7 +2119,7 @@ SES_adjusted_cross_nat_race_results = SES_adjusted_cros_nat_comparison (data_ELS
                                                                         
                                                                         covariate1 = "age",
                                                                         covariate2 = "sex",
-                                                                        covariate3 = "education",
+                                                                        covariate3 = "NA",
                                                                         covariate4 = "NA", 
                                                                         
                                                                         
@@ -2150,7 +2155,7 @@ SEShigh_adjusted_cross_nat_race_results = SES_adjusted_cros_nat_comparison (data
                                                                             
                                                                             covariate1 = "age",
                                                                             covariate2 = "sex",
-                                                                            covariate3 = "education",
+                                                                            covariate3 = "NA",
                                                                             covariate4 = "NA", 
                                                                             
                                                                             
@@ -2203,7 +2208,7 @@ SES_adjusted_cross_nat_weight_29_9_results = SES_adjusted_cros_nat_comparison_we
                                                                                       
                                                                                       covariate1 = "age", 
                                                                                       covariate2 = "sex",     
-                                                                                      covariate4 = "education",
+                                                                                      covariate4 = "NA",
                                                                                       covariate3 = "NA",
                                                                                       
                                                                                       discrimination_VAR_elsa = "w5weightdiscrimination2",
@@ -2239,7 +2244,7 @@ SEShigh_adjusted_cross_nat_weight_29_9_results = SES_adjusted_cros_nat_compariso
                                                                                           
                                                                                           covariate1 = "age", 
                                                                                           covariate2 = "sex",     
-                                                                                          covariate4 = "education",
+                                                                                          covariate4 = "NA",
                                                                                           covariate3 = "NA",
                                                                                           
                                                                                           discrimination_VAR_elsa = "w5weightdiscrimination2",
@@ -2275,7 +2280,7 @@ SES_adjusted_cross_nat_weight_25_results = SES_adjusted_cros_nat_comparison_weig
                                                                                     
                                                                                     covariate1 = "age", 
                                                                                     covariate2 = "sex",     
-                                                                                    covariate4 = "education",
+                                                                                    covariate4 = "NA",
                                                                                     covariate3 = "NA",
                                                                                     
                                                                                     
@@ -2310,7 +2315,7 @@ SEShigh_adjusted_cross_nat_weight_25_results = SES_adjusted_cros_nat_comparison_
                                                                                         
                                                                                         covariate1 = "age", 
                                                                                         covariate2 = "sex",    
-                                                                                        covariate4 = "education",
+                                                                                        covariate4 = "NA",
                                                                                         covariate3 = "NA",
                                                                                         
                                                                                         discrimination_VAR_elsa = "w5weightdiscrimination2",
@@ -2345,7 +2350,7 @@ SES_adjusted_cross_nat_weight_both_results = SES_adjusted_cros_nat_comparison_we
                                                                                      
                                                                                      covariate1 = "age", 
                                                                                      covariate2 = "sex",    
-                                                                                     covariate4 = "education",
+                                                                                     covariate4 = "NA",
                                                                                      covariate3 = "NA",
                                                                                      
                                                                                      discrimination_VAR_elsa = "w5weightdiscrimination2",
@@ -2381,7 +2386,7 @@ SEShigh_adjusted_cross_nat_weight_both_results = SES_adjusted_cros_nat_compariso
                                                                                          
                                                                                          covariate1 = "age", 
                                                                                          covariate2 = "sex",    
-                                                                                         covariate4 = "education",
+                                                                                         covariate4 = "NA",
                                                                                          covariate3 = "NA",
                                                                                          
                                                                                          discrimination_VAR_elsa = "w5weightdiscrimination2",
@@ -2757,7 +2762,7 @@ Wcountry_adjusted_SES_disability_results = Wcountry_adjusted_SES (data = ELSAdis
                                                                   
                                                                   covariate1 = "age",
                                                                   covariate2 = "sex",
-                                                                  covariate3 = "education",
+                                                                  covariate3 = "NA",
                                                                   covariate4 = "NA", 
                                                                   discrimination_VAR = "w5disabilitydiscrimination2") 
 
@@ -2777,7 +2782,7 @@ Wcountry_adjusted_SES_financial_bothSexes_results = Wcountry_adjusted_SES (data 
                                                                            
                                                                            covariate1 = "age",
                                                                            covariate2 = "sex",   
-                                                                           covariate4 = "education",
+                                                                           covariate4 = "NA",
                                                                            covariate3 = "NA",
                                                                            
                                                                            
@@ -2798,7 +2803,7 @@ Wcountry_adjusted_SES_financial_female_results = Wcountry_adjusted_SES (data = E
                                                                         var2_value =  "NA", 
                                                                         
                                                                         covariate1 = "age",
-                                                                        covariate2 = "education",  
+                                                                        covariate2 = "NA",  
                                                                         covariate4 = "NA",
                                                                         covariate3 = "NA",
                                                                         
@@ -2817,7 +2822,7 @@ Wcountry_adjusted_SES_financial_male_results = Wcountry_adjusted_SES (data = ELS
                                                                       var2_value =  "NA", 
                                                                       
                                                                       covariate1 = "age",
-                                                                      covariate2 = "education",    
+                                                                      covariate2 = "NA",    
                                                                       covariate4 = "NA",
                                                                       covariate3 = "NA",
                                                                       
@@ -2841,7 +2846,7 @@ Wcountry_adjusted_SES_sex_female_results = Wcountry_adjusted_SES (data= ELSAdisc
                                                                   var2_value = "NA", 
                                                                   
                                                                   covariate1 = "age",
-                                                                  covariate2 = "education",
+                                                                  covariate2 = "NA",
                                                                   covariate3 = "NA",
                                                                   covariate4 = "NA", 
                                                                   
@@ -2865,7 +2870,7 @@ Wcountry_adjusted_SES_sex_male_results = Wcountry_adjusted_SES (data = ELSAdiscr
                                                                 var2_value = "NA", 
                                                                 
                                                                 covariate1 = "age",
-                                                                covariate2 = "education",
+                                                                covariate2 = "NA",
                                                                 covariate3 = "NA",
                                                                 covariate4 = "NA",
                                                                 
@@ -2895,7 +2900,7 @@ Wcountry_adjusted_SES_race_results = Wcountry_adjusted_SES (data = ELSAdiscrimin
                                                             
                                                             covariate1 = "age",
                                                             covariate2 = "sex",
-                                                            covariate3 = "education",
+                                                            covariate3 = "NA",
                                                             covariate4 = "NA", 
                                                             
                                                             
@@ -2905,7 +2910,17 @@ Wcountry_adjusted_SES_results = rbind(Wcountry_adjusted_SES_results, Wcountry_ad
 
 
 
-
+Wcountry_adjusted_SES_sexuality_results = c(NA, 
+                                               NA,
+                                               NA, 
+                                               NA,
+                                               NA,
+                                               NA, 
+                                               NA, 
+                                               NA, 
+                                               NA, 
+                                               NA,
+                                               NA)
 
 
 
@@ -2941,7 +2956,7 @@ Wcountry_adjusted_SES_weight_25_results = Wcountry_adjusted_SES_weight (data = E
                                                                         
                                                                         covariate1 = "age", 
                                                                         covariate2 = "sex",   
-                                                                        covariate4 = "education",
+                                                                        covariate4 = "NA",
                                                                         covariate3 = "NA",
                                                                         
                                                                         discrimination_VAR = "w5weightdiscrimination2" )
@@ -2966,7 +2981,7 @@ Wcountry_adjusted_SES_results_both_results = Wcountry_adjusted_SES_weight(data =
                                                                           
                                                                           covariate1 = "age", 
                                                                           covariate2 = "sex",    
-                                                                          covariate4 = "education",
+                                                                          covariate4 = "NA",
                                                                           covariate3 = "NA",
                                                                           
                                                                           
@@ -2988,7 +3003,7 @@ Wcountry_adjusted_SES_disability_HRS_results = Wcountry_adjusted_SES(data = HRS2
                                                                      
                                                                      covariate1 = "age",
                                                                      covariate2 = "sex",
-                                                                     covariate3 = "education",
+                                                                     covariate3 = "NA",
                                                                      covariate4 = "NA",
                                                                      
                                                                      discrimination_VAR = "HRS2010_reason_discrim1_reason_disability")
@@ -3007,7 +3022,7 @@ Wcountry_adjusted_SES_financial_HRS_results = Wcountry_adjusted_SES(data = HRS20
                                                                     
                                                                     covariate1 = "age",
                                                                     covariate2 = "sex",   
-                                                                    covariate4 = "education",
+                                                                    covariate4 = "NA",
                                                                     covariate3 = "NA",
                                                                     
                                                                     discrimination_VAR = "HRS2010_reason_discrim1_reason_financial")
@@ -3024,7 +3039,7 @@ Wcountry_adjusted_SES_financial_female_HRS_results = Wcountry_adjusted_SES(data 
                                                                            var2_value =  "NA", 
                                                                            
                                                                            covariate1 = "age",
-                                                                           covariate2 = "education",   
+                                                                           covariate2 = "NA",   
                                                                            covariate4 = "NA",
                                                                            covariate3 = "NA",
                                                                            
@@ -3042,7 +3057,7 @@ Wcountry_adjusted_SES_financial_male_HRS_results = Wcountry_adjusted_SES(data = 
                                                                          var2_value =  "NA",
                                                                          
                                                                          covariate1 = "age",
-                                                                         covariate2 = "education",   
+                                                                         covariate2 = "NA",   
                                                                          covariate4 = "NA",
                                                                          covariate3 = "NA",
                                                                          
@@ -3062,7 +3077,7 @@ Wcountry_adjusted_SES_sex_female_HRS_results = Wcountry_adjusted_SES(data = HRS2
                                                                      var2_value = "NA", 
                                                                      
                                                                      covariate1 = "age",
-                                                                     covariate2 = "education",
+                                                                     covariate2 = "NA",
                                                                      covariate3 = "NA",
                                                                      covariate4 = "NA", 
                                                                      
@@ -3083,7 +3098,7 @@ Wcountry_adjusted_SES_sex_male_HRS_results = Wcountry_adjusted_SES(data = HRS201
                                                                    var2_value = "NA", 
                                                                    
                                                                    covariate1 = "age",
-                                                                   covariate2 = "education",
+                                                                   covariate2 = "NA",
                                                                    covariate3 = "NA",
                                                                    covariate4 = "NA",
                                                                    
@@ -3105,7 +3120,7 @@ Wcountry_adjusted_SES_race_HRS_results =  Wcountry_adjusted_SES(data = HRS2010_d
                                                                 
                                                                 covariate1 = "age",
                                                                 covariate2 = "sex",
-                                                                covariate3 = "education",
+                                                                covariate3 = "NA",
                                                                 covariate4 = "NA", 
                                                                 
                                                                 discrimination_VAR = "HRS2010_reason_discrim1_reason_race")
@@ -3161,7 +3176,7 @@ Wcountry_adjusted_SES_weight_overweight_HRS_results = Wcountry_adjusted_SES_weig
                                                                                    
                                                                                    covariate1 = "age", 
                                                                                    covariate2 = "sex",   
-                                                                                   covariate4 = "education",
+                                                                                   covariate4 = "NA",
                                                                                    covariate3 = "NA",
                                                                                    
                                                                                    
@@ -3180,7 +3195,7 @@ Wcountry_adjusted_SES_weight_both_HRS_results = Wcountry_adjusted_SES_weight(dat
                                                                              
                                                                              covariate1 = "age", 
                                                                              covariate2 = "sex", 
-                                                                             covariate4 = "education",
+                                                                             covariate4 = "NA",
                                                                              covariate3 = "NA",
                                                                              
                                                                              discrimination_VAR = "HRS2010_reason_discrim1_reason_weight") 

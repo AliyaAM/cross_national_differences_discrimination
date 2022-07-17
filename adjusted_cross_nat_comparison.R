@@ -178,10 +178,10 @@ adjusted_cross_nat_comparison = function (data_ELSA,
   # when  covariate 1 and covariate 2 and covariate 3 and covariate 4 (i.e, not NA, !=NA)  are included and the rest are NA then take the glm in the if statement below 
   
   if(covariate1 != "NA" & covariate2 != "NA" & covariate3 != "NA" & covariate4 != "NA"){
-    print("we are in, test 4")
-    print("the values in education are: ")
     
-    print(unique(data_both_countries[ ,   covariate4]))
+
+    print("we are in, test 4")
+  
     
     data_both_countries[ ,   covariate1] = c(data_ELSA_subset[ ,   covariate1],
                                              data_HRS_subset[ ,   covariate1])
