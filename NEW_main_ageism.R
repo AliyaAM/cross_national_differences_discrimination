@@ -196,14 +196,11 @@ unique(HRS2010_discrimination_dataset_before_subsetting$HRS2010_reason_discrim1_
 ELSAdiscrimination_data_wave5_before_subsetting$age_discrim =  ELSAdiscrimination_data_wave5_before_subsetting$w5agediscrimination2 
 HRS2010_discrimination_dataset_before_subsetting$age_discrim = HRS2010_discrimination_dataset_before_subsetting$HRS2010_reason_discrim1_reason_age
 
-age_discrim_both_cohorts = c(ELSAdiscrimination_data_wave5_before_subsetting$age_discrim,
-                HRS2010_discrimination_dataset_before_subsetting$age_discrim) 
-
-
 
 ######  dummy code the countries 
-ELSAdiscrimination_data_wave5_before_subsetting$country = rep(1, times = nrow(ELSAdiscrimination_data_wave5_before_subsetting))
-HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(HRS2010_discrimination_dataset_before_subsetting))
+
+ELSAdiscrimination_data_wave5_before_subsetting$country = rep(1, times = nrow(ELSA_lim_dataset))
+HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(HRS_lim_dataset))
 
 
 ##########
