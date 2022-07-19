@@ -56,15 +56,23 @@ SES_unadjusted_cros_nat_comparison = function (data_ELSA,
   N_ELSA_subset = nrow(data_ELSA_subset)
   N_HRS_subset = nrow(data_HRS_subset)
   
+  print(N_ELSA_subset)
+  print(N_HRS_subset)
+  
+  
   SES_level = SES_level
   
   #calculate the number of people who perceived this type of discrimination 
   
   ELSA_discrimYES_subset = subset(data_ELSA_subset, data_ELSA_subset[ , discrimination_VAR_elsa] == 1) 
+
   HRS_discrimYES_subset = subset(data_HRS_subset,  data_HRS_subset[ , discrimination_VAR_hrs] == 1)
-  
+
   N_ELSA_discrimYES = nrow(ELSA_discrimYES_subset)
+  print(N_ELSA_discrimYES)
+  
   N_HRS_discrimYES = nrow(HRS_discrimYES_subset)
+  print(N_HRS_discrimYES)
   
   N_ELSA_discrim_NO = N_ELSA_subset - N_ELSA_discrimYES
   N_HRS_discrim_NO = N_HRS_subset - N_HRS_discrimYES
@@ -110,17 +118,30 @@ SES_unadjusted_cros_nat_comparison = function (data_ELSA,
   
   contengency_table_discrimination_AND_country  = table(data_both_countries$discrimination, data_both_countries$country_cat)
   print(contengency_table_discrimination_AND_country)
+  
   test_discrimination_AND_country = chisq.test(contengency_table_discrimination_AND_country)
+  
   summary(test_discrimination_AND_country)
   
+  print("completed: chi sq")
+  
   OR_discrimination_cross_national = oddsratio(contengency_table_discrimination_AND_country)
+  
+  print("completed: oddsratio")
+  
   
   OR_discrimination_cross_national_value = OR_discrimination_cross_national$measure[2, 1]
   OR_discrimination_cross_national_values_CI_lower = OR_discrimination_cross_national$measure[2, 2]
   OR_discrimination_cross_national_values_CI_upper = OR_discrimination_cross_national$measure[2, 3]
   
+  print("completed: oddsratio CI")
+  
+  
   discrimination_chi_value_cross_national = test_discrimination_AND_country$statistic
   discrimination_pvalue_cross_national = test_discrimination_AND_country$p.value
+  
+  print("completed: statistic p-value")
+  
   
   
   cross_national_discrimination_findings = cbind(analysis_variable_name,
