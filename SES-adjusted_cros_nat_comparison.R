@@ -1,4 +1,4 @@
-SES-adjusted_cros_nat_comparison = function (data_ELSA, 
+SES_adjusted_cros_nat_comparison = function (data_ELSA, 
                                           data_HRS,
                                           
                                           analysis_variable_name, 

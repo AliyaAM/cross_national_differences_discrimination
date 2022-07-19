@@ -157,15 +157,7 @@ HRS2010_discrimination_dataset_before_subsetting$median_wealth_bin_HRS = case_wh
 
 
 #rename the covariates so the names are consistant between ELSA and HRS
-# the new names are: 
-#age 
-#sex 
-#education 
-#employment 
-#wealth 
-#wealth_quantiles
-#married 
-#marital_statusELSAdiscrimination_data_wave5_before_subsetting$age = ELSAdiscrimination_data_wave5_before_subsetting$w5age
+
 
 ELSAdiscrimination_data_wave5_before_subsetting$age = ELSAdiscrimination_data_wave5_before_subsetting$w5age
 HRS2010_discrimination_dataset_before_subsetting$age  = HRS2010_discrimination_dataset_before_subsetting$continious_age

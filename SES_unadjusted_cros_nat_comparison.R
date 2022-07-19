@@ -113,7 +113,7 @@ SES_unadjusted_cros_nat_comparison = function (data_ELSA,
   test_discrimination_AND_country = chisq.test(contengency_table_discrimination_AND_country)
   summary(test_discrimination_AND_country)
   
-  OR_discrimination_cross_national = oddsratio.wald(contengency_table_discrimination_AND_country)
+  OR_discrimination_cross_national = oddsratio(contengency_table_discrimination_AND_country)
   
   OR_discrimination_cross_national_value = OR_discrimination_cross_national$measure[2, 1]
   OR_discrimination_cross_national_values_CI_lower = OR_discrimination_cross_national$measure[2, 2]
