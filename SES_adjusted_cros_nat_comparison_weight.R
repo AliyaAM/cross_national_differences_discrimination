@@ -217,9 +217,8 @@ SES_adjusted_cros_nat_comparison_weight = function (data_ELSA,
   ## various equivalent specifications of the LR test
   cross_national_diff = lrtest(fm1, fm2)
   
-  chi_value_cross_national = cross_national_diff$stats[1]
-  pvalue_cross_national = cross_national_diff$stats[3]
-  
+  chi_value_cross_national = cross_national_diff$Chisquared
+  pvalue_cross_national = cross_national_diff$p.value
   
   
   cross_national_findings = cbind(analysis_variable_name, 

@@ -199,9 +199,6 @@ HRS2010_discrimination_dataset_before_subsetting$age_discrim = HRS2010_discrimin
 
 ######  dummy code the countries 
 
-ELSAdiscrimination_data_wave5_before_subsetting$country = rep(1, times = nrow(ELSA_lim_dataset))
-HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(HRS_lim_dataset))
-
 
 ##########
 ##########
@@ -242,8 +239,8 @@ adjusted_cross_nat_ageism_results_no_education_cov = adjusted_cross_nat_comparis
                                                                                     
                                                                                     
                                                                                     #has physical limitation 
-                                                                                    ELSA_var1_value = 1, 
-                                                                                    HRS_var1_value = 1, 
+                                                                                    ELSA_var1_value = "NA", 
+                                                                                    HRS_var1_value = "NA", 
                                                                                     
                                                                                     
                                                                                     subsetting_VAR2_ELSA =  "NA",  
