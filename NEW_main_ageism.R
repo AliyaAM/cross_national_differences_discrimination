@@ -10,6 +10,7 @@ library(stats)
 
 
 library(tidyverse)
+library(dplyr)
 
 
 
@@ -196,18 +197,31 @@ unique(HRS2010_discrimination_dataset_before_subsetting$HRS2010_reason_discrim1_
 ELSAdiscrimination_data_wave5_before_subsetting$age_discrim =  ELSAdiscrimination_data_wave5_before_subsetting$w5agediscrimination2 
 HRS2010_discrimination_dataset_before_subsetting$age_discrim = HRS2010_discrimination_dataset_before_subsetting$HRS2010_reason_discrim1_reason_age
 
-
 ######  dummy code the countries 
 
+ELSAdiscrimination_data_wave5_before_subsetting$country = rep(1, times = nrow(ELSAdiscrimination_data_wave5_before_subsetting))
+HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(HRS2010_discrimination_dataset_before_subsetting))
+
+
 
 ##########
 ##########
 ##########
 ##########
+
+
+ELSAdiscrimination_data_wave5_before_subsetting = ELSAdiscrimination_data_wave5_before_subsetting %>% drop_na(age_discrim)
+
+HRS2010_discrimination_dataset_before_subsetting = HRS2010_discrimination_dataset_before_subsetting %>% drop_na(age_discrim)
+
+unique(ELSAdiscrimination_data_wave5_before_subsetting$age_discrim)
+
+unique(HRS2010_discrimination_dataset_before_subsetting$age_discrim)
+
 
 Unadjusted_cross_nat_ageism_results = Unadjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
                                                                            data_HRS = HRS2010_discrimination_dataset_before_subsetting, 
-                                                                           analysis_variable_name = "age_discrimination",
+                                                                           analysis_variable_name = "age_discrimination_var",
                                                                            plot_title_name = "age discrimination",
                                                                            subsetting_VAR1_ELSA = "NA", 
                                                                            subsetting_VAR1_HRS = "NA",

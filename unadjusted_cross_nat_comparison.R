@@ -23,9 +23,7 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
   
   #list the subsetting var name inside the function 
   
-  analysis_variable_name = analysis_variable_name
-  plot_title_name = plot_title_name
-  
+  print("we are in Unadjusted_cross_nat_comparison 2")
   
   #data_HRS <- data_HRS[ , subsetting_VAR_HRS]
   #data_ELSA <- data_ELSA[ , subsetting_VAR_ELSA]
@@ -51,44 +49,57 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
     data_HRS_subset = subset(data_HRS, data_HRS[ , subsetting_VAR1_HRS] == HRS_var1_value & data_HRS[ ,subsetting_VAR2_HRS] == HRS_var2_value)
   }
   
-  # calculate the number of cases for this subset 
+  # calculate the number of cases for this subset
   N_ELSA_subset = nrow(data_ELSA_subset)
   N_HRS_subset = nrow(data_HRS_subset)
-  
-  
-  #calculate the number of people who perceived this type of discrimination 
-  
-  ELSA_discrimYES_subset = subset(data_ELSA_subset, data_ELSA_subset[ , discrimination_VAR_elsa] == 1) 
+  #
+  #
+  #calculate the number of people who perceived this type of discrimination
+
+  ELSA_discrimYES_subset = subset(data_ELSA_subset, data_ELSA_subset[ , discrimination_VAR_elsa] == 1)
   HRS_discrimYES_subset = subset(data_HRS_subset,  data_HRS_subset[ , discrimination_VAR_hrs] == 1)
-  
+  #
   N_ELSA_discrimYES = nrow(ELSA_discrimYES_subset)
   N_HRS_discrimYES = nrow(HRS_discrimYES_subset)
+  #
+  # N_ELSA_discrim_NO = N_ELSA_subset - N_ELSA_discrimYES
+  # N_HRS_discrim_NO = N_HRS_subset - N_HRS_discrimYES
+  #
   
-  N_ELSA_discrim_NO = N_ELSA_subset - N_ELSA_discrimYES
-  N_HRS_discrim_NO = N_HRS_subset - N_HRS_discrimYES
+  ELSA_discrim_NO_subset = subset(data_ELSA_subset, data_ELSA_subset[ , discrimination_VAR_elsa] == 0)
+  HRS_discrim_NO_subset = subset(data_HRS_subset,  data_HRS_subset[ , discrimination_VAR_hrs] == 0)
   
-  ###################
-  probability_disc_ELSA = N_ELSA_discrimYES/N_ELSA_subset 
-  probability_no_disc_ELSA = 1 - (probability_disc_ELSA) 
-  Odds_yes_ELSA = probability_disc_ELSA/(1-probability_disc_ELSA)
-  Odds_no_ELSA = probability_no_disc_ELSA/(1-probability_no_disc_ELSA)
+  ELSA_discrim_NO = nrow(ELSA_discrim_NO_subset)
+  HRS_discrim_NO = nrow(HRS_discrim_NO_subset)
   
-  Odds_ratio_ELSA = Odds_yes_ELSA/Odds_no_ELSA
-  Odds_ratio_ELSA_CI_lower = exp(log(Odds_ratio_ELSA) - 1.96 * sqrt(1/N_ELSA_discrimYES + 1/N_ELSA_discrim_NO))
-  Odds_ratio_ELSA_CI_upper = exp(log(Odds_ratio_ELSA) + 1.96 * sqrt(1/N_ELSA_discrimYES + 1/N_ELSA_discrim_NO))
-  
-  ###################
-  probability_disc_HRS = N_HRS_discrimYES/N_HRS_subset 
-  probability_no_disc_HRS = 1 - (probability_disc_HRS) 
-  Odds_yes_HRS = probability_disc_HRS/(1-probability_disc_HRS)
-  Odds_no_HRS = probability_no_disc_HRS/(1-probability_no_disc_HRS)
-  
-  Odds_ratio_HRS = Odds_yes_HRS/Odds_no_HRS
-  Odds_ratio_HRS_CI_lower = exp(log(Odds_ratio_HRS) - 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
-  Odds_ratio_HRS_CI_upper = exp(log(Odds_ratio_HRS) + 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
+  # ###################
+   percent_disc_ELSA = (N_ELSA_discrimYES/N_ELSA_subset) * 100 
+
+  percent_no_disc_ELSA = (ELSA_discrim_NO/N_ELSA_subset) * 100 
   
   
   
+  
+  # Odds_yes_ELSA = probability_disc_ELSA/(1-probability_disc_ELSA)
+  # Odds_no_ELSA = probability_no_disc_ELSA/(1-probability_no_disc_ELSA)
+  #
+  # Odds_ratio_ELSA = Odds_yes_ELSA/Odds_no_ELSA
+  # Odds_ratio_ELSA_CI_lower = exp(log(Odds_ratio_ELSA) - 1.96 * sqrt(1/N_ELSA_discrimYES + 1/N_ELSA_discrim_NO))
+  # Odds_ratio_ELSA_CI_upper = exp(log(Odds_ratio_ELSA) + 1.96 * sqrt(1/N_ELSA_discrimYES + 1/N_ELSA_discrim_NO))
+  #
+  # ###################
+  percent_disc_HRS = N_HRS_discrimYES/N_HRS_subset * 100
+  percent_no_disc_HRS = (HRS_discrim_NO/N_HRS_subset) * 100 
+  # probability_no_disc_HRS = 1 - (probability_disc_HRS)
+  # Odds_yes_HRS = probability_disc_HRS/(1-probability_disc_HRS)
+  # Odds_no_HRS = probability_no_disc_HRS/(1-probability_no_disc_HRS)
+  #
+  # Odds_ratio_HRS = Odds_yes_HRS/Odds_no_HRS
+  # Odds_ratio_HRS_CI_lower = exp(log(Odds_ratio_HRS) - 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
+  # Odds_ratio_HRS_CI_upper = exp(log(Odds_ratio_HRS) + 1.96 * sqrt(1/N_HRS_discrimYES + 1/N_HRS_discrim_NO))
+  #
+  #
+
 
   #predictor dummy varibale: country (UK vs USA)
   country_cat = c(data_ELSA_subset$country, 
@@ -111,7 +122,7 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
 
 ###############
   
-  data_both_countries = na.omit(data_both_countries)
+  #data_both_countries = na.omit(data_both_countries)
   
   
   
@@ -230,16 +241,22 @@ Unadjusted_cross_nat_comparison = function (data_ELSA,
   
 
 
-contengency_table_discrimination_AND_country  = table(data_both_countries$discrimination, data_both_countries$country_cat)
+contengency_table_discrimination_AND_country  = table(data_both_countries$country_cat, data_both_countries$discrimination)
 print(contengency_table_discrimination_AND_country)
 test_discrimination_AND_country = chisq.test(contengency_table_discrimination_AND_country)
 summary(test_discrimination_AND_country)
 
-OR_discrimination_cross_national = oddsratio.wald(contengency_table_discrimination_AND_country)
+OR_discrimination_cross_national = oddsratio(contengency_table_discrimination_AND_country)
+
+print("completed: oddsratio")
+
 
 OR_discrimination_cross_national_value = OR_discrimination_cross_national$measure[2, 1]
 OR_discrimination_cross_national_values_CI_lower = OR_discrimination_cross_national$measure[2, 2]
 OR_discrimination_cross_national_values_CI_upper = OR_discrimination_cross_national$measure[2, 3]
+
+print("completed: oddsratio CI")
+
 
 discrimination_chi_value_cross_national = test_discrimination_AND_country$statistic
 discrimination_pvalue_cross_national = test_discrimination_AND_country$p.value
@@ -250,16 +267,17 @@ cross_national_discrimination_findings = cbind(analysis_variable_name,
                                                N_HRS_subset, 
                                                
                                                N_ELSA_discrimYES, 
+                                               percent_disc_ELSA, 
+                                               
                                                N_HRS_discrimYES, 
+                                               percent_disc_HRS, 
                                                
-                                               Odds_ratio_ELSA,
-                                               Odds_ratio_ELSA_CI_lower,
-                                               Odds_ratio_ELSA_CI_upper,
+                                               ELSA_discrim_NO, 
+                                               percent_no_disc_ELSA,
                                                
-                                               Odds_ratio_HRS, 
-                                               Odds_ratio_HRS_CI_lower, 
-                                               Odds_ratio_HRS_CI_upper, 
-                                               
+                                               HRS_discrim_NO, 
+                                               percent_no_disc_HRS, 
+                                            
                                     
                                                OR_discrimination_cross_national_value, 
                                                OR_discrimination_cross_national_values_CI_lower, 
