@@ -17,7 +17,7 @@ library(dplyr)
 ###### Set the root directory to look for source code.
 SOURCE_data_ROOT = "/Users/aliya/my_docs/KCL_postDoc/"
 ######  Set the root location on the user's local machine to save output files.s
-OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/Cross_national_diffs_results/revisions_frontiers/ageism/"
+OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/Cross_national_diffs_results/revisions_frontiers/ageism/22July_2022/"
 ###### Set the source location on the user's local machine  for sourcing functions 
 SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/"
 
@@ -84,6 +84,89 @@ source(paste(SOURCE_ROOT, "Adjusted_cross_nat_Situations_weight.R", sep=""))
 ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
 HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))
 
+
+#reason for dicriminaiton (MLB031M2/HRS2010_reason_discrim1):  
+#1.  YOUR ANCESTRY OR NATIONAL ORIGIN
+#2.  YOUR GENDER
+#3.  YOUR RACE
+#4.  YOUR AGE
+#5.  YOUR RELIGION
+#6.  YOUR WEIGHT
+#7.  A PHYSICAL DISABILITY
+#8.  AN ASPECT OF YOUR PHYSICAL APPEARANCE
+#9.  YOUR SEXUAL ORIENTATION
+#10. YOUR FINANCIAL STATUS
+#11. OTHER
+
+#`2`=0L,`3`=0L,
+#`4`=1L,
+#`5`=0L, `6`=0L, `7`=0L
+
+unique(HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1)
+unique(ELSAdiscrimination_data_wave5_ALL$w5agediscrimination2)
+
+#ELSA: SCDTD (missing from the dataset)
+
+#1 Your gender
+#2 Your race
+#3 Your age age_discrim variable: unique(ELSA_raw$scdtd03)
+#4 Your weight
+#5 A physical disability
+#6 An aspect of your physical appearance
+#7 Your sexual orientation
+#8 Your financial status
+#9 Other, please specify
+
+#unique(ELSAdiscrimination_data_wave5_ALL$w5discrim_continuous)
+
+#unique(ELSAdiscrimination_data_wave5_ALL$SCDTD)
+
+ELSA_raw = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/DATA_ELSA/ELSA_data_all/wave_5_elsa_data_v4.csv") 
+#unique(ELSA_raw$scdtddr)
+#unique(ELSA_raw$scdtd03)
+#unique(ELSA_raw$scdtdcl)
+#unique(ELSA_raw$scdtdst)
+#unique(ELSA_raw$scdtdre)
+ID = unique(ELSAdiscrimination_data_wave5_ALL$idauniq)
+ELSA_raw_subset = ELSAdiscrimination_data_wave5_ALL[ELSA_raw$idauniq %in% ID,]
+unique(ELSA_raw_subset$scdtd03)
+
+
+ELSAdiscrimination_data_wave5_ALL$age_discrim =  case_when(ELSA_raw_subset$scdtd03 == 0 ~ 0, 
+                                                           ELSA_raw_subset$scdtd03 == 1 ~ 1)
+
+
+unique(ELSAdiscrimination_data_wave5_ALL$age_discrim)
+
+
+HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1 = as.factor(HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1)
+HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1_reason_age = case_when(HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1 == 2 ~ 0, 
+                                                                                  HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1 == 3 ~ 0,
+                                                                                  HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1 == 4 ~ 1, 
+                                                                                  HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1 == 6 ~ 0, 
+                                                                                  HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1 == 7 ~ 0)
+
+unique(HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1_reason_age)
+
+
+
+
+HRS2010_discrimination_dataset_ALL$age_discrim = HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1_reason_age
+
+
+
+unique(ELSAdiscrimination_data_wave5_ALL$w5agediscrimination2)
+unique(HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1_reason_age)
+
+unique(HRS2010_discrimination_dataset_ALL$HRS2010_reason_discrim1_reason_age)
+
+
+
+nrow(ELSA_raw_subset)
+nrow(ELSAdiscrimination_data_wave5_ALL)
+
+
+########################
 
 
 ###### subset HRS and ELSA dataset to those who are 50 years old and older
@@ -190,17 +273,10 @@ HRS2010_discrimination_dataset_before_subsetting$married =  HRS2010_discriminati
 #Done in gender merging file check that they are coded correctly: 0 -retired, 1 - Employed in ELSA..etc, match to HRS
 ELSAdiscrimination_data_wave5_before_subsetting$marital_status = ELSAdiscrimination_data_wave5_before_subsetting$w5married4
 HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discrimination_dataset_before_subsetting$marital_status
-
-unique(ELSAdiscrimination_data_wave5_before_subsetting$w5agediscrimination2)
-unique(HRS2010_discrimination_dataset_before_subsetting$HRS2010_reason_discrim1_reason_age)
-
-ELSAdiscrimination_data_wave5_before_subsetting$age_discrim =  ELSAdiscrimination_data_wave5_before_subsetting$w5agediscrimination2 
-HRS2010_discrimination_dataset_before_subsetting$age_discrim = HRS2010_discrimination_dataset_before_subsetting$HRS2010_reason_discrim1_reason_age
-
 ######  dummy code the countries 
 
 ELSAdiscrimination_data_wave5_before_subsetting$country = rep(1, times = nrow(ELSAdiscrimination_data_wave5_before_subsetting))
-HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(HRS2010_discrimination_dataset_before_subsetting))
+HRS2010_discrimination_dataset_before_subsetting$country = rep (0, times = nrow(HRS2010_discrimination_dataset_before_subsetting))
 
 
 
@@ -210,9 +286,9 @@ HRS2010_discrimination_dataset_before_subsetting$country = rep(0, times = nrow(H
 ##########
 
 
-ELSAdiscrimination_data_wave5_before_subsetting = ELSAdiscrimination_data_wave5_before_subsetting %>% drop_na(age_discrim)
+#ELSAdiscrimination_data_wave5_before_subsetting = ELSAdiscrimination_data_wave5_before_subsetting %>% drop_na(age_discrim)
 
-HRS2010_discrimination_dataset_before_subsetting = HRS2010_discrimination_dataset_before_subsetting %>% drop_na(age_discrim)
+#HRS2010_discrimination_dataset_before_subsetting = HRS2010_discrimination_dataset_before_subsetting %>% drop_na(age_discrim)
 
 unique(ELSAdiscrimination_data_wave5_before_subsetting$age_discrim)
 
@@ -234,6 +310,9 @@ Unadjusted_cross_nat_ageism_results = Unadjusted_cross_nat_comparison (data_ELSA
                                                                            HRS_var2_value = "NA", 
                                                                            discrimination_VAR_elsa = "age_discrim",
                                                                            discrimination_VAR_hrs = "age_discrim") 
+
+
+write.csv(Unadjusted_cross_nat_ageism_results, file = paste(OUTPUT_ROOT, "Unadjusted_cross_nat_ageism_results.csv", sep=""))
 
 
 #######
@@ -275,8 +354,8 @@ adjusted_cross_nat_ageism_results_no_education_cov = adjusted_cross_nat_comparis
                                                                                     wealth_gradient_cov2 = "employment",
                                                                                     wealth_gradient_cov3 = "NA", 
                                                                                     
-                                                                                    discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                                    discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                                    discrimination_VAR_elsa = "age_discrim",
+                                                                                    discrimination_VAR_hrs = "age_discrim")
 
 
 #######
@@ -322,8 +401,8 @@ adjusted_cross_nat_ageism_results_education_cov = adjusted_cross_nat_comparison 
                                                                                   wealth_gradient_cov2 = "employment",
                                                                                   wealth_gradient_cov3 = "NA", 
                                                                                   
-                                                                                  discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                                  discrimination_VAR_elsa = "age_discrim",
+                                                                                  discrimination_VAR_hrs = "age_discrim")
 
 
 write.csv(adjusted_cross_nat_ageism_results_education_cov, file = paste(OUTPUT_ROOT, "adjusted_cross_nat_ageism_results_education_cov.csv", sep=""))
@@ -368,8 +447,8 @@ SES_unadjusted_cross_nat_ageism_results = SES_unadjusted_cros_nat_comparison (da
                                                                                   ELSA_var2_value = "NA", 
                                                                                   HRS_var2_value = "NA", 
                                                                               
-                                                                              discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                              discrimination_VAR_elsa = "age_discrim",
+                                                                              discrimination_VAR_hrs = "age_discrim")
 
 
 
@@ -404,8 +483,8 @@ SEShigh_unadjusted_cross_nat_ageism_results = SES_unadjusted_cros_nat_comparison
                                                                                   ELSA_var2_value = "NA", 
                                                                                   HRS_var2_value = "NA", 
                                                                                   
-                                                                                  discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                                  discrimination_VAR_elsa = "age_discrim",
+                                                                                  discrimination_VAR_hrs = "age_discrim")
 
 
 ###################
@@ -446,8 +525,8 @@ SES_adjusted_cross_nat_ageism_results = SES_adjusted_cros_nat_comparison (data_E
                                                                               covariate3 = "NA",
                                                                               covariate4 = "NA",
                                                                               
-                                                                          discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                          discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                          discrimination_VAR_elsa = "age_discrim",
+                                                                          discrimination_VAR_hrs = "age_discrim")
 
 
 
@@ -483,8 +562,8 @@ SEShigh_adjusted_cross_nat_ageism_results = SES_adjusted_cros_nat_comparison (da
                                                                                   covariate3 = "NA",
                                                                                   covariate4 = "NA",
                                                                               
-                                                                              discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                              discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                              discrimination_VAR_elsa = "age_discrim",
+                                                                              discrimination_VAR_hrs = "age_discrim")
 
 
 
@@ -589,8 +668,8 @@ SESxCountry_interaction_ageism = SESxCountry_interaction(data_ELSA = ELSAdiscrim
                                                              ELSA_var2_value = "NA", 
                                                              HRS_var2_value = "NA", 
                                                              
-                                                         discrimination_VAR_elsa = "w5agediscrimination2",
-                                                         discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                         discrimination_VAR_elsa = "age_discrim",
+                                                         discrimination_VAR_hrs = "age_discrim")
 
 
 write.csv(SESxCountry_interaction_ageism, file = paste(OUTPUT_ROOT, "SESxCountry_interaction_ageism.csv", sep=""))
@@ -611,8 +690,8 @@ Unadjusted_cross_nat_Situations_ageism_results = Unadjusted_cross_nat_Situations
                                                                                       subsetting_VAR2_HRS =   "NA", 
                                                                                       ELSA_var2_value = "NA",
                                                                                       HRS_var2_value = "NA", 
-                                                                                  discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                                  discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age") 
+                                                                                  discrimination_VAR_elsa = "age_discrim",
+                                                                                  discrimination_VAR_hrs = "age_discrim") 
 
 ######
 ######
@@ -655,8 +734,8 @@ Adjusted_cross_nat_Situations_ageism_results_no_education_cov = Adjusted_cross_n
                                                                                                  covariate4 = "NA",
                                                                                                  
                                                                                                  
-                                                                                               discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                                               discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                                               discrimination_VAR_elsa = "age_discrim",
+                                                                                               discrimination_VAR_hrs = "age_discrim")
 
 
 
@@ -707,8 +786,8 @@ Adjusted_cross_nat_Situations_ageism_results_with_education_cov = Adjusted_cross
                                                                                                  covariate4 = "education",
                                                                                                  
                                                                                                  
-                                                                                                 discrimination_VAR_elsa = "w5agediscrimination2",
-                                                                                                 discrimination_VAR_hrs = "HRS2010_reason_discrim1_reason_age")
+                                                                                                 discrimination_VAR_elsa = "age_discrim",
+                                                                                                 discrimination_VAR_hrs = "age_discrim")
 
 
 write.csv(Adjusted_cross_nat_Situations_ageism_results_with_education_cov, file = paste(OUTPUT_ROOT, "Adjusted_cross_nat_Situations_ageism_results_with_education_cov.csv", sep=""))

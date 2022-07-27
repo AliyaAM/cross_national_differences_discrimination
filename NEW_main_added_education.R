@@ -83,7 +83,7 @@ source(paste(SOURCE_ROOT, "Adjusted_cross_nat_Situations_weight.R", sep=""))
 ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
 HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))
 
-
+nrow(ELSAdiscrimination_data_wave5_ALL)
 
 ###### subset HRS and ELSA dataset to those who are 50 years old and older
 ELSAdiscrimination_data_wave5_age50 = subset(ELSAdiscrimination_data_wave5_ALL, w5age >= 50) 
