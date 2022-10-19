@@ -223,16 +223,67 @@ HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discri
 
 # Participant Characteristics table 
 
+#Weight (BMI>30)
 ELSAdiscrimination_data_wave5_before_subsetting$assessed_BMI = ELSAdiscrimination_data_wave5_before_subsetting$w4bmi_clean
 HRS2010_discrimination_dataset_before_subsetting$assessed_BMI = HRS2010_discrimination_dataset_before_subsetting$HRS2010_BMI
+
+#Disability (physical limitation)
+ELSAdiscrimination_data_wave5_before_subsetting$disability_bin = ELSAdiscrimination_data_wave5_before_subsetting$w5limill
+HRS2010_discrimination_dataset_before_subsetting$disability_bin = HRS2010_discrimination_dataset_before_subsetting$limiting_condition_bin
+
+
+
+
+ELSA_disability_bin = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$disability_bin == 1)
+ELSA_n_disability_bin = nrow(ELSA_disability_bin)
+ELSA_percent_disability_bin = ELSA_n_disability_bin/nrow(ELSAdiscrimination_data_wave5_before_subsetting)*100
+
+
+
+
+HRS_disability_bin = subset(HRS2010_discrimination_dataset_before_subsetting, HRS2010_discrimination_dataset_before_subsetting$disability_bin == 1)
+HRS_n_disability_bin = nrow(HRS_disability_bin)
+HRS_percent_disability_bin = HRS_n_disability_bin/nrow(HRS2010_discrimination_dataset_before_subsetting)*100
+
 
 #I think this paper would benefit from a Sample Characteristics table where age, sex, different aspects of ‘wealth’ and other factors relating to subgroups (i.e. make up of ethnic minority groups) are described. 
 #### rename some vars for the participant characteristics table 
 
-#Disability (physical limitation), Financial status, Race (ethnic minority), Sex (female), Sexual orientation, Weight (BMI>30)
+# Race (ethnic minority): no break down by ethnicity in ELSA 
 
+unique(HRS2010_discrimination_dataset_before_subsetting$HRS2010_race_black)
+
+
+HRS_race_black_bin = subset(HRS2010_discrimination_dataset_before_subsetting, HRS2010_discrimination_dataset_before_subsetting$HRS2010_race_black == 1)
+HRS_n_race_black_bin = nrow(HRS_race_black_bin)
+HRS_percent_race_black_bin = HRS_n_race_black_bin/nrow(HRS2010_discrimination_dataset_before_subsetting)*100
+
+
+
+HRS2010_discrimination_dataset_before_subsetting$HRS2010_race_hispanic_latino
+
+HRS_race_hispanic_bin = subset(HRS2010_discrimination_dataset_before_subsetting, HRS2010_discrimination_dataset_before_subsetting$HRS2010_race_hispanic_latino == 1)
+HRS_n_race_hispanic_bin = nrow(HRS_race_hispanic_bin)
+HRS_percent_race_hispanic_bin = HRS_n_race_hispanic_bin/nrow(HRS2010_discrimination_dataset_before_subsetting)*100
+
+
+
+#subsetting_VAR1_ELSA =  "w5ethnicity",  
+#subsetting_VAR1_HRS =   "HRS2010_race_nonwhite", 
+
+# Sexual orientation: from the table 
 
 ELSA_participant_char = Participant_char(data = ELSAdiscrimination_data_wave5_before_subsetting)
+
+write.csv(ELSA_participant_char, file = paste(OUTPUT_ROOT, "ELSA_participant_char.csv", sep=""))
+
+
+
+HRS_participant_char = Participant_char(data = HRS2010_discrimination_dataset_before_subsetting)
+
+write.csv(HRS_participant_char, file = paste(OUTPUT_ROOT, "HRS_participant_char.csv", sep=""))
+
+
 
 ###### disability
 Unadjusted_cross_nat_disability_results = Unadjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 

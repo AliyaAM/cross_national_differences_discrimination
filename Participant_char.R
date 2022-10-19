@@ -11,6 +11,14 @@
 
 
 
+
+##############
+#ADD: Race (ethnic minority), 
+
+#ADD: Sexual orientation, 
+
+
+
 Unadjusted_results = data.frame()
 
 library("stats")
@@ -88,6 +96,16 @@ Participant_char =  function (data){
   summary(data$wealth)
   
   data_n = nrow(data)
+  
+  
+  #disability_bin: Disability (physical limitation) 
+  
+  data$disability_bin
+  data_disability_bin = subset(data, data$disability_bin == 1)
+  n_disability_bin = nrow(data_disability_bin)
+  percent_disability_bin = nrow(data_disability_bin)/nrow(data)*100
+  
+  
   # 
   # subset_1 = subset(data, data$wealth<summary_stat[2])
   # subset_1_n = nrow(subset_1)
@@ -244,12 +262,24 @@ Participant_char =  function (data){
   # percent_depression = n_baseline_depression_bin_all/nrow(data)*100
   # 
   
+  #Disability (physical limitation), Financial status, Race (ethnic minority), Sex (female), Sexual orientation, Weight (BMI>30)
+  
+  
   result_participant_char = rbind(mean_age_all, 
                                   sd_age_all, 
                                   range_age, 
                                   
-                                  n_female_all, 
-                                  percent_female,
+                                  
+                                  #disability: ADD
+                                  
+                            
+                                  n_disability_bin, 
+                                  percent_disability_bin, 
+                                  
+                                  
+                                  #wealth:
+                                  
+                          
                                   
                                   
                                   n_q1, 
@@ -293,6 +323,18 @@ Participant_char =  function (data){
                                   # low_ses_percent,
                                   # high_ses_n,
                                   # high_ses_percent, 
+                                  
+                                  
+                                  #race: ADD
+                                  
+                                  #sex: 
+                                  
+                                  n_female_all, 
+                                  percent_female,
+                                  
+                                  
+                                  #sexual orientaition: ADD
+                              
                                   
                                   mean_BMI_all, 
                                   sd_BMI_all, 
