@@ -20,7 +20,10 @@ OUTPUT_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discriminati
 ###### Set the source location on the user's local machine  for sourcing functions 
 SOURCE_ROOT = "/Users/aliya/my_docs/proj/cross_national_differences_discrimination/"
 
+#source("/Users/aliya/my_docs/proj/Cumulative_effects_HRS/Version_2_analysis/participant_char_function.R") 
+#"/Users/aliya/my_docs/proj/cross_national_differences_discrimination/Participant_char.R"
 
+source(paste(SOURCE_ROOT, "Participant_char.R", sep=""))
 
 ###### sourcing code for the unadjusted analysis 
 source(paste(SOURCE_ROOT, "Unadjusted_cross_nat_comparison.R", sep=""))
@@ -196,6 +199,9 @@ HRS2010_discrimination_dataset_before_subsetting$employment =  HRS2010_discrimin
 ELSAdiscrimination_data_wave5_before_subsetting$wealth = ELSAdiscrimination_data_wave5_before_subsetting$wealth
 HRS2010_discrimination_dataset_before_subsetting$wealth = HRS2010_discrimination_dataset_before_subsetting$wealth
 
+
+
+
 ELSA_wealth = (ELSAdiscrimination_data_wave5_before_subsetting$wealth)
 sd(ELSA_wealth)
 
@@ -213,9 +219,20 @@ ELSAdiscrimination_data_wave5_before_subsetting$marital_status = ELSAdiscriminat
 HRS2010_discrimination_dataset_before_subsetting$marital_status = HRS2010_discrimination_dataset_before_subsetting$marital_status
 
 
-Unadjusted_results = data.frame()
 
 
+# Participant Characteristics table 
+
+ELSAdiscrimination_data_wave5_before_subsetting$assessed_BMI = ELSAdiscrimination_data_wave5_before_subsetting$w4bmi_clean
+HRS2010_discrimination_dataset_before_subsetting$assessed_BMI = HRS2010_discrimination_dataset_before_subsetting$HRS2010_BMI
+
+#I think this paper would benefit from a Sample Characteristics table where age, sex, different aspects of ‘wealth’ and other factors relating to subgroups (i.e. make up of ethnic minority groups) are described. 
+#### rename some vars for the participant characteristics table 
+
+#Disability (physical limitation), Financial status, Race (ethnic minority), Sex (female), Sexual orientation, Weight (BMI>30)
+
+
+ELSA_participant_char = Participant_char(data = ELSAdiscrimination_data_wave5_before_subsetting)
 
 ###### disability
 Unadjusted_cross_nat_disability_results = Unadjusted_cross_nat_comparison (data_ELSA = ELSAdiscrimination_data_wave5_before_subsetting, 
