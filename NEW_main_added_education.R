@@ -81,7 +81,6 @@ source(paste(SOURCE_ROOT, "Adjusted_cross_nat_Situations_weight.R", sep=""))
 
 
 
-
 ###### read data files for ELSA and HRS
 ELSAdiscrimination_data_wave5_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/DATA_ELSA/ELSAdiscrimination_data_wave5.csv", sep=""))
 HRS2010_discrimination_dataset_ALL = read.csv(paste(SOURCE_data_ROOT, "Data_analysis/HRS_2010_data/HRS2010_discrimination_dataset_new.csv", sep=""))
@@ -117,7 +116,7 @@ total_sample = cbind(Total_N_ELSA, mean_age_ELSA, sd_age_ELSA, N_women_ELSA,
 total_sample
 
 
-
+ 
 write.csv(total_sample, file = paste(OUTPUT_ROOT, "total_sample_characteristics.csv", sep=""))
 
 ######  dummy code the countries 
@@ -266,7 +265,97 @@ HRS_race_hispanic_bin = subset(HRS2010_discrimination_dataset_before_subsetting,
 HRS_n_race_hispanic_bin = nrow(HRS_race_hispanic_bin)
 HRS_percent_race_hispanic_bin = HRS_n_race_hispanic_bin/nrow(HRS2010_discrimination_dataset_before_subsetting)*100
 
+unique(ELSA_wave5_raw$diagr)
 
+unique(ELSA_wave5_raw$DhCAg)
+ELSA_wave5_raw = read.csv("/Users/aliya/my_docs/KCL_postDoc/Data_analysis/DATA_ELSA/ELSA_data_all/wave_5_elsa_data_v4.csv") 
+###### subset HRS and ELSA dataset to those who are 50 years old and older
+ELSA_wave5_raw_50_and_above = subset(ELSA_wave5_raw, diagr >= 50) 
+
+###### subet to those who responded to the discrimination items: 
+#ELSA_wave5_raw = subset(ELSA_wave5_raw_50_and_above, ELSA_wave5_raw$w5discrim_bin2 == 0 | ELSAdiscrimination_data_wave5_age50$w5discrim_bin2 == 1)
+
+
+
+unique(ELSA_wave5_raw_50_and_above$fffqethn)
+table(ELSA_wave5_raw_50_and_above$fffqethn)
+
+#75 3958    7   18   15   22   27   19 
+
+7 + 18 + 15 + 22 + 27 + 19 + 75
+# 183 in total if calculated from raw file 
+
+unique(ELSA_wave5_raw$fffqethn) 
+table(ELSA_wave5_raw$fffqethn)
+
+#raw ELSA wave 5:
+
+# - 1 = 103 
+#1 White = 4226
+#2 Mixed ethnic group = 8
+#3 Black = 18
+#4 Black British = 16
+#5 Asian = 30
+#6 Asian British = 31
+#95 Any other group = 23
+
+
+#-1    1    2    3    4    5    6   95 
+#103 4226    8   18   16   30   31   23
+
+#other ethnic groups: 126 
+8 + 18 + 16 + 30 + 31 + 23 
+
+#other ethnic groups and -1 response: 229
+8 + 18 + 16 + 30 + 31 + 23 + 103
+
+
+unique(ELSAdiscrimination_data_wave5_before_subsetting$fqethn)
+table(ELSAdiscrimination_data_wave5_before_subsetting$fqethn)
+
+####### from another file: 
+
+unique(ELSAdiscrimination_data_wave5_before_subsetting$w5ethnicity)
+table(ELSAdiscrimination_data_wave5_before_subsetting$w5ethnicity)
+#ethnic groups in ELSA 
+unique(ELSAdiscrimination_data_wave5_before_subsetting$fffqethn)
+
+
+# - 1 = 62
+#1 White
+#2 Mixed ethnic group = 5
+#3 Black = 12
+#4 Black British = 10
+#5 Asian = 15
+#6 Asian British = 22
+#95 Any other group = 12
+#138 in total 
+
+62 +  5 + 12 + 10 + 15 + 22 + 12
+
+table(ELSAdiscrimination_data_wave5_before_subsetting$fffqethn)
+
+mixed_ethnic_group = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$fffqethn == 2)
+mixed_ethnic_group_n =  nrow(mixed_ethnic_group)
+# 5 mixed ethnic group 
+
+
+black_ethnic_group = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$fffqethn == 3)
+black_ethnic_group_n =  nrow(black_ethnic_group)
+#black: 12
+
+black_british_ethnic_group = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$fffqethn == 4)
+black_british_group_n =  nrow(black_british_ethnic_group)
+#black british: 10 
+
+asian_ethnic_group = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$fffqethn == 5)
+asian_group_n =  nrow(asian_ethnic_group)
+#asian: 15
+
+
+asian_ethnic_group = subset(ELSAdiscrimination_data_wave5_before_subsetting, ELSAdiscrimination_data_wave5_before_subsetting$fffqethn == 5)
+asian_group_n =  nrow(asian_ethnic_group)
+#asian: 15
 
 #subsetting_VAR1_ELSA =  "w5ethnicity",  
 #subsetting_VAR1_HRS =   "HRS2010_race_nonwhite", 
@@ -277,7 +366,7 @@ ELSA_participant_char = Participant_char(data = ELSAdiscrimination_data_wave5_be
 
 write.csv(ELSA_participant_char, file = paste(OUTPUT_ROOT, "ELSA_participant_char.csv", sep=""))
 
-
+ 
 
 HRS_participant_char = Participant_char(data = HRS2010_discrimination_dataset_before_subsetting)
 
